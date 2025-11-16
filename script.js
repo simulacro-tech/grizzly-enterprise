@@ -1,5 +1,5 @@
 // EmailJS Configuration
-const EMAILJS_SERVICE_ID = 'service_9iwiqt9';
+const EMAILJS_SERVICE_ID = 'service_w5kpsl7';
 const EMAILJS_TEMPLATE_ID = 'template_fo8i5za';
 const EMAILJS_PUBLIC_KEY = '0Zdr-9RuUMbK_QFdq';
 
