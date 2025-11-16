@@ -1,8 +1,7 @@
 // EmailJS Configuration
-// Replace these with your EmailJS credentials from https://www.emailjs.com/
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID = 'service_9iwiqt9';
+const EMAILJS_TEMPLATE_ID = 'template_fo8i5za';
+const EMAILJS_PUBLIC_KEY = '0Zdr-9RuUMbK_QFdq';
 
 // Initialize EmailJS
 emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -21,9 +20,10 @@ contactForm.addEventListener('submit', async (e) => {
 
     try {
         const formData = {
-            from_name: contactForm.name.value,
-            from_email: contactForm.email.value,
+            name: contactForm.name.value,
+            email: contactForm.email.value,
             message: contactForm.message.value,
+            time: new Date().toLocaleString(),
         };
 
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formData);
