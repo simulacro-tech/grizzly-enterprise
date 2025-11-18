@@ -1,11 +1,3 @@
-// EmailJS Configuration
-const EMAILJS_SERVICE_ID = 'service_h3re2nr';
-const EMAILJS_TEMPLATE_ID = 'template_xyv1oh7';
-const EMAILJS_PUBLIC_KEY = 'c_Bcr6sxYwxMUiamZ';
-
-// Initialize EmailJS
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
@@ -19,23 +11,34 @@ contactForm.addEventListener('submit', async (e) => {
     formMessage.style.display = 'none';
 
     try {
-        const formData = {
-            name: contactForm.name.value,
-            email: contactForm.email.value,
-            phone: contactForm.phone.value || 'Not provided',
-            message: contactForm.message.value,
-            time: new Date().toLocaleString(),
-        };
+        const formData = new FormData(contactForm);
 
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formData);
+        // Add time if you want it in the email
+        formData.append(
+            '_subject',
+            'New Contact Form Submission from ' + formData.get('name')
+        );
 
-        formMessage.textContent =
-            'Thank you! Your message has been sent successfully.';
-        formMessage.className = 'form-message success';
-        formMessage.style.display = 'block';
-        contactForm.reset();
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            formMessage.textContent =
+                'Thank you! Your message has been sent successfully.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
+            contactForm.reset();
+        } else {
+            const data = await response.json();
+            throw new Error(data.error || 'Form submission failed');
+        }
     } catch (error) {
-        console.error('EmailJS Error:', error);
+        console.error('Form Error:', error);
         formMessage.textContent =
             'Sorry, there was an error sending your message. Please try again or contact us directly at grizzlydashenterprise@gmail.com.';
         formMessage.className = 'form-message error';
