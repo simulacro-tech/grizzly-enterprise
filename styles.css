@@ -134,11 +134,12 @@ body {
     content: '';
     position: absolute;
     top: -200vh;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: calc(50% - 50vw);
+    width: 100vw;
+    bottom: -10vh;
     background: var(--black);
     z-index: -1;
+    pointer-events: none;
 }
 
 .enterprise-text {
