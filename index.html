@@ -3,75 +3,235 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="color-scheme" content="light" />
+        <meta name="color-scheme" content="dark" />
         <meta
             name="description"
-            content="Grizzly Enterprise - Sales training and life coaching"
+            content="Grizzly Enterprise — Sales training and life coaching."
         />
         <title>Grizzly Enterprise</title>
         <link rel="icon" type="image/svg+xml" href="icons/icon2.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap"
+            rel="stylesheet"
+        />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
+        <div class="grain" aria-hidden="true"></div>
+
         <main>
             <section class="hero" id="home">
+                <div class="sunburst" aria-hidden="true"></div>
+
+                <div class="deco-frame deco-frame-hero" aria-hidden="true">
+                    <span class="frame-rule frame-rule-t"></span>
+                    <span class="frame-rule frame-rule-r"></span>
+                    <span class="frame-rule frame-rule-b"></span>
+                    <span class="frame-rule frame-rule-l"></span>
+                    <span class="frame-corner tl"></span>
+                    <span class="frame-corner tr"></span>
+                    <span class="frame-corner bl"></span>
+                    <span class="frame-corner br"></span>
+                </div>
+
                 <div class="hero-content">
                     <img
                         src="icons/icon2.svg"
-                        alt="Grizzly Enterprise Logo"
+                        alt="Grizzly Enterprise"
                         class="hero-icon"
                     />
+
+                    <div class="flourish flourish-fan" aria-hidden="true">
+                        <svg viewBox="0 0 240 28">
+                            <line x1="120" y1="4" x2="120" y2="26" />
+                            <line x1="120" y1="4" x2="100" y2="26" />
+                            <line x1="120" y1="4" x2="80" y2="26" />
+                            <line x1="120" y1="4" x2="60" y2="26" />
+                            <line x1="120" y1="4" x2="40" y2="26" />
+                            <line x1="120" y1="4" x2="140" y2="26" />
+                            <line x1="120" y1="4" x2="160" y2="26" />
+                            <line x1="120" y1="4" x2="180" y2="26" />
+                            <line x1="120" y1="4" x2="200" y2="26" />
+                            <circle cx="120" cy="4" r="2.5" />
+                            <line x1="0" y1="26" x2="240" y2="26" />
+                        </svg>
+                    </div>
+
                     <h1 class="company-name">
-                        GRIZZLY<br /><span class="enterprise-text"
-                            >ENTERPRISE</span
-                        >
+                        <span class="name-line">Grizzly</span>
+                        <span class="name-line name-line-sub">Enterprise</span>
                     </h1>
+
+                    <div class="flourish flourish-bar" aria-hidden="true">
+                        <svg viewBox="0 0 320 12">
+                            <line x1="0" y1="6" x2="130" y2="6" />
+                            <polygon points="138,2 148,6 138,10 142,6" />
+                            <line x1="155" y1="2" x2="155" y2="10" />
+                            <line x1="160" y1="0" x2="160" y2="12" />
+                            <line x1="165" y1="2" x2="165" y2="10" />
+                            <polygon points="182,2 172,6 182,10 178,6" />
+                            <line x1="190" y1="6" x2="320" y2="6" />
+                        </svg>
+                    </div>
+
                     <p class="subtitle">
-                        Sales Training & Life Coaching<br />
-                        Transforming performance through expert guidance
+                        Sales Training &amp; Life Coaching<br />
+                        <em
+                            >Transforming performance through expert
+                            guidance.</em
+                        >
                     </p>
+
+                    <a href="#contact" class="deco-cta">
+                        <span class="cta-text">Begin a Conversation</span>
+                    </a>
                 </div>
             </section>
 
             <section class="services-section" id="services">
                 <div class="services-container">
-                    <h2 class="section-title">What We Offer</h2>
+                    <header class="section-head reveal">
+                        <span class="head-flank" aria-hidden="true">
+                            <svg viewBox="0 0 100 16">
+                                <line x1="0" y1="8" x2="60" y2="8" />
+                                <polygon points="68,3 78,8 68,13 73,8" />
+                                <line x1="85" y1="3" x2="85" y2="13" />
+                                <line x1="90" y1="1" x2="90" y2="15" />
+                                <line x1="95" y1="3" x2="95" y2="13" />
+                            </svg>
+                        </span>
+                        <h2 class="section-title">What We Offer</h2>
+                        <span class="head-flank" aria-hidden="true">
+                            <svg viewBox="0 0 100 16">
+                                <line x1="5" y1="3" x2="5" y2="13" />
+                                <line x1="10" y1="1" x2="10" y2="15" />
+                                <line x1="15" y1="3" x2="15" y2="13" />
+                                <polygon points="32,3 22,8 32,13 27,8" />
+                                <line x1="40" y1="8" x2="100" y2="8" />
+                            </svg>
+                        </span>
+                    </header>
+                    <p class="section-subtitle reveal" data-delay="1">
+                        <em
+                            >Three disciplines, refined and delivered by
+                            request.</em
+                        >
+                    </p>
+
                     <div class="services-grid">
-                        <div class="service-card">
+                        <article class="service-card reveal" data-delay="1">
+                            <div class="card-frame" aria-hidden="true">
+                                <span class="frame-corner tl"></span>
+                                <span class="frame-corner tr"></span>
+                                <span class="frame-corner bl"></span>
+                                <span class="frame-corner br"></span>
+                            </div>
+                            <div class="card-numeral-wrap">
+                                <span class="card-numeral">I</span>
+                                <span
+                                    class="card-numeral-rule"
+                                    aria-hidden="true"
+                                ></span>
+                            </div>
                             <h3 class="service-title">
-                                TOP PERFORMING SALES TRAINING
+                                Top Performing Sales Training
                             </h3>
                             <ul class="service-list">
-                                <li>B2CONSUMER</li>
-                                <li>B2BUSINESS</li>
-                                <li>B2GOVERNMENT</li>
+                                <li>B2Consumer</li>
+                                <li>B2Business</li>
+                                <li>B2Government</li>
                             </ul>
-                        </div>
-                        <div class="service-card">
+                        </article>
+
+                        <article class="service-card reveal" data-delay="2">
+                            <div class="card-frame" aria-hidden="true">
+                                <span class="frame-corner tl"></span>
+                                <span class="frame-corner tr"></span>
+                                <span class="frame-corner bl"></span>
+                                <span class="frame-corner br"></span>
+                            </div>
+                            <div class="card-numeral-wrap">
+                                <span class="card-numeral">II</span>
+                                <span
+                                    class="card-numeral-rule"
+                                    aria-hidden="true"
+                                ></span>
+                            </div>
                             <h3 class="service-title">
-                                MAXIMIZE CLIENT EXPERIENCE
+                                Maximize Client Experience
                             </h3>
                             <ul class="service-list">
-                                <li>IN PERSON</li>
-                                <li>CONFERENCE/TRADESHOW</li>
-                                <li>VIRTUAL</li>
-                                <li>PHONE</li>
+                                <li>In Person</li>
+                                <li>Conference / Tradeshow</li>
+                                <li>Virtual</li>
+                                <li>Phone</li>
                             </ul>
-                        </div>
-                        <div class="service-card">
-                            <h3 class="service-title">LIFE COACHING</h3>
+                        </article>
+
+                        <article class="service-card reveal" data-delay="3">
+                            <div class="card-frame" aria-hidden="true">
+                                <span class="frame-corner tl"></span>
+                                <span class="frame-corner tr"></span>
+                                <span class="frame-corner bl"></span>
+                                <span class="frame-corner br"></span>
+                            </div>
+                            <div class="card-numeral-wrap">
+                                <span class="card-numeral">III</span>
+                                <span
+                                    class="card-numeral-rule"
+                                    aria-hidden="true"
+                                ></span>
+                            </div>
+                            <h3 class="service-title">Life Coaching</h3>
                             <ul class="service-list">
-                                <li>PERSONAL DEVELOPMENT</li>
-                                <li>PERFORMANCE TRANSFORMATION</li>
+                                <li>Personal Development</li>
+                                <li>Performance Transformation</li>
                             </ul>
-                        </div>
+                        </article>
                     </div>
                 </div>
             </section>
 
             <section class="contact-section" id="contact">
-                <div class="contact-container">
-                    <h2 class="contact-title">Contact Us</h2>
+                <div class="contact-container reveal">
+                    <div class="card-frame" aria-hidden="true">
+                        <span class="frame-corner tl"></span>
+                        <span class="frame-corner tr"></span>
+                        <span class="frame-corner bl"></span>
+                        <span class="frame-corner br"></span>
+                    </div>
+
+                    <header class="section-head">
+                        <span class="head-flank" aria-hidden="true">
+                            <svg viewBox="0 0 100 16">
+                                <line x1="0" y1="8" x2="60" y2="8" />
+                                <polygon points="68,3 78,8 68,13 73,8" />
+                                <line x1="85" y1="3" x2="85" y2="13" />
+                                <line x1="90" y1="1" x2="90" y2="15" />
+                                <line x1="95" y1="3" x2="95" y2="13" />
+                            </svg>
+                        </span>
+                        <h2 class="contact-title">Contact Us</h2>
+                        <span class="head-flank" aria-hidden="true">
+                            <svg viewBox="0 0 100 16">
+                                <line x1="5" y1="3" x2="5" y2="13" />
+                                <line x1="10" y1="1" x2="10" y2="15" />
+                                <line x1="15" y1="3" x2="15" y2="13" />
+                                <polygon points="32,3 22,8 32,13 27,8" />
+                                <line x1="40" y1="8" x2="100" y2="8" />
+                            </svg>
+                        </span>
+                    </header>
+                    <p class="contact-subtitle">
+                        <em>A reply lands inside two business days.</em>
+                    </p>
+
                     <form
                         class="contact-form"
                         id="contactForm"
@@ -115,12 +275,12 @@
                             <textarea
                                 id="message"
                                 name="message"
-                                placeholder="Your message..."
+                                placeholder="How can we help?"
                                 required
                             ></textarea>
                         </div>
-                        <button type="submit" class="submit-button">
-                            Send Message
+                        <button type="submit" class="submit-button deco-cta">
+                            <span class="cta-text">Send Message</span>
                         </button>
                         <div class="form-message" id="formMessage"></div>
                     </form>
