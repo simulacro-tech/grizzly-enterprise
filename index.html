@@ -3,75 +3,200 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="color-scheme" content="light" />
+        <meta name="color-scheme" content="dark" />
         <meta
             name="description"
-            content="Grizzly Enterprise - Sales training and life coaching"
+            content="Grizzly Enterprise — Sales training and life coaching."
         />
         <title>Grizzly Enterprise</title>
         <link rel="icon" type="image/svg+xml" href="icons/icon2.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap"
+            rel="stylesheet"
+        />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
+        <div class="grain" aria-hidden="true"></div>
+
+        <nav class="float-nav" aria-label="Section navigation">
+            <a href="#home">Home</a>
+            <span class="nav-mark" aria-hidden="true">◆</span>
+            <a href="#services">Services</a>
+            <span class="nav-mark" aria-hidden="true">◆</span>
+            <a href="#contact">Contact</a>
+        </nav>
+
         <main>
             <section class="hero" id="home">
                 <div class="hero-content">
-                    <img
-                        src="icons/icon2.svg"
-                        alt="Grizzly Enterprise Logo"
-                        class="hero-icon"
-                    />
-                    <h1 class="company-name">
-                        GRIZZLY<br /><span class="enterprise-text"
-                            >ENTERPRISE</span
+                    <h1
+                        class="hero-crest"
+                        aria-label="Grizzly Enterprise"
+                    >
+                        <svg
+                            viewBox="0 0 400 400"
+                            class="crest-svg"
+                            aria-hidden="true"
                         >
+                            <defs>
+                                <path
+                                    id="crest-top"
+                                    d="M 60 200 A 140 140 0 0 1 340 200"
+                                />
+                                <path
+                                    id="crest-bottom"
+                                    d="M 340 200 A 140 140 0 0 1 60 200"
+                                />
+                            </defs>
+                            <circle
+                                cx="200"
+                                cy="200"
+                                r="196"
+                                class="crest-ring crest-ring-outer"
+                            />
+                            <circle
+                                cx="200"
+                                cy="200"
+                                r="178"
+                                class="crest-ring crest-ring-mid"
+                            />
+                            <circle
+                                cx="200"
+                                cy="200"
+                                r="166"
+                                class="crest-ring crest-ring-dashed"
+                            >
+                                <animateTransform
+                                    attributeName="transform"
+                                    type="rotate"
+                                    from="0 200 200"
+                                    to="360 200 200"
+                                    dur="90s"
+                                    repeatCount="indefinite"
+                                />
+                            </circle>
+                            <text class="crest-text crest-text-top">
+                                <textPath
+                                    href="#crest-top"
+                                    startOffset="50%"
+                                    text-anchor="middle"
+                                >
+                                    GRIZZLY
+                                </textPath>
+                            </text>
+                            <text class="crest-text crest-text-bottom">
+                                <textPath
+                                    href="#crest-bottom"
+                                    startOffset="50%"
+                                    text-anchor="middle"
+                                >
+                                    ENTERPRISE
+                                </textPath>
+                            </text>
+                            <text
+                                x="20"
+                                y="208"
+                                class="crest-mark"
+                                text-anchor="middle"
+                            >◆</text>
+                            <text
+                                x="380"
+                                y="208"
+                                class="crest-mark"
+                                text-anchor="middle"
+                            >◆</text>
+                        </svg>
+                        <img src="icons/icon2.svg" alt="" class="crest-icon" />
                     </h1>
                     <p class="subtitle">
-                        Sales Training & Life Coaching<br />
-                        Transforming performance through expert guidance
+                        Sales Training &amp; Life Coaching<br />
+                        <em
+                            >Transforming performance through expert
+                            guidance.</em
+                        >
                     </p>
+                    <a href="#contact" class="hero-cta"
+                        >Begin a conversation</a
+                    >
                 </div>
             </section>
 
             <section class="services-section" id="services">
                 <div class="services-container">
-                    <h2 class="section-title">What We Offer</h2>
+                    <div class="ornament reveal" aria-hidden="true">
+                        <span class="rule-line"></span>
+                        <span class="diamond">◆</span>
+                        <span class="rule-line"></span>
+                    </div>
+                    <h2 class="section-title reveal" data-delay="1">
+                        What We Offer
+                    </h2>
+                    <p class="section-subtitle reveal" data-delay="2">
+                        <em
+                            >Three disciplines, refined and delivered by
+                            request.</em
+                        >
+                    </p>
                     <div class="services-grid">
-                        <div class="service-card">
+                        <article class="service-card reveal" data-delay="1">
+                            <span class="service-emblem" aria-hidden="true"
+                                >I</span
+                            >
                             <h3 class="service-title">
-                                TOP PERFORMING SALES TRAINING
+                                Top Performing Sales Training
                             </h3>
                             <ul class="service-list">
-                                <li>B2CONSUMER</li>
-                                <li>B2BUSINESS</li>
-                                <li>B2GOVERNMENT</li>
+                                <li>B2Consumer</li>
+                                <li>B2Business</li>
+                                <li>B2Government</li>
                             </ul>
-                        </div>
-                        <div class="service-card">
+                        </article>
+                        <article class="service-card reveal" data-delay="2">
+                            <span class="service-emblem" aria-hidden="true"
+                                >II</span
+                            >
                             <h3 class="service-title">
-                                MAXIMIZE CLIENT EXPERIENCE
+                                Maximize Client Experience
                             </h3>
                             <ul class="service-list">
-                                <li>IN PERSON</li>
-                                <li>CONFERENCE/TRADESHOW</li>
-                                <li>VIRTUAL</li>
-                                <li>PHONE</li>
+                                <li>In Person</li>
+                                <li>Conference / Tradeshow</li>
+                                <li>Virtual</li>
+                                <li>Phone</li>
                             </ul>
-                        </div>
-                        <div class="service-card">
-                            <h3 class="service-title">LIFE COACHING</h3>
+                        </article>
+                        <article class="service-card reveal" data-delay="3">
+                            <span class="service-emblem" aria-hidden="true"
+                                >III</span
+                            >
+                            <h3 class="service-title">Life Coaching</h3>
                             <ul class="service-list">
-                                <li>PERSONAL DEVELOPMENT</li>
-                                <li>PERFORMANCE TRANSFORMATION</li>
+                                <li>Personal Development</li>
+                                <li>Performance Transformation</li>
                             </ul>
-                        </div>
+                        </article>
                     </div>
                 </div>
             </section>
 
             <section class="contact-section" id="contact">
-                <div class="contact-container">
+                <div class="contact-container reveal">
+                    <div class="ornament" aria-hidden="true">
+                        <span class="rule-line"></span>
+                        <span class="diamond">◆</span>
+                        <span class="rule-line"></span>
+                    </div>
                     <h2 class="contact-title">Contact Us</h2>
+                    <p class="contact-subtitle">
+                        <em>A reply lands inside two business days.</em>
+                    </p>
                     <form
                         class="contact-form"
                         id="contactForm"
@@ -115,7 +240,7 @@
                             <textarea
                                 id="message"
                                 name="message"
-                                placeholder="Your message..."
+                                placeholder="How can we help?"
                                 required
                             ></textarea>
                         </div>
