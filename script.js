@@ -6,8 +6,12 @@ if (contactForm) {
         e.preventDefault();
 
         const submitButton = contactForm.querySelector('.submit-button');
-        const originalText = submitButton.textContent;
-        submitButton.textContent = 'Sending…';
+        const ctaText = submitButton.querySelector('.cta-text');
+        const originalText = ctaText
+            ? ctaText.textContent
+            : submitButton.textContent;
+        if (ctaText) ctaText.textContent = 'Sending…';
+        else submitButton.textContent = 'Sending…';
         submitButton.disabled = true;
         formMessage.style.display = 'none';
         formMessage.className = 'form-message';
@@ -47,25 +51,14 @@ if (contactForm) {
             formMessage.classList.add('error');
             formMessage.style.display = 'block';
         } finally {
-            submitButton.textContent = originalText;
+            if (ctaText) ctaText.textContent = originalText;
+            else submitButton.textContent = originalText;
             submitButton.disabled = false;
         }
     });
 }
 
-// Prevent hero icon animation from restarting
-const heroIcon = document.querySelector('.hero-icon');
-if (heroIcon) {
-    heroIcon.addEventListener(
-        'animationend',
-        () => {
-            heroIcon.classList.add('animated');
-        },
-        { once: true }
-    );
-}
-
-// Smooth scroll for any anchor links
+// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (e) {
         const id = this.getAttribute('href');
@@ -106,3 +99,55 @@ if (floatNav && heroSection && 'IntersectionObserver' in window) {
     );
     navObserver.observe(heroSection);
 }
+
+// Active section in float-nav — observe linked sections, toggle .active
+const navLinks = floatNav
+    ? floatNav.querySelectorAll('a[href^="#"]')
+    : [];
+if (navLinks.length && 'IntersectionObserver' in window) {
+    const navMap = new Map();
+    navLinks.forEach((link) => {
+        const id = link.getAttribute('href').slice(1);
+        const sec = document.getElementById(id);
+        if (sec) navMap.set(sec, link);
+    });
+    if (navMap.size) {
+        const setActive = (link) => {
+            navLinks.forEach((l) => l.classList.toggle('active', l === link));
+        };
+        const sectionObserver = new IntersectionObserver(
+            (entries) => {
+                // Pick the top-most intersecting section
+                const visible = entries
+                    .filter((e) => e.isIntersecting)
+                    .sort(
+                        (a, b) =>
+                            a.boundingClientRect.top -
+                            b.boundingClientRect.top
+                    );
+                if (visible.length) {
+                    const link = navMap.get(visible[0].target);
+                    if (link) setActive(link);
+                }
+            },
+            { threshold: 0.35 }
+        );
+        navMap.forEach((_, sec) => sectionObserver.observe(sec));
+    }
+}
+
+// Click ripple on gold buttons
+const rippleTargets = document.querySelectorAll(
+    '.hero-cta, .submit-button'
+);
+rippleTargets.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.left = e.clientX - rect.left + 'px';
+        ripple.style.top = e.clientY - rect.top + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 720);
+    });
+});

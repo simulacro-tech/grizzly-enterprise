@@ -17,7 +17,7 @@
             crossorigin
         />
         <link
-            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Pinyon+Script&display=swap"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="styles.css" />
@@ -28,6 +28,8 @@
         <nav class="float-nav" aria-label="Section navigation">
             <a href="#home">Home</a>
             <span class="nav-mark" aria-hidden="true">◆</span>
+            <a href="#about">About</a>
+            <span class="nav-mark" aria-hidden="true">◆</span>
             <a href="#services">Services</a>
             <span class="nav-mark" aria-hidden="true">◆</span>
             <a href="#contact">Contact</a>
@@ -36,10 +38,7 @@
         <main>
             <section class="hero" id="home">
                 <div class="hero-content">
-                    <h1
-                        class="hero-crest"
-                        aria-label="Grizzly Enterprise"
-                    >
+                    <h1 class="hero-crest" aria-label="Grizzly Enterprise">
                         <svg
                             viewBox="0 0 400 400"
                             class="crest-svg"
@@ -54,18 +53,37 @@
                                     id="crest-bottom"
                                     d="M 340 200 A 140 140 0 0 1 60 200"
                                 />
+                                <linearGradient
+                                    id="crestSheen"
+                                    x1="0%"
+                                    y1="0%"
+                                    x2="100%"
+                                    y2="0%"
+                                >
+                                    <stop offset="0%" stop-color="#d4af37" />
+                                    <stop offset="40%" stop-color="#d4af37" />
+                                    <stop offset="50%" stop-color="#f4e5a1" />
+                                    <stop offset="60%" stop-color="#d4af37" />
+                                    <stop offset="100%" stop-color="#d4af37" />
+                                    <animate
+                                        attributeName="x1"
+                                        values="-100%;100%"
+                                        dur="9s"
+                                        repeatCount="indefinite"
+                                    />
+                                    <animate
+                                        attributeName="x2"
+                                        values="0%;200%"
+                                        dur="9s"
+                                        repeatCount="indefinite"
+                                    />
+                                </linearGradient>
                             </defs>
                             <circle
                                 cx="200"
                                 cy="200"
                                 r="196"
                                 class="crest-ring crest-ring-outer"
-                            />
-                            <circle
-                                cx="200"
-                                cy="200"
-                                r="178"
-                                class="crest-ring crest-ring-mid"
                             />
                             <circle
                                 cx="200"
@@ -78,11 +96,14 @@
                                     type="rotate"
                                     from="0 200 200"
                                     to="360 200 200"
-                                    dur="90s"
+                                    dur="120s"
                                     repeatCount="indefinite"
                                 />
                             </circle>
-                            <text class="crest-text crest-text-top">
+                            <text
+                                class="crest-text crest-text-top"
+                                fill="url(#crestSheen)"
+                            >
                                 <textPath
                                     href="#crest-top"
                                     startOffset="50%"
@@ -91,7 +112,10 @@
                                     GRIZZLY
                                 </textPath>
                             </text>
-                            <text class="crest-text crest-text-bottom">
+                            <text
+                                class="crest-text crest-text-bottom"
+                                fill="url(#crestSheen)"
+                            >
                                 <textPath
                                     href="#crest-bottom"
                                     startOffset="50%"
@@ -115,6 +139,7 @@
                         </svg>
                         <img src="icons/icon2.svg" alt="" class="crest-icon" />
                     </h1>
+                    <p class="est-line">Est. 2024 · By appointment</p>
                     <p class="subtitle">
                         Sales Training &amp; Life Coaching<br />
                         <em
@@ -122,9 +147,112 @@
                             guidance.</em
                         >
                     </p>
-                    <a href="#contact" class="hero-cta"
-                        >Begin a conversation</a
-                    >
+                    <a href="#contact" class="hero-cta">
+                        <span class="cta-text">Begin a conversation</span>
+                    </a>
+                </div>
+            </section>
+
+            <section class="bio-section" id="about">
+                <div class="bio-container reveal">
+                    <div class="bio-portrait" aria-hidden="true">
+                        <svg viewBox="0 0 160 160">
+                            <circle
+                                cx="80"
+                                cy="80"
+                                r="76"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1"
+                            />
+                            <circle
+                                cx="80"
+                                cy="80"
+                                r="68"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1"
+                                stroke-dasharray="2 4"
+                            />
+                            <circle
+                                cx="80"
+                                cy="80"
+                                r="58"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="0.5"
+                                opacity="0.5"
+                            />
+                            <text
+                                x="80"
+                                y="102"
+                                text-anchor="middle"
+                                font-family="Cinzel"
+                                font-size="64"
+                                font-weight="700"
+                                fill="currentColor"
+                            >G</text>
+                        </svg>
+                    </div>
+                    <div class="bio-text">
+                        <h2 class="bio-heading">A practitioner&rsquo;s note.</h2>
+                        <p>
+                            Grizzly Enterprise has trained operators across
+                            consumer, business, and government sales floors for
+                            nearly a decade. We work with teams ready to be
+                            drilled — and individuals ready to be honest about
+                            what is in the way.
+                        </p>
+                        <p>
+                            The craft is the same at every tier: read the room,
+                            name the friction, ask for the close. The
+                            difference is the discipline that arrives at the
+                            meeting.
+                        </p>
+                        <p class="bio-signature">G. Enterprise</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="process-section">
+                <div class="process-container">
+                    <div class="ornament reveal" aria-hidden="true">
+                        <span class="rule-line"></span>
+                        <span class="diamond">◆</span>
+                        <span class="rule-line"></span>
+                    </div>
+                    <h2 class="section-title reveal" data-delay="1">
+                        The Process
+                    </h2>
+                    <p class="section-subtitle reveal" data-delay="2">
+                        <em>Three movements, taken in order.</em>
+                    </p>
+                    <div class="process-strip">
+                        <div class="process-step reveal" data-delay="1">
+                            <span class="process-num">01</span>
+                            <h4 class="process-title">Diagnose</h4>
+                            <p class="process-text">
+                                Read the friction. Surface the patterns. Name
+                                the problem cleanly.
+                            </p>
+                        </div>
+                        <div class="process-step reveal" data-delay="2">
+                            <span class="process-num">02</span>
+                            <h4 class="process-title">Train</h4>
+                            <p class="process-text">
+                                Drill the craft until the close lives in muscle
+                                memory.
+                            </p>
+                        </div>
+                        <div class="process-step reveal" data-delay="3">
+                            <span class="process-num">03</span>
+                            <h4 class="process-title">Deploy</h4>
+                            <p class="process-text">
+                                Step onto the floor. Measure outcomes. Refine.
+                                Repeat.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -145,7 +273,10 @@
                         >
                     </p>
                     <div class="services-grid">
-                        <article class="service-card reveal" data-delay="1">
+                        <article
+                            class="service-card reveal shimmer-on-reveal"
+                            data-delay="1"
+                        >
                             <span class="service-emblem" aria-hidden="true"
                                 >I</span
                             >
@@ -158,7 +289,10 @@
                                 <li>B2Government</li>
                             </ul>
                         </article>
-                        <article class="service-card reveal" data-delay="2">
+                        <article
+                            class="service-card reveal shimmer-on-reveal"
+                            data-delay="2"
+                        >
                             <span class="service-emblem" aria-hidden="true"
                                 >II</span
                             >
@@ -172,7 +306,10 @@
                                 <li>Phone</li>
                             </ul>
                         </article>
-                        <article class="service-card reveal" data-delay="3">
+                        <article
+                            class="service-card reveal shimmer-on-reveal"
+                            data-delay="3"
+                        >
                             <span class="service-emblem" aria-hidden="true"
                                 >III</span
                             >
@@ -181,6 +318,51 @@
                                 <li>Personal Development</li>
                                 <li>Performance Transformation</li>
                             </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="testimonials-section">
+                <div class="testimonials-container">
+                    <div class="ornament reveal" aria-hidden="true">
+                        <span class="rule-line"></span>
+                        <span class="diamond">◆</span>
+                        <span class="rule-line"></span>
+                    </div>
+                    <h2 class="section-title reveal" data-delay="1">
+                        In Praise
+                    </h2>
+                    <p class="section-subtitle reveal" data-delay="2">
+                        <em>From the operators we have trained.</em>
+                    </p>
+                    <div class="testimonials-grid">
+                        <article class="testimonial reveal" data-delay="1">
+                            <p class="testimonial-quote">
+                                &ldquo;Our close rate jumped forty percent in
+                                two months. Worth every dollar.&rdquo;
+                            </p>
+                            <p class="testimonial-attr">
+                                — VP Sales, mid-market SaaS
+                            </p>
+                        </article>
+                        <article class="testimonial reveal" data-delay="2">
+                            <p class="testimonial-quote">
+                                &ldquo;Direct, demanding, and effective. We
+                                hired him twice.&rdquo;
+                            </p>
+                            <p class="testimonial-attr">
+                                — Founder, government services
+                            </p>
+                        </article>
+                        <article class="testimonial reveal" data-delay="3">
+                            <p class="testimonial-quote">
+                                &ldquo;He doesn&rsquo;t coach you to feel
+                                better. He coaches you to be better.&rdquo;
+                            </p>
+                            <p class="testimonial-attr">
+                                — Senior Account Executive
+                            </p>
                         </article>
                     </div>
                 </div>
@@ -245,13 +427,116 @@
                             ></textarea>
                         </div>
                         <button type="submit" class="submit-button">
-                            Send Message
+                            <span class="cta-text">Send Message</span>
                         </button>
                         <div class="form-message" id="formMessage"></div>
                     </form>
+                    <p class="contact-signature">G. Enterprise</p>
                 </div>
             </section>
         </main>
+
+        <footer class="hallmarks-section" aria-label="Hallmarks">
+            <div class="hallmarks-row">
+                <span class="hallmark" title="Maker">
+                    <svg viewBox="0 0 30 30">
+                        <circle
+                            cx="15"
+                            cy="15"
+                            r="13"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1"
+                        />
+                        <text
+                            x="15"
+                            y="20"
+                            text-anchor="middle"
+                            font-family="Cinzel"
+                            font-size="13"
+                            font-weight="700"
+                            fill="currentColor"
+                        >G</text>
+                    </svg>
+                </span>
+                <span class="hallmark" title="Lozenge">
+                    <svg viewBox="0 0 30 30">
+                        <polygon
+                            points="15,4 26,15 15,26 4,15"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1"
+                        />
+                        <circle cx="15" cy="15" r="2" fill="currentColor" />
+                    </svg>
+                </span>
+                <span class="hallmark" title="Mark">
+                    <svg viewBox="0 0 30 30">
+                        <rect
+                            x="3"
+                            y="3"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1"
+                        />
+                        <image
+                            href="icons/icon2.svg"
+                            x="6"
+                            y="6"
+                            width="18"
+                            height="18"
+                        />
+                    </svg>
+                </span>
+                <span class="hallmark" title="Quality">
+                    <svg viewBox="0 0 30 30">
+                        <circle
+                            cx="15"
+                            cy="15"
+                            r="13"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1"
+                        />
+                        <text
+                            x="15"
+                            y="20"
+                            text-anchor="middle"
+                            font-size="13"
+                            fill="currentColor"
+                        >✦</text>
+                    </svg>
+                </span>
+                <span class="hallmark hallmark-wide" title="Year">
+                    <svg viewBox="0 0 60 30">
+                        <rect
+                            x="2"
+                            y="3"
+                            width="56"
+                            height="24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1"
+                        />
+                        <text
+                            x="30"
+                            y="20"
+                            text-anchor="middle"
+                            font-family="Cinzel"
+                            font-size="11"
+                            font-weight="500"
+                            letter-spacing="2"
+                            fill="currentColor"
+                        >MMXXIV</text>
+                    </svg>
+                </span>
+            </div>
+            <p class="colophon">
+                &copy; Grizzly Enterprise &middot; All operators reserved.
+            </p>
+        </footer>
 
         <script src="script.js"></script>
     </body>
