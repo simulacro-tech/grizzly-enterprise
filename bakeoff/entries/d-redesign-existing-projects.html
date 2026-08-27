@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<!--
+  GRIZZLY ENTERPRISE — bake-off entry D  ·  skill: redesign-existing-projects
+  ============================================================================
+  AUDIT OF THE BASE (what was generic / wrong)
+    · System font stack, everything 900-weight uppercase — loud everywhere, so
+      no hierarchy anywhere. No scale contrast, no second voice.
+    · Pure #000 canvas, one saturated gold, cool #c0c0c0 greys against a warm
+      gold — two grey families fighting.
+    · Three equal glass cards in a row: the single most templated layout there
+      is. Same 20px radius, same drop shadow, same gold glow on every surface,
+      so elevation communicates nothing.
+    · Everything centred. Three stacked centred blocks, no navigation, no CTA,
+      no footer, no way to act on the page.
+    · Dead .about-* CSS, !important colour patches, a top:-200vh bleed hack,
+      min-height:100vh dead gap above the form, clipped CONFERENCE/TRADESHOW.
+
+  DESIGN CALLS
+    1. Direction: "ledger / masthead". A dark editorial broadsheet rather than
+       a glass-card landing page. Hairline gold rules, left-aligned masthead,
+       numbered index rows, generous negative space.
+    2. Type: Fraunces (display, soft/wonk axes) against Archivo (UI). Real
+       scale contrast — 8.4rem masthead down to 0.68rem tracked micro-labels;
+       weights 400/500/600/700; tabular-nums on the index numerals.
+    3. Palette retune inside the fixed family: warm near-black #0B0A09 instead
+       of pure black, one gold (#DDB94F) instead of four, and a single WARM
+       neutral ramp (bone → clay) replacing the cool silvers.
+    4. Two-tone lockup: GRIZZLY in gold, ENTERPRISE in bone. The wordmark is
+       unchanged, the colour does the hierarchy.
+    5. Logo as motif, recoloured in-palette: the bear is CSS-masked, so it
+       ships once as a gold mark in the header/footer and once as an oversized
+       gradient watermark bleeding off the hero's right edge.
+    6. STRUCTURE THE BASE DOES NOT HAVE — (a) sticky header with real nav,
+       scroll-spy aria-current, a mailto and a CTA, plus an aria-expanded
+       mobile disclosure; (b) an asymmetric hero with a CTA path and a
+       hairline spec strip; (c) the capability ledger — full-bleed numbered
+       rows on a 1.05fr/1.35fr split with hairline separators, replacing the
+       three equal cards; (d) chip list language instead of bullet dots;
+       (e) a split contact section with a sticky rail; (f) a designed footer.
+    7. Surface: no glass, no glow. One raised warm surface, hairline gold
+       borders, a fixed feTurbulence grain overlay and one ambient radial.
+    8. Motion is decorative only. Section rules draw in, the header settles on
+       scroll, controls have hover/active/focus states. Nothing legible ever
+       starts at opacity 0 — reveals are opt-in via a .motion-ok class that JS
+       only sets when prefers-reduced-motion is not requested.
+    9. Fixed from the defect list: color-scheme dark + theme-color, dead CSS
+       removed, no !important, no -200vh hack, no 100vh dead gap, no clipping
+       of CONFERENCE/TRADESHOW, reduced-motion honoured, role="status" on the
+       form message, visible :focus-visible rings everywhere.
+   10. Nothing was invented. No testimonials, logos, stats, prices, addresses
+       or phone numbers. Added copy is navigational or descriptive only, and
+       the only contact fact on the page is the email already shipped in the
+       base's own error string.
+-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#0b0a09" />
+        <meta
+            name="description"
+            content="Grizzly Enterprise — sales training and life coaching. Top performing sales training, client experience, and personal development."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Grizzly Enterprise" />
+        <meta
+            property="og:description"
+            content="Sales Training & Life Coaching. Transforming performance through expert guidance."
+        />
+        <title>Grizzly Enterprise — Sales Training &amp; Life Coaching</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K" />
+        <style>
+/* ── tokens ──────────────────────────────────────────────────────────── */
+:root {
+    --bear: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K');
+
+    /* warm near-black shell — never pure #000 */
+    --ink: #0b0a09;
+    --ink-2: #110f0b;
+    --ink-3: #17140d;
+
+    /* one gold, one ramp of warm neutrals */
+    --gold: #ddb94f;
+    --gold-hi: #f0d685;
+    --gold-deep: #8f7226;
+    --bone: #efe8da;
+    --clay: #b5ac9a;
+    --clay-dim: #8e8674;
+
+    --hair: rgba(221, 185, 79, 0.22);
+    --hair-soft: rgba(221, 185, 79, 0.11);
+    --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.9),
+        0 2px 0 0 rgba(221, 185, 79, 0.05) inset;
+
+    --ok: #9ed49b;
+    --bad: #f0a08c;
+
+    --display: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    --ui: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Arial, sans-serif;
+
+    --wrap: 1240px;
+    --gut: clamp(1.25rem, 5vw, 4rem);
+    --head-h: 68px;
+
+    --z-grain: 60;
+    --z-head: 70;
+    --z-menu: 80;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: var(--ink);
+    color: var(--bone);
+    font-family: var(--ui);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* ambient warmth + grain: breaks the flat vector feel */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+            110vw 70vh at 78% -10%,
+            rgba(221, 185, 79, 0.09),
+            transparent 60%
+        ),
+        radial-gradient(
+            80vw 60vh at 0% 40%,
+            rgba(143, 114, 38, 0.07),
+            transparent 65%
+        );
+}
+
+.grain {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-grain);
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.28'/></svg>");
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+::selection {
+    background: var(--gold);
+    color: var(--ink);
+}
+
+/* ── shared bits ─────────────────────────────────────────────────────── */
+.wrap {
+    width: 100%;
+    max-width: var(--wrap);
+    margin-inline: auto;
+    padding-inline: var(--gut);
+}
+
+main,
+header,
+footer {
+    position: relative;
+    z-index: 1;
+}
+
+.micro {
+    font-family: var(--ui);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--clay);
+}
+
+.num {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
+}
+
+.mark {
+    display: block;
+    background: var(--gold);
+    -webkit-mask: var(--bear) center / contain no-repeat;
+    mask: var(--bear) center / contain no-repeat;
+}
+
+.skip {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 200;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    border-radius: 0 0 4px 0;
+}
+.skip:focus {
+    left: 0;
+}
+
+:where(a, button, input, textarea, summary):focus-visible {
+    outline: 2px solid var(--gold-hi);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+/* rules that draw in — decorative only, visible by default */
+.rule {
+    display: block;
+    height: 1px;
+    background: var(--hair);
+    transform-origin: left center;
+}
+
+/* ── header ──────────────────────────────────────────────────────────── */
+.site-head {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-head);
+    background: rgba(11, 10, 9, 0.82);
+    backdrop-filter: blur(14px) saturate(120%);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+.site-head.is-stuck {
+    border-bottom-color: var(--hair-soft);
+    background: rgba(11, 10, 9, 0.94);
+}
+
+.head-in {
+    height: var(--head-h);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--bone);
+    margin-right: auto;
+}
+.brand .mark {
+    width: 30px;
+    height: 30px;
+    flex: none;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.brand:hover .mark {
+    transform: translateY(-2px) rotate(-4deg);
+}
+.brand-word {
+    font-family: var(--ui);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+}
+.brand-word b {
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.2vw, 2rem);
+}
+.nav a:not(.btn) {
+    position: relative;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--clay);
+    text-decoration: none;
+    padding-block: 0.4rem;
+    transition: color 0.2s ease;
+}
+.nav a:not(.btn)::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.nav a:not(.btn):hover,
+.nav a[aria-current='true'] {
+    color: var(--bone);
+}
+.nav a:not(.btn):hover::after,
+.nav a[aria-current='true']::after {
+    transform: scaleX(1);
+}
+.nav a.nav-mail {
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-weight: 500;
+}
+
+.btn {
+    --btn-bg: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-family: var(--ui);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-bg);
+    border-radius: 3px;
+    padding: 0.72rem 1.3rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.22s ease, border-color 0.22s ease,
+        transform 0.12s ease, box-shadow 0.22s ease;
+}
+.btn:hover {
+    --btn-bg: var(--gold-hi);
+    box-shadow: 0 10px 24px -16px rgba(0, 0, 0, 0.95);
+}
+.btn:active {
+    transform: translateY(1px);
+}
+.btn-ghost {
+    background: transparent;
+    color: var(--bone);
+    border-color: var(--hair);
+}
+.btn-ghost:hover {
+    background: rgba(221, 185, 79, 0.08);
+    border-color: var(--gold);
+    color: var(--gold-hi);
+    box-shadow: none;
+}
+.btn-lg {
+    padding: 1rem 1.9rem;
+    font-size: 0.82rem;
+}
+
+.menu-btn {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--hair);
+    border-radius: 3px;
+    color: var(--bone);
+    padding: 0.55rem 0.7rem;
+    cursor: pointer;
+    line-height: 0;
+}
+.menu-btn span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.menu-btn span + span {
+    margin-top: 4px;
+}
+.menu-btn[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(5.5px) rotate(45deg);
+}
+.menu-btn[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+}
+.menu-btn[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-5.5px) rotate(-45deg);
+}
+
+.menu-panel {
+    display: none;
+    border-top: 1px solid var(--hair-soft);
+    background: var(--ink-2);
+}
+.menu-panel .wrap {
+    display: grid;
+    gap: 0.25rem;
+    padding-block: 1rem 1.5rem;
+}
+.menu-panel a:not(.btn) {
+    display: block;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--hair-soft);
+    color: var(--bone);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+.menu-panel .btn {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* ── hero ────────────────────────────────────────────────────────────── */
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 9vh, 7rem) clamp(2rem, 4vh, 3rem);
+    min-height: calc(100dvh - var(--head-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-mark {
+    position: absolute;
+    right: -6vw;
+    top: 50%;
+    translate: 0 -50%;
+    width: min(56vw, 660px);
+    aspect-ratio: 1;
+    background: linear-gradient(
+        170deg,
+        var(--gold) 0%,
+        rgba(221, 185, 79, 0.25) 70%,
+        transparent 100%
+    );
+    -webkit-mask: var(--bear) center / contain no-repeat;
+    mask: var(--bear) center / contain no-repeat;
+    opacity: 0.17;
+    pointer-events: none;
+}
+
+.hero-in {
+    position: relative;
+    z-index: 1;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: clamp(1.5rem, 4vh, 2.75rem);
+}
+.eyebrow .rule {
+    width: clamp(2rem, 6vw, 5rem);
+    flex: none;
+}
+.eyebrow span {
+    color: var(--gold);
+}
+
+.masthead {
+    font-family: var(--display);
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 9.4vw, 8.4rem);
+    line-height: 0.86;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.masthead .ent {
+    display: block;
+    color: var(--bone);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+}
+
+.deck {
+    margin-top: clamp(1.5rem, 4vh, 2.5rem);
+    max-width: 34ch;
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--clay);
+    text-wrap: pretty;
+}
+.deck strong {
+    color: var(--bone);
+    font-weight: 500;
+}
+
+.hero-actions {
+    margin-top: clamp(1.75rem, 4vh, 2.75rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+}
+
+.spec {
+    margin-top: clamp(3rem, 9vh, 6rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--hair-soft);
+    border-block: 1px solid var(--hair-soft);
+}
+.spec > div {
+    background: var(--ink);
+    padding: 1.1rem clamp(0.75rem, 2vw, 1.5rem) 1.1rem 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+.spec > div + div {
+    padding-left: clamp(0.75rem, 2vw, 1.5rem);
+}
+.spec b {
+    color: var(--gold);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+}
+.spec p {
+    font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+    color: var(--bone);
+    font-weight: 500;
+    line-height: 1.35;
+    text-wrap: balance;
+}
+
+/* ── section furniture ───────────────────────────────────────────────── */
+.section {
+    padding-block: clamp(4.5rem, 11vh, 8rem) clamp(5rem, 12vh, 9rem);
+    scroll-margin-top: var(--head-h);
+}
+
+.section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 1.5rem 2rem;
+    padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+.section-title {
+    font-family: var(--display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.1rem, 5.4vw, 3.9rem);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--bone);
+    text-wrap: balance;
+}
+.section-title em {
+    font-style: normal;
+    color: var(--gold);
+}
+.section-note {
+    color: var(--clay);
+    padding-bottom: 0.35rem;
+}
+
+/* ── capability ledger ───────────────────────────────────────────────── */
+.ledger {
+    border-top: 1px solid var(--hair);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding-block: clamp(2.25rem, 5vh, 3.5rem);
+    border-bottom: 1px solid var(--hair-soft);
+    transition: background 0.35s ease;
+}
+.row:hover {
+    background: linear-gradient(
+        90deg,
+        rgba(221, 185, 79, 0.045),
+        transparent 65%
+    );
+}
+
+.row-id {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(0.9rem, 2vw, 1.6rem);
+}
+.row-id .idx {
+    font-family: var(--ui);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gold-deep);
+    padding-top: 0.65rem;
+    flex: none;
+}
+.row-title {
+    font-family: var(--display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(1.45rem, 2.6vw, 2.3rem);
+    line-height: 1.02;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+}
+
+.chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 0.6rem;
+    padding-top: 0.5rem;
+}
+.chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    max-width: 100%;
+    padding: 0.55rem 0.95rem 0.55rem 0.75rem;
+    border: 1px solid var(--hair-soft);
+    border-radius: 2px;
+    background: var(--ink-2);
+    color: var(--bone);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    transition: border-color 0.25s ease, color 0.25s ease,
+        background 0.25s ease, transform 0.25s ease;
+}
+.chips li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    flex: none;
+    background: var(--gold);
+    transform: rotate(45deg);
+}
+.row:hover .chips li {
+    border-color: var(--hair);
+}
+.chips li:hover {
+    border-color: var(--gold);
+    color: var(--gold-hi);
+    background: var(--ink-3);
+    transform: translateY(-2px);
+}
+
+/* ── contact ─────────────────────────────────────────────────────────── */
+.contact {
+    background: linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
+    border-top: 1px solid var(--hair-soft);
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: start;
+}
+.contact-rail {
+    position: sticky;
+    top: calc(var(--head-h) + 3rem);
+}
+.contact-rail .section-title {
+    margin-block: 1.25rem 1.25rem;
+}
+.contact-rail p {
+    color: var(--clay);
+    max-width: 34ch;
+    text-wrap: pretty;
+}
+.rail-mail {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hair-soft);
+    text-decoration: none;
+    color: var(--bone);
+    max-width: 100%;
+}
+.rail-mail span {
+    color: var(--gold);
+}
+.rail-mail b {
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 2px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+.rail-mail:hover b {
+    color: var(--gold-hi);
+    border-color: var(--gold);
+}
+
+.panel {
+    background: var(--ink-3);
+    border: 1px solid var(--hair-soft);
+    border-radius: 6px;
+    padding: clamp(1.5rem, 3.5vw, 2.75rem);
+    box-shadow: var(--shadow);
+}
+
+.form {
+    display: grid;
+    gap: 1.35rem;
+}
+.pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.35rem;
+}
+.field {
+    display: grid;
+    gap: 0.5rem;
+}
+.field label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clay);
+    transition: color 0.2s ease;
+}
+.field:focus-within label {
+    color: var(--gold);
+}
+.field .optional {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    color: var(--clay-dim);
+}
+.field input,
+.field textarea {
+    width: 100%;
+    font-family: var(--ui);
+    font-size: 1rem;
+    color: var(--bone);
+    background: var(--ink);
+    border: 1px solid var(--hair-soft);
+    border-radius: 3px;
+    padding: 0.85rem 0.95rem;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.field textarea {
+    min-height: 148px;
+    resize: vertical;
+    line-height: 1.55;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+    color: var(--clay-dim);
+}
+.field input:hover,
+.field textarea:hover {
+    border-color: var(--hair);
+}
+.field input:focus,
+.field textarea:focus {
+    border-color: var(--gold);
+    background: var(--ink-2);
+    outline: 2px solid var(--gold-hi);
+    outline-offset: 2px;
+}
+
+.form .btn {
+    width: 100%;
+    padding-block: 1.05rem;
+}
+.form .btn[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.status {
+    display: none;
+    border-left: 2px solid var(--clay-dim);
+    background: var(--ink-2);
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--bone);
+    overflow-wrap: anywhere;
+}
+.status[data-state='success'],
+.status[data-state='error'] {
+    display: block;
+}
+.status[data-state='success'] {
+    border-left-color: var(--ok);
+}
+.status[data-state='error'] {
+    border-left-color: var(--bad);
+}
+.status b {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+}
+.status[data-state='success'] b {
+    color: var(--ok);
+}
+.status[data-state='error'] b {
+    color: var(--bad);
+}
+
+/* ── footer ──────────────────────────────────────────────────────────── */
+.site-foot {
+    border-top: 1px solid var(--hair);
+    background: var(--ink);
+    padding-block: clamp(3rem, 7vh, 4.5rem) clamp(2rem, 5vh, 3rem);
+}
+.foot-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+}
+.foot-brand {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+.foot-brand .mark {
+    width: 46px;
+    height: 46px;
+    flex: none;
+    opacity: 0.9;
+}
+.foot-word {
+    font-family: var(--display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--bone);
+}
+.foot-word em {
+    font-style: normal;
+    color: var(--gold);
+}
+.foot-brand p {
+    margin-top: 0.6rem;
+    color: var(--clay);
+    font-size: 0.95rem;
+}
+.foot-links {
+    display: grid;
+    gap: 0.7rem;
+    justify-items: start;
+}
+.foot-links a {
+    color: var(--clay);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+.foot-links a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--hair);
+}
+.foot-base {
+    margin-top: clamp(2rem, 5vh, 3rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--hair-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    justify-content: space-between;
+    color: var(--clay-dim);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+/* ── motion (opt-in, decorative only) ────────────────────────────────── */
+.motion-ok .rule-draw {
+    transform: scaleX(0);
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.motion-ok .rule-draw.in {
+    transform: scaleX(1);
+}
+.motion-ok .row {
+    transform: translateY(14px);
+    transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+        background 0.35s ease;
+}
+.motion-ok .row.in {
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .motion-ok .row,
+    .motion-ok .rule-draw {
+        transform: none;
+    }
+}
+
+/* ── responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 1020px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    .contact-rail {
+        position: static;
+    }
+}
+
+@media (max-width: 860px) {
+    :root {
+        --head-h: 60px;
+    }
+    .nav {
+        display: none;
+    }
+    .menu-btn {
+        display: block;
+    }
+    .menu-panel.is-open {
+        display: block;
+    }
+    .hero {
+        min-height: 0;
+        padding-block: clamp(2.5rem, 8vh, 4rem) 0;
+    }
+    .hero-mark {
+        width: 78vw;
+        right: -22vw;
+        top: auto;
+        bottom: 4rem;
+        translate: none;
+        opacity: 0.1;
+    }
+    .deck {
+        max-width: 40ch;
+    }
+    .spec {
+        grid-template-columns: 1fr;
+    }
+    .spec > div + div {
+        padding-left: 0;
+    }
+    .row {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    .row-id .idx {
+        padding-top: 0.35rem;
+    }
+    .section-head {
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+    .foot-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .pair {
+        grid-template-columns: 1fr;
+    }
+    .hero-actions .btn {
+        width: 100%;
+    }
+    .brand-word {
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+    }
+}
+        </style>
+    </head>
+    <body>
+        <div class="grain" aria-hidden="true"></div>
+        <a class="skip" href="#main">Skip to content</a>
+
+        <header class="site-head" id="top">
+            <div class="wrap head-in">
+                <a class="brand" href="#top" aria-label="Grizzly Enterprise — top of page">
+                    <span class="mark" aria-hidden="true"></span>
+                    <span class="brand-word"><b>GRIZZLY</b> ENTERPRISE</span>
+                </a>
+
+                <nav class="nav" id="primary-nav" aria-label="Primary">
+                    <a href="#offer" data-spy="offer">Offer</a>
+                    <a href="#contact" data-spy="contact">Contact</a>
+                    <a class="nav-mail" href="mailto:grizzlydashenterprise@gmail.com"
+                        >grizzlydashenterprise@gmail.com</a
+                    >
+                    <a class="btn" href="#contact">Start a conversation</a>
+                </nav>
+
+                <button
+                    class="menu-btn"
+                    id="menuBtn"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="menuPanel"
+                    aria-label="Menu"
+                >
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+            <div class="menu-panel" id="menuPanel" hidden>
+                <div class="wrap">
+                    <a href="#offer">Offer</a>
+                    <a href="#contact">Contact</a>
+                    <a href="mailto:grizzlydashenterprise@gmail.com">Email us</a>
+                    <a class="btn" href="#contact">Start a conversation</a>
+                </div>
+            </div>
+        </header>
+
+        <main id="main" tabindex="-1">
+            <!-- HERO — asymmetric masthead, CTA path, spec strip -->
+            <section class="hero">
+                <span class="hero-mark" aria-hidden="true"></span>
+                <div class="wrap hero-in">
+                    <p class="eyebrow micro">
+                        <span class="rule rule-draw" aria-hidden="true"></span>
+                        <span>Sales Training &amp; Life Coaching</span>
+                    </p>
+
+                    <h1 class="masthead">
+                        GRIZZLY
+                        <span class="ent">ENTERPRISE</span>
+                    </h1>
+
+                    <p class="deck">
+                        <strong>Transforming performance through expert guidance</strong>
+                        — for teams that sell and the people who lead them.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-lg" href="#contact">Start a conversation</a>
+                        <a class="btn btn-ghost btn-lg" href="#offer">See what we offer</a>
+                    </div>
+
+                    <div class="spec">
+                        <div>
+                            <b class="num">01</b>
+                            <p>Sales training, consumer to government</p>
+                        </div>
+                        <div>
+                            <b class="num">02</b>
+                            <p>Client experience, in every channel</p>
+                        </div>
+                        <div>
+                            <b class="num">03</b>
+                            <p>Coaching for personal performance</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OFFER — numbered ledger rows, not three equal cards -->
+            <section class="section" id="offer" aria-labelledby="offer-title">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2 class="section-title" id="offer-title">
+                            What We <em>Offer</em>
+                        </h2>
+                        <p class="section-note micro">Three practices</p>
+                    </div>
+
+                    <div class="ledger">
+                        <article class="row">
+                            <div class="row-id">
+                                <span class="idx num" aria-hidden="true">01</span>
+                                <h3 class="row-title">TOP PERFORMING SALES TRAINING</h3>
+                            </div>
+                            <ul class="chips">
+                                <li>B2CONSUMER</li>
+                                <li>B2BUSINESS</li>
+                                <li>B2GOVERNMENT</li>
+                            </ul>
+                        </article>
+
+                        <article class="row">
+                            <div class="row-id">
+                                <span class="idx num" aria-hidden="true">02</span>
+                                <h3 class="row-title">MAXIMIZE CLIENT EXPERIENCE</h3>
+                            </div>
+                            <ul class="chips">
+                                <li>IN PERSON</li>
+                                <li>CONFERENCE/TRADESHOW</li>
+                                <li>VIRTUAL</li>
+                                <li>PHONE</li>
+                            </ul>
+                        </article>
+
+                        <article class="row">
+                            <div class="row-id">
+                                <span class="idx num" aria-hidden="true">03</span>
+                                <h3 class="row-title">LIFE COACHING</h3>
+                            </div>
+                            <ul class="chips">
+                                <li>PERSONAL DEVELOPMENT</li>
+                                <li>PERFORMANCE TRANSFORMATION</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT — split rail + panel, no 100vh dead gap -->
+            <section class="section contact" id="contact" aria-labelledby="contact-title">
+                <div class="wrap contact-grid">
+                    <div class="contact-rail">
+                        <p class="micro">
+                            <span class="rule rule-draw" aria-hidden="true"
+                                style="width: 3rem; display: inline-block; vertical-align: middle; margin-right: 0.75rem"
+                            ></span>
+                            Get in touch
+                        </p>
+                        <h2 class="section-title" id="contact-title">
+                            Contact <em>Us</em>
+                        </h2>
+                        <p>
+                            Tell us who you are training, where they sell, and what
+                            you want to change. We read every message and reply
+                            ourselves.
+                        </p>
+                        <a class="rail-mail" href="mailto:grizzlydashenterprise@gmail.com">
+                            <span class="micro">Email</span>
+                            <b>grizzlydashenterprise@gmail.com</b>
+                        </a>
+                    </div>
+
+                    <div class="panel">
+                        <form
+                            class="form"
+                            id="contactForm"
+                            action="https://formspree.io/f/mqanzkpa"
+                            method="POST"
+                            novalidate
+                        >
+                            <div class="pair">
+                                <div class="field">
+                                    <label for="name">Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Your name"
+                                        autocomplete="name"
+                                        required
+                                    />
+                                </div>
+                                <div class="field">
+                                    <label for="email">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="your.email@example.com"
+                                        autocomplete="email"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="phone"
+                                    >Phone
+                                    <span class="optional">(optional)</span></label
+                                >
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Your phone number"
+                                    autocomplete="tel"
+                                />
+                            </div>
+
+                            <div class="field">
+                                <label for="message">Message</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    placeholder="Your message..."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <button type="submit" class="btn" id="submitBtn">
+                                Send Message
+                            </button>
+
+                            <p
+                                class="status"
+                                id="formStatus"
+                                role="status"
+                                aria-live="polite"
+                            ></p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-foot">
+            <div class="wrap">
+                <div class="foot-grid">
+                    <div class="foot-brand">
+                        <span class="mark" aria-hidden="true"></span>
+                        <div>
+                            <p class="foot-word"><em>GRIZZLY</em> ENTERPRISE</p>
+                            <p>Sales Training &amp; Life Coaching</p>
+                        </div>
+                    </div>
+                    <nav class="foot-links" aria-label="Footer">
+                        <a href="#top">Back to top</a>
+                        <a href="#offer">What We Offer</a>
+                        <a href="#contact">Contact Us</a>
+                        <a href="mailto:grizzlydashenterprise@gmail.com"
+                            >grizzlydashenterprise@gmail.com</a
+                        >
+                    </nav>
+                </div>
+                <div class="foot-base">
+                    <span>Transforming performance through expert guidance</span>
+                    <span>grizzly-enterprise.com</span>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+/* ── form: contract preserved (POST → formspree, fetch + Accept json) ── */
+const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+const submitBtn = document.getElementById('submitBtn');
+
+const setStatus = (state, label, text) => {
+    formStatus.dataset.state = state;
+    formStatus.innerHTML = '';
+    const b = document.createElement('b');
+    b.textContent = label;
+    formStatus.append(b, document.createTextNode(text));
+};
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!contactForm.checkValidity()) {
+        setStatus(
+            'error',
+            'Not sent',
+            'Please fill in your name, a valid email address, and a message.'
+        );
+        contactForm.reportValidity();
+        return;
+    }
+
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+    formStatus.dataset.state = '';
+
+    try {
+        const formData = new FormData(contactForm);
+
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            setStatus(
+                'success',
+                'Sent',
+                'Thank you — your message has been sent. We will reply to the email address you gave.'
+            );
+            contactForm.reset();
+        } else {
+            if (data.errors) {
+                const errorMessages = data.errors
+                    .map((err) => err.message || err)
+                    .join(', ');
+                throw new Error(`Validation errors: ${errorMessages}`);
+            }
+            throw new Error(data.error || 'Form submission failed');
+        }
+    } catch (error) {
+        const errorMessage =
+            error.message && error.message.includes('Validation errors')
+                ? error.message
+                : 'We could not send your message. Please try again, or email us directly at grizzlydashenterprise@gmail.com.';
+        setStatus('error', 'Not sent', errorMessage);
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+});
+
+/* ── mobile disclosure ─────────────────────────────────────────────── */
+const menuBtn = document.getElementById('menuBtn');
+const menuPanel = document.getElementById('menuPanel');
+
+const closeMenu = () => {
+    menuBtn.setAttribute('aria-expanded', 'false');
+    menuPanel.classList.remove('is-open');
+    menuPanel.hidden = true;
+};
+
+menuBtn.addEventListener('click', () => {
+    const open = menuBtn.getAttribute('aria-expanded') === 'true';
+    if (open) {
+        closeMenu();
+    } else {
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuPanel.hidden = false;
+        menuPanel.classList.add('is-open');
+    }
+});
+
+menuPanel.addEventListener('click', (e) => {
+    if (e.target.closest('a')) closeMenu();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        menuBtn.focus();
+    }
+});
+
+/* ── header state on scroll ────────────────────────────────────────── */
+const head = document.querySelector('.site-head');
+const onScroll = () => head.classList.toggle('is-stuck', window.scrollY > 8);
+onScroll();
+window.addEventListener('scroll', onScroll, { passive: true });
+
+/* ── scroll-spy: marks the current section in the nav ──────────────── */
+const spyLinks = new Map(
+    [...document.querySelectorAll('.nav a[data-spy]')].map((a) => [
+        a.dataset.spy,
+        a,
+    ])
+);
+if ('IntersectionObserver' in window && spyLinks.size) {
+    const spy = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const link = spyLinks.get(entry.target.id);
+                if (!link) return;
+                if (entry.isIntersecting) {
+                    spyLinks.forEach((l) => l.removeAttribute('aria-current'));
+                    link.setAttribute('aria-current', 'true');
+                }
+            });
+        },
+        { rootMargin: '-45% 0px -50% 0px' }
+    );
+    spyLinks.forEach((_, id) => {
+        const section = document.getElementById(id);
+        if (section) spy.observe(section);
+    });
+}
+
+/* ── decorative reveals: opt-in, never hides readable content ──────── */
+const motionOK =
+    !window.matchMedia ||
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (motionOK && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('motion-ok');
+    const reveal = new IntersectionObserver(
+        (entries, obs) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('in');
+                obs.unobserve(entry.target);
+            });
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.15 }
+    );
+    const targets = document.querySelectorAll('.rule-draw, .row');
+    targets.forEach((el) => reveal.observe(el));
+    // safety net: if anything is still waiting, settle it.
+    window.setTimeout(
+        () => targets.forEach((el) => el.classList.add('in')),
+        2000
+    );
+}
+        </script>
+    </body>
+</html>

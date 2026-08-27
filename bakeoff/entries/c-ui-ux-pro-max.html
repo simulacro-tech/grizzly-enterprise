@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  GRIZZLY ENTERPRISE — bake-off entry C  ·  skill: ui-ux-pro-max
+  Direction: "Gilded Ledger" — dark editorial masthead. Gold-on-black kept as
+  the identity family; everything else rebuilt as a left-aligned, ruled,
+  magazine-style page instead of three centred blocks.
+  ----------------------------------------------------------------------------
+  DESIGN CALLS
+  1. Style route (ui-ux-pro-max --design-system, variance 8 / motion 4 /
+     density 4): "Premium black + gold accent" palette profile, blended with
+     the Exaggerated-Minimalism + editorial-grid style records. Retuned golds:
+     #E4B95B primary (10.7:1 on shell), #A8802B deep, bone #F2EDE3 for reading
+     text — the base's flat #d4af37 + #c0c0c0 silver read cheap on black.
+  2. Type system (typography domain, "Magazine Style" pairing + the mono label
+     layer from the monochrome-editorial record): Libre Bodoni display /
+     Public Sans UI+body / JetBrains Mono for indices, eyebrows and chips.
+     Scale contrast is real: 11px mono labels against a ~150px masthead.
+  3. STRUCTURE 1 — sticky masthead nav (logo lockup, three anchors, a gold CTA)
+     with a real <button aria-expanded> disclosure on mobile. Base had none.
+  4. STRUCTURE 2 — asymmetric hero: left-aligned stacked wordmark on a visible
+     column grid, hairline rules, a two-button CTA path, and the bear mark
+     re-used as a giant gold CSS-masked motif bleeding off the right edge.
+  5. STRUCTURE 3 — "What We Offer" rebuilt from 3 glass cards into a numbered
+     ledger: full-width ruled rows of [index / display title / wrapping chips].
+     Cards can no longer disagree about height, and no chip can be clipped.
+  6. STRUCTURE 4 — full-bleed statement band carrying "Transforming performance
+     through expert guidance" at display scale, giving the page a rhythm
+     (masthead → index → statement → contact) the base did not have.
+  7. STRUCTURE 5 — two-column contact: editorial column (sticky) + form panel,
+     which kills the base's 100vh dead gap; plus a designed footer with the
+     business's own email — the only contact fact that exists in the source.
+  8. FABRICATION GATE — no testimonials, logos, stats, years, prices, phone
+     numbers or addresses invented. Added copy is descriptive only. The email
+     grizzlydashenterprise@gmail.com and the domain come from the base itself.
+  9. FIXED FROM BASE — color-scheme:dark + theme-color; CONFERENCE/TRADESHOW
+     overflow; dead .about-* CSS; both !important colour rules; the
+     top:-200vh/100vw bleed hack; contact 100vh dead gap; unequal card rhythm;
+     no reduced-motion handling; unannounced form status; no nav/footer/CTA.
+ 10. MOTION — entrance-only, ≤0.35s stagger, wrapped in
+     prefers-reduced-motion: no-preference. Nothing on the page needs an
+     animation or JS to become readable; no scroll-driven reveals.
+  ============================================================================
+-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#0B0A09" />
+        <meta
+            name="description"
+            content="Grizzly Enterprise - Sales training and life coaching"
+        />
+        <title>Grizzly Enterprise</title>
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;500;600;700&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Shell */
+    --shell: #0b0a09;
+    --surface: #131110;
+    --surface-2: #14110b;
+    --hairline: rgba(228, 185, 91, 0.16);
+    --hairline-soft: rgba(255, 255, 255, 0.08);
+
+    /* Gold family (identity anchor, retuned) */
+    --gold: #e4b95b;
+    --gold-deep: #a8802b;
+    --gold-08: rgba(228, 185, 91, 0.08);
+    --gold-14: rgba(228, 185, 91, 0.14);
+    --gold-28: rgba(228, 185, 91, 0.28);
+
+    /* Text */
+    --bone: #f2ede3;
+    --bone-2: #c9c2b6;
+    --muted: #b5aea3;
+    --dim: #8f8880;
+
+    /* Status */
+    --ok: #7fd39a;
+    --ok-bg: rgba(52, 168, 100, 0.12);
+    --bad: #f2a49a;
+    --bad-bg: rgba(214, 84, 66, 0.14);
+
+    /* Type */
+    --display: 'Libre Bodoni', 'Didot', 'Bodoni MT', Georgia, serif;
+    --sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Helvetica, Arial, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas,
+        monospace;
+
+    /* Layout */
+    --gutter: clamp(1.25rem, 4vw, 4rem);
+    --maxw: 1280px;
+    --header-h: 72px;
+
+    /* Logo as a maskable motif */
+    --bear: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K');
+}
+
+html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--bone-2);
+    background: var(--shell);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: var(--gold);
+    color: var(--shell);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ---------- Focus (gate 6) ---------- */
+:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 100;
+    background: var(--gold);
+    color: var(--shell);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.25rem;
+    text-decoration: none;
+    transition: top 0.18s ease;
+}
+
+.skip-link:focus {
+    top: 0.75rem;
+}
+
+/* ---------- Shared shell ---------- */
+.wrap {
+    width: 100%;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+.eyebrow {
+    font-family: var(--mono);
+    font-size: clamp(0.66rem, 1.4vw, 0.75rem);
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.eyebrow::after {
+    content: '';
+    flex: 1 1 auto;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold-28), transparent);
+    max-width: 240px;
+}
+
+.section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-block: clamp(3.5rem, 8vw, 6rem) clamp(2rem, 4vw, 3rem);
+}
+
+.section-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5.6vw, 4.1rem);
+    line-height: 1.02;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    color: var(--bone);
+}
+
+.section-title em {
+    font-style: normal;
+    color: var(--gold);
+}
+
+.section-lede {
+    max-width: 46ch;
+    color: var(--muted);
+    font-size: clamp(0.98rem, 1.6vw, 1.075rem);
+}
+
+/* ---------- Header ---------- */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(11, 10, 9, 0.86);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--hairline);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    min-height: var(--header-h);
+}
+
+.lockup {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    margin-right: auto;
+}
+
+.lockup img {
+    width: 34px;
+    height: 34px;
+    flex: none;
+}
+
+.lockup-text {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bone);
+    line-height: 1.25;
+}
+
+.lockup-text span {
+    display: block;
+    color: var(--gold);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.4vw, 2.25rem);
+}
+
+.nav a {
+    font-family: var(--mono);
+    font-size: 0.73rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.4rem 0;
+    position: relative;
+    transition: color 0.18s ease;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: right 0.24s ease;
+}
+
+.nav a:hover {
+    color: var(--bone);
+}
+
+.nav a:hover::after {
+    right: 0;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.73rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 1.4rem;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease,
+        border-color 0.18s ease, transform 0.18s ease;
+}
+
+.btn-gold {
+    background: var(--gold);
+    color: #0b0a09;
+    font-weight: 500;
+}
+
+.btn-gold:hover {
+    background: #f2d287;
+    transform: translateY(-1px);
+}
+
+.btn-ghost {
+    border-color: var(--gold-28);
+    color: var(--bone);
+    background: transparent;
+}
+
+.btn-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.btn svg {
+    width: 12px;
+    height: 12px;
+    flex: none;
+}
+
+/* the CTA is an <a> inside .nav — restate the button colours at nav
+   specificity so the gold fill never inherits the muted link colour */
+.nav a.btn-gold,
+.nav a.btn-gold:hover {
+    color: #0b0a09;
+}
+
+.nav a.btn::after {
+    display: none;
+}
+
+.header-cta {
+    padding: 0.7rem 1.1rem;
+}
+
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--gold-28);
+    border-radius: 2px;
+    color: var(--bone);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.85rem;
+    cursor: pointer;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-toggle:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.nav-toggle .bars {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.nav-toggle .bars i {
+    display: block;
+    width: 14px;
+    height: 1.5px;
+    background: currentColor;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--hairline);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+            120% 90% at 12% -10%,
+            rgba(228, 185, 91, 0.13) 0%,
+            transparent 55%
+        ),
+        radial-gradient(
+            80% 60% at 92% 8%,
+            rgba(168, 128, 43, 0.16) 0%,
+            transparent 60%
+        );
+    pointer-events: none;
+}
+
+/* visible editorial column grid */
+.rails {
+    position: absolute;
+    inset: 0;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    pointer-events: none;
+}
+
+.rails span {
+    border-left: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.rails span:first-child {
+    border-left-color: var(--gold-14);
+}
+
+.bear-motif {
+    position: absolute;
+    top: 50%;
+    right: -8%;
+    translate: 0 -50%;
+    width: min(52vw, 640px);
+    aspect-ratio: 1;
+    background: linear-gradient(
+        155deg,
+        var(--gold) 0%,
+        var(--gold-deep) 55%,
+        rgba(168, 128, 43, 0.2) 100%
+    );
+    -webkit-mask-image: var(--bear);
+    mask-image: var(--bear);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    opacity: 0.13;
+    pointer-events: none;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(3rem, 10vh, 6.5rem) clamp(2rem, 5vh, 3.25rem);
+}
+
+.hero-eyebrow {
+    margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+.wordmark {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 10.4vw, 9.4rem);
+    line-height: 0.88;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    color: var(--gold);
+    max-width: 100%;
+}
+
+.wordmark span {
+    display: block;
+}
+
+.wordmark .w2 {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--gold);
+    text-stroke: 1.5px var(--gold);
+    padding-left: 0.06em;
+}
+
+.hero-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.75rem, 4vw, 2.75rem);
+    margin-top: clamp(1.75rem, 4vw, 2.75rem);
+    max-width: 62ch;
+}
+
+.hero-lede {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--bone);
+    border-left: 1px solid var(--gold-28);
+    padding-left: clamp(1rem, 2vw, 1.5rem);
+    max-width: 42ch;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+}
+
+.hero-foot {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid var(--hairline);
+    padding-block: 1.1rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+.hero-foot strong {
+    color: var(--muted);
+    font-weight: 400;
+}
+
+/* ---------- Offerings ledger ---------- */
+.ledger {
+    border-top: 1px solid var(--hairline-soft);
+}
+
+.ledger-row {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1.05fr) minmax(0, 1.35fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    border-bottom: 1px solid var(--hairline-soft);
+    transition: background 0.22s ease;
+}
+
+.ledger-row:hover {
+    background: linear-gradient(
+        90deg,
+        var(--gold-08) 0%,
+        rgba(228, 185, 91, 0.02) 60%,
+        transparent 100%
+    );
+}
+
+.idx {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    color: var(--gold-deep);
+    padding-top: 0.6rem;
+    transition: color 0.22s ease;
+}
+
+.ledger-row:hover .idx {
+    color: var(--gold);
+}
+
+.offer-title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--bone);
+    text-wrap: balance;
+}
+
+.chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-top: 0.35rem;
+}
+
+.chips li {
+    font-family: var(--mono);
+    font-size: clamp(0.66rem, 1.5vw, 0.73rem);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--bone-2);
+    border: 1px solid var(--gold-28);
+    border-radius: 2px;
+    padding: 0.55rem 0.85rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color 0.22s ease, color 0.22s ease,
+        background 0.22s ease;
+}
+
+.ledger-row:hover .chips li {
+    border-color: var(--gold);
+    color: var(--bone);
+    background: var(--gold-08);
+}
+
+/* ---------- Statement band ---------- */
+.statement {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface-2);
+    border-block: 1px solid var(--hairline);
+    margin-top: clamp(3.5rem, 8vw, 6rem);
+}
+
+.statement::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        90% 140% at 82% 50%,
+        rgba(228, 185, 91, 0.1) 0%,
+        transparent 60%
+    );
+    pointer-events: none;
+}
+
+.statement-inner {
+    position: relative;
+    padding-block: clamp(3.5rem, 9vw, 6.5rem);
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.statement-text {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(1.85rem, 5.2vw, 4rem);
+    line-height: 1.06;
+    letter-spacing: 0.002em;
+    color: var(--bone);
+    max-width: 20ch;
+    text-wrap: balance;
+}
+
+.statement-rule {
+    width: clamp(120px, 22vw, 280px);
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* ---------- Contact ---------- */
+.contact {
+    padding-block: clamp(3.5rem, 8vw, 6rem) clamp(3.5rem, 8vw, 6rem);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+}
+
+.contact-aside {
+    position: sticky;
+    top: calc(var(--header-h) + 2.5rem);
+    display: grid;
+    gap: 1.5rem;
+}
+
+.contact-aside .section-title {
+    font-size: clamp(2.1rem, 4.6vw, 3.5rem);
+}
+
+.direct {
+    display: grid;
+    gap: 0.45rem;
+    border-top: 1px solid var(--hairline);
+    padding-top: 1.25rem;
+}
+
+.direct dt {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+.direct dd a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-28);
+    font-size: 0.98rem;
+    overflow-wrap: anywhere;
+    transition: border-color 0.18s ease;
+}
+
+.direct dd a:hover {
+    border-bottom-color: var(--gold);
+}
+
+.form-panel {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    padding: clamp(1.5rem, 3.5vw, 2.75rem);
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.field label .optional {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: var(--dim);
+}
+
+.field input,
+.field textarea {
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--bone);
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--hairline-soft);
+    border-radius: 2px;
+    padding: 0.85rem 0.95rem;
+    width: 100%;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.field textarea {
+    resize: vertical;
+    min-height: 148px;
+    line-height: 1.55;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+    color: var(--dim);
+}
+
+.field input:hover,
+.field textarea:hover {
+    border-color: var(--gold-28);
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.06);
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+}
+
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.25rem;
+}
+
+.submit {
+    padding: 1.05rem 2.2rem;
+    font-size: 0.78rem;
+}
+
+.submit[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.form-note {
+    flex: 1 1 200px;
+    font-size: 0.85rem;
+    color: var(--dim);
+    max-width: 32ch;
+}
+
+.form-status {
+    grid-column: 1 / -1;
+    display: none;
+    gap: 0.7rem;
+    align-items: flex-start;
+    border-radius: 2px;
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.form-status.is-success,
+.form-status.is-error {
+    display: flex;
+}
+
+.form-status .tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    flex: none;
+    padding-top: 0.16rem;
+}
+
+.form-status.is-success {
+    background: var(--ok-bg);
+    border: 1px solid rgba(127, 211, 154, 0.4);
+    color: var(--ok);
+}
+
+.form-status.is-error {
+    background: var(--bad-bg);
+    border: 1px solid rgba(242, 164, 154, 0.4);
+    color: var(--bad);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--hairline);
+    background: linear-gradient(180deg, var(--shell) 0%, #100e0c 100%);
+}
+
+.footer-motif {
+    position: absolute;
+    right: -4%;
+    bottom: -30%;
+    width: min(38vw, 380px);
+    aspect-ratio: 1;
+    background: var(--gold);
+    -webkit-mask-image: var(--bear);
+    mask-image: var(--bear);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0.07;
+    pointer-events: none;
+}
+
+.footer-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2rem);
+}
+
+.footer-brand {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+}
+
+.footer-brand img {
+    width: 46px;
+    height: 46px;
+}
+
+.footer-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1.1;
+}
+
+.footer-tag {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 30ch;
+}
+
+.footer-col h2 {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 0.9rem;
+}
+
+.footer-col ul {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+}
+
+.footer-col a {
+    color: var(--bone-2);
+    text-decoration: none;
+    font-size: 0.95rem;
+    overflow-wrap: anywhere;
+    border-bottom: 1px solid transparent;
+    transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.footer-col a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold-28);
+}
+
+.footer-bar {
+    position: relative;
+    border-top: 1px solid var(--hairline-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    justify-content: space-between;
+    padding-block: 1.25rem 1.75rem;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+/* ---------- Anchors under sticky header ---------- */
+section[id] {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1020px) {
+    .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .contact-aside {
+        position: static;
+    }
+
+    .footer-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 860px) {
+    :root {
+        --header-h: 64px;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .nav {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: #0e0d0b;
+        border-bottom: 1px solid var(--hairline);
+        padding: 0.5rem var(--gutter) 1.25rem;
+    }
+
+    .nav.is-open {
+        display: flex;
+    }
+
+    .nav a {
+        padding: 0.9rem 0;
+        border-bottom: 1px solid var(--hairline-soft);
+        font-size: 0.8rem;
+    }
+
+    .nav a::after {
+        display: none;
+    }
+
+    .nav .header-cta {
+        margin-top: 1rem;
+        justify-content: space-between;
+    }
+
+    .ledger-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.9rem;
+    }
+
+    .idx {
+        padding-top: 0;
+    }
+
+    .rails {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bear-motif {
+        top: auto;
+        bottom: -12%;
+        right: -22%;
+        translate: none;
+        width: min(88vw, 460px);
+        opacity: 0.1;
+    }
+
+    .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .statement-text {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 560px) {
+    body {
+        font-size: 16px;
+    }
+
+    .lockup-text {
+        font-size: 0.62rem;
+    }
+
+    .hero-lede {
+        max-width: 100%;
+    }
+
+    .footer-inner {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ---------- Motion (gate 7): entrance only, never required for legibility ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .anim {
+        animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+
+    .d1 {
+        animation-delay: 0.06s;
+    }
+    .d2 {
+        animation-delay: 0.14s;
+    }
+    .d3 {
+        animation-delay: 0.22s;
+    }
+    .d4 {
+        animation-delay: 0.3s;
+    }
+
+    .bear-motif {
+        animation: motif 1.1s ease-out both;
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes motif {
+    from {
+        opacity: 0;
+        transform: scale(1.06);
+    }
+    to {
+        opacity: 0.13;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+        </style>
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to content</a>
+
+        <header class="site-header">
+            <div class="wrap header-inner">
+                <a class="lockup" href="#top">
+                    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K" alt="Grizzly Enterprise logo" />
+                    <span class="lockup-text"
+                        >GRIZZLY<span>ENTERPRISE</span></span
+                    >
+                </a>
+
+                <button
+                    class="nav-toggle"
+                    id="navToggle"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="siteNav"
+                >
+                    <span class="bars" aria-hidden="true"
+                        ><i></i><i></i><i></i
+                    ></span>
+                    Menu
+                </button>
+
+                <nav class="nav" id="siteNav" aria-label="Primary">
+                    <a href="#offerings">Offerings</a>
+                    <a href="#approach">The Work</a>
+                    <a href="#contact">Contact</a>
+                    <a class="btn btn-gold header-cta" href="#contact"
+                        >Get in touch
+                        <svg viewBox="0 0 12 12" aria-hidden="true" fill="none">
+                            <path
+                                d="M1 6h9M6.5 2 10.5 6l-4 4"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                            />
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <main id="main">
+            <section class="hero" id="top">
+                <div class="rails" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span
+                    ><span></span><span></span>
+                </div>
+                <div class="bear-motif" aria-hidden="true"></div>
+
+                <div class="wrap hero-inner">
+                    <p class="eyebrow hero-eyebrow anim d1">
+                        Sales Training & Life Coaching
+                    </p>
+
+                    <h1 class="wordmark anim d2">
+                        <span class="w1">GRIZZLY</span>
+                        <span class="w2">ENTERPRISE</span>
+                    </h1>
+
+                    <div class="hero-body">
+                        <p class="hero-lede anim d3">
+                            Expert guidance for the people who sell and the
+                            people who lead — built around how your team
+                            actually works.
+                        </p>
+                        <div class="hero-actions anim d4">
+                            <a class="btn btn-gold" href="#contact"
+                                >Start the conversation
+                                <svg
+                                    viewBox="0 0 12 12"
+                                    aria-hidden="true"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M1 6h9M6.5 2 10.5 6l-4 4"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                    />
+                                </svg>
+                            </a>
+                            <a class="btn btn-ghost" href="#offerings"
+                                >See what we offer</a
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wrap">
+                    <div class="hero-foot">
+                        <span>Sales training <strong>·</strong> Life coaching</span>
+                        <span>Scroll for the full index ↓</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="offerings">
+                <div class="wrap">
+                    <div class="section-head">
+                        <p class="eyebrow">01 — The index</p>
+                        <h2 class="section-title">What We Offer</h2>
+                        <p class="section-lede">
+                            Three lines of work, delivered in the formats that
+                            fit the room you are selling or coaching in.
+                        </p>
+                    </div>
+
+                    <div class="ledger">
+                        <article class="ledger-row">
+                            <p class="idx" aria-hidden="true">01</p>
+                            <h3 class="offer-title">
+                                TOP PERFORMING SALES TRAINING
+                            </h3>
+                            <ul class="chips">
+                                <li>B2CONSUMER</li>
+                                <li>B2BUSINESS</li>
+                                <li>B2GOVERNMENT</li>
+                            </ul>
+                        </article>
+
+                        <article class="ledger-row">
+                            <p class="idx" aria-hidden="true">02</p>
+                            <h3 class="offer-title">
+                                MAXIMIZE CLIENT EXPERIENCE
+                            </h3>
+                            <ul class="chips">
+                                <li>IN PERSON</li>
+                                <li>CONFERENCE/TRADESHOW</li>
+                                <li>VIRTUAL</li>
+                                <li>PHONE</li>
+                            </ul>
+                        </article>
+
+                        <article class="ledger-row">
+                            <p class="idx" aria-hidden="true">03</p>
+                            <h3 class="offer-title">LIFE COACHING</h3>
+                            <ul class="chips">
+                                <li>PERSONAL DEVELOPMENT</li>
+                                <li>PERFORMANCE TRANSFORMATION</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="statement" id="approach">
+                <div class="wrap statement-inner">
+                    <p class="eyebrow">02 — The work</p>
+                    <p class="statement-text">Transforming performance through expert guidance</p>
+                    <p class="statement-rule" aria-hidden="true"></p>
+                    <p class="section-lede">
+                        The same standard applies whether the room is a sales
+                        floor, a tradeshow booth, a video call or a one-to-one
+                        conversation.
+                    </p>
+                </div>
+            </section>
+
+            <section class="contact" id="contact">
+                <div class="wrap contact-grid">
+                    <div class="contact-aside">
+                        <p class="eyebrow">03 — Get in touch</p>
+                        <h2 class="section-title">Contact Us</h2>
+                        <p class="section-lede">
+                            Tell us who you are training or coaching, and what
+                            you want to change. We will come back to you
+                            directly.
+                        </p>
+                        <dl class="direct">
+                            <dt>Direct email</dt>
+                            <dd>
+                                <a
+                                    href="mailto:grizzlydashenterprise@gmail.com"
+                                    >grizzlydashenterprise@gmail.com</a
+                                >
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="form-panel">
+                        <form
+                            class="form-grid"
+                            id="contactForm"
+                            action="https://formspree.io/f/mqanzkpa"
+                            method="POST"
+                        >
+                            <div class="field">
+                                <label for="name">Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    autocomplete="name"
+                                    placeholder="Your name"
+                                    required
+                                />
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    autocomplete="email"
+                                    placeholder="your.email@example.com"
+                                    required
+                                />
+                            </div>
+                            <div class="field full">
+                                <label for="phone"
+                                    >Phone
+                                    <span class="optional"
+                                        >(optional)</span
+                                    ></label
+                                >
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    autocomplete="tel"
+                                    placeholder="Your phone number"
+                                />
+                            </div>
+                            <div class="field full">
+                                <label for="message">Message</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    placeholder="Your message..."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button
+                                    type="submit"
+                                    class="btn btn-gold submit"
+                                    id="submitButton"
+                                >
+                                    Send Message
+                                </button>
+                                <p class="form-note">
+                                    Goes straight to the Grizzly Enterprise
+                                    inbox.
+                                </p>
+                            </div>
+
+                            <p
+                                class="form-status"
+                                id="formMessage"
+                                role="status"
+                                aria-live="polite"
+                                aria-atomic="true"
+                            ></p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-motif" aria-hidden="true"></div>
+            <div class="wrap footer-inner">
+                <div class="footer-brand">
+                    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K" alt="Grizzly Enterprise logo" />
+                    <p class="footer-name">Grizzly Enterprise</p>
+                    <p class="footer-tag">
+                        Sales training and life coaching, delivered in person,
+                        on stage, on screen and on the phone.
+                    </p>
+                </div>
+
+                <nav class="footer-col" aria-label="Footer">
+                    <h2>Sections</h2>
+                    <ul>
+                        <li><a href="#offerings">What We Offer</a></li>
+                        <li><a href="#approach">The Work</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </nav>
+
+                <div class="footer-col">
+                    <h2>Reach us</h2>
+                    <ul>
+                        <li>
+                            <a href="mailto:grizzlydashenterprise@gmail.com"
+                                >grizzlydashenterprise@gmail.com</a
+                            >
+                        </li>
+                        <li>
+                            <a href="https://grizzly-enterprise.com"
+                                >grizzly-enterprise.com</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="wrap footer-bar">
+                <span>© Grizzly Enterprise</span>
+                <span>Sales Training &amp; Life Coaching</span>
+            </div>
+        </footer>
+
+        <script>
+            /* ---- Mobile nav disclosure ---- */
+            const navToggle = document.getElementById('navToggle');
+            const siteNav = document.getElementById('siteNav');
+
+            const setNav = (open) => {
+                navToggle.setAttribute('aria-expanded', String(open));
+                siteNav.classList.toggle('is-open', open);
+            };
+
+            navToggle.addEventListener('click', () => {
+                setNav(navToggle.getAttribute('aria-expanded') !== 'true');
+            });
+
+            siteNav.addEventListener('click', (e) => {
+                if (e.target.closest('a')) setNav(false);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && siteNav.classList.contains('is-open')) {
+                    setNav(false);
+                    navToggle.focus();
+                }
+            });
+
+            /* ---- Contact form (contract unchanged) ---- */
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+            const submitButton = document.getElementById('submitButton');
+
+            const showStatus = (kind, tag, text) => {
+                formMessage.className = 'form-status is-' + kind;
+                formMessage.innerHTML = '';
+                const label = document.createElement('span');
+                label.className = 'tag';
+                label.textContent = tag;
+                const body = document.createElement('span');
+                body.textContent = text;
+                formMessage.append(label, body);
+            };
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const originalText = submitButton.textContent;
+                submitButton.textContent = 'Sending...';
+                submitButton.disabled = true;
+                formMessage.className = 'form-status';
+                formMessage.textContent = '';
+
+                try {
+                    const formData = new FormData(contactForm);
+
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            Accept: 'application/json',
+                        },
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showStatus(
+                            'success',
+                            'Sent',
+                            'Thank you! Your message has been sent successfully.'
+                        );
+                        contactForm.reset();
+                    } else {
+                        if (data.errors) {
+                            const errorMessages = data.errors
+                                .map((err) => err.message || err)
+                                .join(', ');
+                            throw new Error(
+                                `Validation errors: ${errorMessages}`
+                            );
+                        }
+                        throw new Error(data.error || 'Form submission failed');
+                    }
+                } catch (error) {
+                    console.error('Form Error:', error);
+                    const errorMessage =
+                        error.message &&
+                        error.message.includes('Validation errors')
+                            ? error.message
+                            : 'Sorry, there was an error sending your message. Please try again or contact us directly at grizzlydashenterprise@gmail.com.';
+                    showStatus('error', 'Not sent', errorMessage);
+                } finally {
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }
+            });
+        </script>
+    </body>
+</html>

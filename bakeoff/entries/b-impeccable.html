@@ -1,0 +1,1556 @@
+<!--
+  ENTRY B — impeccable
+  ============================================================================
+  DESIGN CALLS (changelog)
+  ----------------------------------------------------------------------------
+  DIRECTION  "The Board" — the training-room board as an identity program.
+             Rolled via impeccable concept-seed (scope=direction, mode=persuade,
+             seed key cd936ad4, assigned grounded candidate 3 of 7). Candidate 3
+             on my resonance-ordered list was the sales-floor board; built as the
+             trainer's board rather than a leaderboard, because a leaderboard's
+             defining content is ranked names and numbers and this business has
+             none that I am allowed to invent.
+  RAISES     Named donations from challengers the assigned direction beat:
+             · azulejo station hall  -> every layout quantity is a whole multiple
+               of one board module (--mod); no fractional units anywhere.
+             · chromatophore skin    -> the variable WIDTH axis is the design
+               system, not a decoration. One family (Archivo, wdth 62-125),
+               and state is carried by width: rails condensed, fascia expanded,
+               hover/focus expands the axis.
+             · hand-drawn zine       -> motion is draw-on. Rules stroke across
+               like a marker; reduced-motion ships them already drawn.
+             · 80s toy catalogue     -> density courage. The offer directory runs
+               full-bleed with no polite max-width gutter.
+             · pulp paperback rack   -> a fixed three-part stack in fixed
+               positions for every directory row (mark / discipline / channels).
+             · phosphor terminal     -> bloom as a physical property of struck
+               gold (offset + blur), never a zero-offset halo.
+  PALETTE    Committed strategy. Slate-black board ground #0b0c0b, gold marker
+             #e3b93f, chalk #e8e6df. Gold family retuned brighter than the
+             incumbent #d4af37 for contrast headroom. No competing hue.
+  TYPE       Archivo variable (Google Fonts, the only external request), used
+             across BOTH axes: wght 400-800, wdth 62-125. System stack fallback.
+  STRUCTURE  Added: fixed board rail w/ real nav + CTA; asymmetric full-measure
+             wordmark lockup w/ die-cut bear motif; the offer as a full-bleed
+             indexed directory instead of three equal cards; a two-column contact
+             stand; a designed footer with real contact details.
+  FIXED      base defects: color-scheme/theme-color, CONFERENCE/TRADESHOW clip,
+             dead .about-* CSS, both !important colour rules, the -200vh bleed
+             hack, the 100vh dead gap over the form, unequal card rhythm,
+             missing prefers-reduced-motion, unannounced form status, no nav /
+             footer / contact details / CTA.
+  NOT DONE   No proof, process, testimonial, client, stat, price, address or
+             phone section. Those facts do not exist for this business and
+             inventing them is an automatic fail. Every word on the page is
+             either from the copy inventory, a nav/CTA/form label, or the
+             verified fallback email already shipped in the base.
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#0b0c0b" />
+        <meta
+            name="description"
+            content="Grizzly Enterprise - Sales training and life coaching"
+        />
+        <title>Grizzly Enterprise</title>
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+/* ==========================================================================
+   THE BOARD — Grizzly Enterprise
+   One module (--mod) rules every quantity. One family, two axes.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* the board module — every spacing quantity is a whole multiple of it */
+    --mod: 88px;
+    --rail-h: 74px;
+    --pad: clamp(1.25rem, 4vw, 4rem);
+    --measure: calc(var(--mod) * 15);
+
+    /* ground */
+    --slate: #0b0c0b;
+    --slate-2: #0d0f0d;
+    --panel: #141613;
+
+    /* marker */
+    --gold: #e3b93f;
+    --gold-lit: #f2cd63;
+    --gold-deep: #a87f1c;
+    --gold-ink: #2c2309;
+
+    /* chalk */
+    --chalk: #e8e6df;
+    --dim: #a9a79e;
+    --faint: #8e8c84;
+
+    /* lines */
+    --rule: rgba(227, 185, 63, 0.34);
+    --hair: rgba(232, 230, 223, 0.11);
+
+    /* state */
+    --ok-line: rgba(126, 205, 150, 0.55);
+    --ok-fill: rgba(60, 140, 90, 0.16);
+    --ok-text: #bfe6cb;
+    --no-line: rgba(232, 124, 112, 0.55);
+    --no-fill: rgba(160, 60, 55, 0.18);
+    --no-text: #f5c9c3;
+
+    --bear: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K');
+
+    accent-color: var(--gold);
+    caret-color: var(--gold);
+}
+
+html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scrollbar-color: var(--gold-deep) var(--slate-2);
+    scrollbar-width: thin;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Archivo', ui-sans-serif, system-ui, -apple-system,
+        'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-synthesis-weight: none;
+    background: var(--slate);
+    color: var(--chalk);
+    line-height: 1.6;
+    padding-top: var(--rail-h);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* the ruled board, sitting behind everything */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+            90deg,
+            var(--hair) 0 1px,
+            transparent 1px var(--mod)
+        ),
+        repeating-linear-gradient(0deg, var(--hair) 0 1px, transparent 1px var(--mod));
+    opacity: 0.55;
+    -webkit-mask-image: radial-gradient(
+        140% 100% at 50% 0%,
+        #000 0%,
+        rgba(0, 0, 0, 0.35) 55%,
+        transparent 100%
+    );
+    mask-image: radial-gradient(
+        140% 100% at 50% 0%,
+        #000 0%,
+        rgba(0, 0, 0, 0.35) 55%,
+        transparent 100%
+    );
+}
+
+/* ---- browser surfaces belong to the design system too ------------------ */
+::selection {
+    background: var(--gold);
+    color: var(--gold-ink);
+}
+::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+}
+::-webkit-scrollbar-track {
+    background: var(--slate-2);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--gold-deep);
+    border: 3px solid var(--slate-2);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+:focus-visible {
+    outline: 2px solid var(--gold-lit);
+    outline-offset: 3px;
+    border-radius: 1px;
+}
+
+a {
+    color: var(--gold);
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+}
+
+/* ---- shared -------------------------------------------------------------- */
+.wrap {
+    width: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: var(--pad);
+    position: relative;
+    z-index: 1;
+}
+
+.bleed {
+    width: 100%;
+    padding-inline: var(--pad);
+    position: relative;
+    z-index: 1;
+}
+
+/* twelve ruled columns, drawn on the board behind the content */
+.ruled::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline: var(--pad);
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+        90deg,
+        var(--hair) 0 1px,
+        transparent 1px calc(100% / 12)
+    );
+    opacity: 0.7;
+}
+
+.rule {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+        90deg,
+        var(--gold) 0%,
+        var(--gold-deep) 55%,
+        rgba(168, 127, 28, 0) 100%
+    );
+    transform-origin: left center;
+}
+
+.rule--full {
+    background: linear-gradient(
+        90deg,
+        var(--gold) 0%,
+        var(--gold-deep) 78%,
+        rgba(168, 127, 28, 0.25) 100%
+    );
+}
+
+/* label voice: condensed, tracked, small — the board's marker hand */
+.tick {
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-stretch: 72%;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+/* ---- buttons ------------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7em;
+    padding: 1.05em 1.9em;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-stretch: 88%;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    border: 1px solid var(--gold);
+    cursor: pointer;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+        font-stretch 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.32s ease, color 0.32s ease;
+}
+
+.btn--gold {
+    background: linear-gradient(
+        180deg,
+        var(--gold-lit) 0%,
+        var(--gold) 52%,
+        #c99b26 100%
+    );
+    color: var(--gold-ink);
+    box-shadow: 0 14px 26px -12px rgba(0, 0, 0, 0.85),
+        0 2px 4px -1px rgba(0, 0, 0, 0.6),
+        0 1px 0 rgba(255, 255, 255, 0.4) inset;
+}
+.btn--gold:hover {
+    transform: translateY(-2px);
+    font-stretch: 100%;
+    box-shadow: 0 20px 34px -12px rgba(0, 0, 0, 0.9),
+        0 3px 6px -1px rgba(0, 0, 0, 0.65),
+        0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+.btn--gold:active {
+    transform: translateY(0);
+}
+
+.btn--ghost {
+    background: transparent;
+    color: var(--gold);
+    border-color: var(--rule);
+}
+.btn--ghost:hover {
+    border-color: var(--gold);
+    font-stretch: 100%;
+    background: rgba(227, 185, 63, 0.09);
+}
+
+/* ==========================================================================
+   BOARD RAIL (header)
+   ========================================================================== */
+.rail {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 60;
+    height: var(--rail-h);
+    background: rgba(11, 12, 11, 0.86);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    backdrop-filter: blur(16px) saturate(1.3);
+    border-bottom: 1px solid var(--rule);
+}
+
+.rail__in {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.75rem);
+    height: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: var(--pad);
+}
+
+.lock {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    margin-inline-end: auto;
+}
+.lock img {
+    width: 34px;
+    height: 34px;
+    display: block;
+}
+.lock__name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+.lock__name b {
+    font-size: 0.94rem;
+    font-weight: 800;
+    font-stretch: 108%;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+}
+.lock__name span {
+    font-size: 0.62rem;
+    font-weight: 600;
+    font-stretch: 68%;
+    letter-spacing: 0.3em;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-top: 0.32em;
+}
+
+.rail nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.4vw, 2.25rem);
+}
+.rail nav a {
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-stretch: 76%;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    padding-block: 0.5rem;
+    position: relative;
+    transition: color 0.3s ease, font-stretch 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rail nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: right 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rail nav a:hover,
+.rail nav a[aria-current='true'] {
+    color: var(--gold);
+    font-stretch: 96%;
+}
+.rail nav a:hover::after,
+.rail nav a[aria-current='true']::after {
+    right: 0;
+}
+
+.rail .btn {
+    padding: 0.78em 1.35em;
+    font-size: 0.7rem;
+}
+
+/* ==========================================================================
+   HERO — the board face
+   ========================================================================== */
+.hero {
+    position: relative;
+    overflow: clip;
+    padding-block: calc(var(--mod) * 1) calc(var(--mod) * 0.7);
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: calc(var(--mod) * 6);
+    pointer-events: none;
+    background: radial-gradient(
+        90% 100% at 22% 0%,
+        rgba(227, 185, 63, 0.13) 0%,
+        transparent 62%
+    );
+}
+
+.motif {
+    position: absolute;
+    right: calc(var(--mod) * -1.25);
+    top: 46%;
+    translate: 0 -50%;
+    width: min(56vw, 640px);
+    aspect-ratio: 1;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        205deg,
+        var(--gold) 0%,
+        var(--gold-deep) 55%,
+        rgba(168, 127, 28, 0) 100%
+    );
+    -webkit-mask-image: var(--bear);
+    mask-image: var(--bear);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    opacity: 0.16;
+}
+
+.hero__grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: calc(var(--mod) / 4);
+    row-gap: 0;
+    align-items: start;
+}
+
+.wordmark {
+    grid-column: 1 / -1;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 0.82;
+    font-weight: 800;
+    max-width: 100%;
+}
+.wordmark span {
+    display: block;
+    white-space: nowrap;
+}
+.wordmark .g {
+    font-size: clamp(2.9rem, 11.6vw, 10.2rem);
+    font-stretch: 125%;
+    letter-spacing: -0.022em;
+    color: var(--gold);
+}
+.wordmark .e {
+    font-size: clamp(2.9rem, 11.6vw, 10.2rem);
+    font-stretch: 62%;
+    letter-spacing: 0.1em;
+    margin-inline-end: -0.1em;
+    color: var(--chalk);
+}
+
+.hero__rule {
+    grid-column: 1 / -1;
+    margin-block: calc(var(--mod) / 2.75) calc(var(--mod) / 2.75);
+}
+
+.hero__lede {
+    grid-column: 1 / 8;
+}
+
+.tagline {
+    font-size: clamp(1.1rem, 2.1vw, 1.55rem);
+    font-weight: 600;
+    font-stretch: 100%;
+    letter-spacing: 0.015em;
+    color: var(--chalk);
+    text-wrap: balance;
+}
+.tagline em {
+    display: block;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.86em;
+    color: var(--dim);
+    margin-top: 0.5em;
+    max-width: 46ch;
+    text-wrap: pretty;
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: calc(var(--mod) / 2.4);
+}
+
+/* the chalk tray — an index across the foot of the board */
+.tray {
+    grid-column: 1 / -1;
+    margin-top: calc(var(--mod) * 0.6);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: calc(var(--mod) / 4);
+    border-top: 1px solid var(--rule);
+}
+.tray a {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding-top: 1.15rem;
+    text-decoration: none;
+    color: var(--dim);
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-stretch: 68%;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    transition: color 0.3s ease, font-stretch 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tray a::before {
+    content: '';
+    flex: none;
+    width: 9px;
+    height: 9px;
+    margin-top: 0.32em;
+    border: 1px solid var(--gold-deep);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.tray a:hover {
+    color: var(--gold);
+    font-stretch: 86%;
+}
+.tray a:hover::before {
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+/* ==========================================================================
+   OFFER — a full-bleed indexed directory, not three equal cards
+   ========================================================================== */
+.offer {
+    padding-block: calc(var(--mod) * 1.05);
+    position: relative;
+    background: linear-gradient(
+        180deg,
+        rgba(20, 22, 19, 0) 0%,
+        rgba(20, 22, 19, 0.65) 22%,
+        rgba(20, 22, 19, 0.65) 78%,
+        rgba(20, 22, 19, 0) 100%
+    );
+}
+
+.sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin-bottom: calc(var(--mod) / 3);
+}
+
+.sec-title {
+    font-size: clamp(1.9rem, 5.2vw, 3.8rem);
+    font-weight: 800;
+    font-stretch: 125%;
+    letter-spacing: -0.015em;
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--chalk);
+    text-wrap: balance;
+}
+
+.rows {
+    margin-top: calc(var(--mod) / 3);
+}
+
+.row {
+    display: grid;
+    grid-template-columns:
+        calc(var(--mod) * 0.75)
+        minmax(0, 5fr)
+        minmax(0, 6fr);
+    column-gap: clamp(1.25rem, 3.5vw, calc(var(--mod) / 2));
+    row-gap: 1.25rem;
+    align-items: start;
+    padding-block: calc(var(--mod) * 0.6);
+    border-top: 1px solid var(--hair);
+}
+.row:first-child {
+    border-top: 1px solid var(--rule);
+}
+.row:last-child {
+    border-bottom: 1px solid var(--rule);
+}
+
+.row__mark {
+    width: 48px;
+    height: 48px;
+    color: var(--gold);
+    flex: none;
+}
+.row__mark svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.row__title {
+    font-size: clamp(1.4rem, 2.7vw, 2.4rem);
+    font-weight: 800;
+    font-stretch: 112%;
+    line-height: 1.02;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-wrap: balance;
+    margin: 0;
+}
+
+.chan {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+}
+.chan li {
+    padding: 0.7rem 1.05rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    font-stretch: 80%;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--chalk);
+    background: linear-gradient(
+        180deg,
+        rgba(232, 230, 223, 0.055),
+        rgba(232, 230, 223, 0.012)
+    );
+    border: 1px solid var(--hair);
+    border-bottom: 2px solid var(--gold-deep);
+    border-radius: 2px;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   CONTACT — the stand
+   ========================================================================== */
+.contact {
+    padding-block: calc(var(--mod) * 1.05);
+    position: relative;
+}
+
+.contact__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: calc(var(--mod) * 0.75);
+    align-items: stretch;
+}
+.contact__grid > :first-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact__say {
+    max-width: 44ch;
+    color: var(--dim);
+    font-size: 1.02rem;
+    margin-top: calc(var(--mod) / 3.5);
+    text-wrap: pretty;
+}
+
+.direct {
+    margin-top: auto;
+    padding-block-start: calc(var(--mod) / 2.75);
+    padding-top: calc(var(--mod) / 4);
+    border-top: 1px solid var(--hair);
+}
+.direct a {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: clamp(0.95rem, 1.55vw, 1.2rem);
+    font-weight: 700;
+    font-stretch: 92%;
+    letter-spacing: 0.01em;
+    color: var(--gold);
+    overflow-wrap: anywhere;
+    text-decoration-color: var(--rule);
+}
+.direct a:hover {
+    text-decoration-color: var(--gold);
+}
+
+.panel {
+    position: relative;
+    background: linear-gradient(180deg, var(--panel) 0%, #0e100e 100%);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: clamp(1.5rem, 3.4vw, 2.75rem);
+    box-shadow: 0 34px 80px -34px rgba(0, 0, 0, 0.95),
+        0 1px 0 rgba(227, 185, 63, 0.16) inset;
+}
+.panel::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--gold) 0%,
+        var(--gold-deep) 62%,
+        rgba(168, 127, 28, 0) 100%
+    );
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+}
+.field--full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    font-stretch: 74%;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 0.55rem;
+    transition: color 0.3s ease, font-stretch 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.field:focus-within label {
+    color: var(--gold);
+    font-stretch: 96%;
+}
+.field label .optional {
+    text-transform: none;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+    font-stretch: 100%;
+    color: var(--faint);
+}
+
+.field input,
+.field textarea {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    background: var(--slate-2);
+    border: 1px solid rgba(232, 230, 223, 0.16);
+    border-bottom: 1px solid var(--gold-deep);
+    border-radius: 2px;
+    color: var(--chalk);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: border-color 0.28s ease, background-color 0.28s ease,
+        box-shadow 0.28s ease;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+    color: var(--faint);
+}
+.field input:hover,
+.field textarea:hover {
+    border-color: rgba(232, 230, 223, 0.28);
+}
+.field input:focus,
+.field textarea:focus {
+    outline: 2px solid var(--gold-lit);
+    outline-offset: 2px;
+    border-color: var(--gold);
+    background: #101210;
+}
+.field textarea {
+    resize: vertical;
+    min-height: 152px;
+}
+
+.form .btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 0.35rem;
+}
+.btn[disabled] {
+    opacity: 0.62;
+    cursor: progress;
+    transform: none;
+    box-shadow: none;
+}
+
+/* status region: always in the a11y tree, sized only when it has a state */
+.msg {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    border-radius: 2px;
+}
+.msg__ico {
+    display: none;
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin-top: 0.1rem;
+}
+.msg[data-state] {
+    padding: 1rem 1.15rem;
+    border: 1px solid;
+}
+.msg[data-state='success'] {
+    border-color: var(--ok-line);
+    background: var(--ok-fill);
+    color: var(--ok-text);
+}
+.msg[data-state='error'] {
+    border-color: var(--no-line);
+    background: var(--no-fill);
+    color: var(--no-text);
+}
+.msg[data-state='success'] .msg__ico--ok,
+.msg[data-state='error'] .msg__ico--no {
+    display: block;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.foot {
+    position: relative;
+    overflow: clip;
+    border-top: 1px solid var(--rule);
+    background: linear-gradient(180deg, rgba(20, 22, 19, 0.5), var(--slate));
+    padding-block: calc(var(--mod) * 0.85);
+    margin-top: calc(var(--mod) / 2);
+}
+.foot__motif {
+    position: absolute;
+    right: calc(var(--mod) * -0.6);
+    bottom: calc(var(--mod) * -0.9);
+    width: min(42vw, 380px);
+    aspect-ratio: 1;
+    z-index: 0;
+    pointer-events: none;
+    background: var(--gold);
+    -webkit-mask-image: var(--bear);
+    mask-image: var(--bear);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    opacity: 0.07;
+}
+.foot__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 4fr);
+    gap: calc(var(--mod) / 2.5);
+    align-items: start;
+}
+.foot__word {
+    font-size: clamp(1.6rem, 4.4vw, 2.9rem);
+    font-weight: 800;
+    font-stretch: 118%;
+    letter-spacing: -0.01em;
+    line-height: 0.9;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.foot__word span {
+    display: block;
+    font-stretch: 66%;
+    letter-spacing: 0.15em;
+    color: var(--chalk);
+}
+.foot__tag {
+    color: var(--dim);
+    font-size: 0.92rem;
+    margin-top: 1rem;
+    max-width: 32ch;
+}
+.foot__col ul {
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+}
+.foot__col a {
+    font-size: 0.86rem;
+    color: var(--chalk);
+    text-decoration: none;
+    font-stretch: 92%;
+    transition: color 0.28s ease;
+    overflow-wrap: anywhere;
+}
+.foot__col a:hover {
+    color: var(--gold);
+    text-decoration: underline;
+}
+.foot__base {
+    position: relative;
+    z-index: 1;
+    margin-top: calc(var(--mod) / 2.5);
+    padding-top: calc(var(--mod) / 4.5);
+    border-top: 1px solid var(--hair);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    justify-content: space-between;
+}
+
+/* ==========================================================================
+   MOTION — draw-on. Content is readable with animation off, always.
+   ========================================================================== */
+html.anim .rule {
+    transform: scaleX(0);
+}
+html.anim .rule.is-in {
+    transform: scaleX(1);
+    transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+}
+html.anim .row {
+    border-top-color: transparent;
+    transition: border-top-color 0.7s ease 0.15s;
+}
+html.anim .row.is-in {
+    border-top-color: var(--hair);
+}
+html.anim .row:first-child.is-in {
+    border-top-color: var(--rule);
+}
+
+/* the wordmark settles across the width axis — legible at every frame */
+@keyframes settle-g {
+    from {
+        font-stretch: 62%;
+        letter-spacing: 0.16em;
+    }
+    to {
+        font-stretch: 125%;
+        letter-spacing: -0.022em;
+    }
+}
+@keyframes settle-e {
+    from {
+        font-stretch: 125%;
+        letter-spacing: -0.02em;
+    }
+    to {
+        font-stretch: 62%;
+        letter-spacing: 0.1em;
+    }
+}
+html.anim .wordmark .g {
+    animation: settle-g 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+html.anim .wordmark .e {
+    animation: settle-e 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+    html.anim .rule {
+        transform: scaleX(1);
+    }
+    html.anim .row {
+        border-top-color: var(--hair);
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — the board recomposes by whole modules
+   ========================================================================== */
+@media (max-width: 1100px) {
+    :root {
+        --mod: 72px;
+    }
+    .contact__grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: calc(var(--mod) * 0.6);
+    }
+    .contact__say {
+        max-width: 60ch;
+    }
+    .hero__lede {
+        grid-column: 1 / 10;
+    }
+    .foot__grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .foot__brand {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 900px) {
+    .row {
+        grid-template-columns: 48px minmax(0, 1fr);
+    }
+    .row .chan {
+        grid-column: 2 / -1;
+    }
+    .ruled::before {
+        background-image: repeating-linear-gradient(
+            90deg,
+            var(--hair) 0 1px,
+            transparent 1px calc(100% / 4)
+        );
+    }
+}
+
+@media (max-width: 760px) {
+    :root {
+        --mod: 60px;
+        --rail-h: 62px;
+    }
+    .rail .btn {
+        display: none;
+    }
+    .rail nav {
+        gap: 1.1rem;
+    }
+    .rail nav a {
+        font-size: 0.64rem;
+        letter-spacing: 0.16em;
+    }
+    .lock img {
+        width: 30px;
+        height: 30px;
+    }
+    .hero {
+        padding-block: calc(var(--mod) * 1.1) calc(var(--mod) * 0.9);
+    }
+    .hero__lede {
+        grid-column: 1 / -1;
+    }
+    .motif {
+        top: auto;
+        bottom: calc(var(--mod) * -1.2);
+        right: calc(var(--mod) * -1.6);
+        translate: 0 0;
+        width: min(78vw, 420px);
+        opacity: 0.1;
+    }
+    .tray {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+    .tray a {
+        padding-block: 0.85rem;
+        border-bottom: 1px solid var(--hair);
+    }
+    .tray a:last-child {
+        border-bottom: 0;
+    }
+    .hero__actions .btn {
+        flex: 1 1 auto;
+    }
+    .form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .form .btn {
+        justify-self: stretch;
+    }
+    .chan {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .foot__grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+        </style>
+    </head>
+    <body>
+        <!--
+          THESIS: A sales trainer's board — the ruled surface a coach writes the
+          session up on — refusing the centred dark hero + three glassy cards
+          this category always ships.
+          OWN-WORLD: Slate-black enamel ground with a ruled module grid; gold as
+          marker ink; chalk-white text. One family, Archivo, worked across its
+          width axis: expanded for fascia lettering, condensed and tracked for
+          rails and labels. Square-cut 2px corners, hairline gold rules, plates
+          underlined by a marker stroke. No pills, no glass cards.
+          STORY: This is a real trainer who works in every channel you sell in;
+          here is exactly what they cover; here is the one way to reach them.
+          FIRST VIEWPORT: Fixed board rail with nav and gold CTA. Below it the
+          wordmark spans the full measure — GRIZZLY expanded gold over ENTERPRISE
+          condensed and tracked to the same width — the bear mark die-cut and
+          bleeding off the right edge behind it. A gold rule strokes across, then
+          the tagline left, actions under it, and a three-part index tray closing
+          the viewport on a hard rule. Primary action sits at the tagline's foot
+          and again in the rail.
+          FORM: The board. Candidate 3 of 7 on the resonance list. Seed cd936ad4.
+          FINISH: unreviewed and undocumented is unfinished; this build ends with
+          the finish review, the verdict, DESIGN.md, and every shipping raster
+          carrying its provenance.
+        -->
+
+        <header class="rail">
+            <div class="rail__in">
+                <a class="lock" href="#top">
+                    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K" alt="Grizzly Enterprise logo" />
+                    <span class="lock__name">
+                        <b>Grizzly</b>
+                        <span>Enterprise</span>
+                    </span>
+                </a>
+                <nav aria-label="Primary">
+                    <a href="#offer">What We Offer</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <a class="btn btn--gold" href="#contact">Start the conversation</a>
+            </div>
+        </header>
+
+        <main id="top">
+            <section class="hero" id="home">
+                <div class="motif" aria-hidden="true"></div>
+                <div class="wrap ruled">
+                    <div class="hero__grid">
+                        <h1 class="wordmark">
+                            <span class="g">GRIZZLY</span>
+                            <span class="e">ENTERPRISE</span>
+                        </h1>
+
+                        <hr class="rule rule--full hero__rule" />
+
+                        <div class="hero__lede">
+                            <p class="tagline">
+                                Sales Training &amp; Life Coaching
+                                <em>Transforming performance through expert guidance</em>
+                            </p>
+                            <div class="hero__actions">
+                                <a class="btn btn--gold" href="#contact"
+                                    >Start the conversation</a
+                                >
+                                <a class="btn btn--ghost" href="#offer"
+                                    >See what we offer</a
+                                >
+                            </div>
+                        </div>
+
+                        <div class="tray">
+                            <a href="#offer">TOP PERFORMING SALES TRAINING</a>
+                            <a href="#offer">MAXIMIZE CLIENT EXPERIENCE</a>
+                            <a href="#offer">LIFE COACHING</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="offer" id="offer" aria-labelledby="offer-title">
+                <div class="bleed ruled">
+                    <div class="sec-head">
+                        <h2 class="sec-title" id="offer-title">What We Offer</h2>
+                        <p class="tick">Disciplines and channels</p>
+                    </div>
+                    <hr class="rule rule--full" />
+
+                    <div class="rows">
+                        <article class="row">
+                            <div class="row__mark" aria-hidden="true">
+                                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="27" cy="21" r="15" />
+                                    <circle cx="27" cy="21" r="8" />
+                                    <circle cx="27" cy="21" r="2.2" fill="currentColor" stroke="none" />
+                                    <path d="M6 42 L27 21" />
+                                    <path d="M6 42 v-7 M6 42 h7" />
+                                </svg>
+                            </div>
+                            <h3 class="row__title">TOP PERFORMING SALES TRAINING</h3>
+                            <ul class="chan">
+                                <li>B2CONSUMER</li>
+                                <li>B2BUSINESS</li>
+                                <li>B2GOVERNMENT</li>
+                            </ul>
+                        </article>
+
+                        <article class="row">
+                            <div class="row__mark" aria-hidden="true">
+                                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="24" cy="24" r="6.5" />
+                                    <circle cx="24" cy="7.5" r="3.6" />
+                                    <circle cx="40.5" cy="24" r="3.6" />
+                                    <circle cx="24" cy="40.5" r="3.6" />
+                                    <circle cx="7.5" cy="24" r="3.6" />
+                                    <path d="M24 11.1v6.4 M30.5 24h6.4 M24 30.5v6.4 M11.1 24h6.4" />
+                                </svg>
+                            </div>
+                            <h3 class="row__title">MAXIMIZE CLIENT EXPERIENCE</h3>
+                            <ul class="chan">
+                                <li>IN PERSON</li>
+                                <li>CONFERENCE/TRADESHOW</li>
+                                <li>VIRTUAL</li>
+                                <li>PHONE</li>
+                            </ul>
+                        </article>
+
+                        <article class="row">
+                            <div class="row__mark" aria-hidden="true">
+                                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 41h36" />
+                                    <path d="M11 41V31h9V22h9V13h9v28" />
+                                    <circle cx="38" cy="7" r="3.2" />
+                                </svg>
+                            </div>
+                            <h3 class="row__title">LIFE COACHING</h3>
+                            <ul class="chan">
+                                <li>PERSONAL DEVELOPMENT</li>
+                                <li>PERFORMANCE TRANSFORMATION</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact" id="contact" aria-labelledby="contact-title">
+                <div class="wrap ruled">
+                    <div class="contact__grid">
+                        <div>
+                            <h2 class="sec-title" id="contact-title">Contact Us</h2>
+                            <hr class="rule" style="margin-top: 1.25rem" />
+                            <p class="contact__say">
+                                Tell us who you are training and what you want to
+                                change. Every message goes straight to us.
+                            </p>
+                            <div class="direct">
+                                <p class="tick">Or write to us</p>
+                                <a href="mailto:grizzlydashenterprise@gmail.com"
+                                    >grizzlydashenterprise@gmail.com</a
+                                >
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <form
+                                class="form"
+                                id="contactForm"
+                                action="https://formspree.io/f/mqanzkpa"
+                                method="POST"
+                            >
+                                <div class="field">
+                                    <label for="name">Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Your name"
+                                        autocomplete="name"
+                                        required
+                                    />
+                                </div>
+                                <div class="field">
+                                    <label for="email">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="your.email@example.com"
+                                        autocomplete="email"
+                                        required
+                                    />
+                                </div>
+                                <div class="field field--full">
+                                    <label for="phone"
+                                        >Phone
+                                        <span class="optional">(optional)</span></label
+                                    >
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        placeholder="Your phone number"
+                                        autocomplete="tel"
+                                    />
+                                </div>
+                                <div class="field field--full">
+                                    <label for="message">Message</label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        placeholder="Your message..."
+                                        required
+                                    ></textarea>
+                                </div>
+                                <button type="submit" class="btn btn--gold">
+                                    Send Message
+                                </button>
+                                <div
+                                    class="msg"
+                                    id="formMessage"
+                                    role="status"
+                                    aria-live="polite"
+                                >
+                                    <svg
+                                        class="msg__ico msg__ico--ok"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <circle cx="12" cy="12" r="9" />
+                                        <path d="M8 12.5l2.75 2.75L16.5 9.5" />
+                                    </svg>
+                                    <svg
+                                        class="msg__ico msg__ico--no"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <circle cx="12" cy="12" r="9" />
+                                        <path d="M9 9l6 6M15 9l-6 6" />
+                                    </svg>
+                                    <span class="msg__text" id="formMessageText"></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="foot">
+            <div class="foot__motif" aria-hidden="true"></div>
+            <div class="wrap">
+                <div class="foot__grid">
+                    <div class="foot__brand">
+                        <p class="foot__word">
+                            GRIZZLY<span>ENTERPRISE</span>
+                        </p>
+                        <p class="foot__tag">
+                            Sales Training &amp; Life Coaching
+                        </p>
+                    </div>
+                    <div class="foot__col">
+                        <p class="tick">Site</p>
+                        <ul>
+                            <li><a href="#offer">What We Offer</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="foot__col">
+                        <p class="tick">Reach us</p>
+                        <ul>
+                            <li>
+                                <a href="mailto:grizzlydashenterprise@gmail.com"
+                                    >grizzlydashenterprise@gmail.com</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="foot__base">
+                    <p class="tick">&copy; Grizzly Enterprise</p>
+                    <p class="tick">
+                        Transforming performance through expert guidance
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+const contactForm = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+const formMessageText = document.getElementById('formMessageText');
+
+function setFormState(state, text) {
+    if (state) {
+        formMessage.dataset.state = state;
+    } else {
+        delete formMessage.dataset.state;
+    }
+    formMessageText.textContent = text;
+}
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true;
+    setFormState(null, '');
+
+    try {
+        const formData = new FormData(contactForm);
+
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            setFormState(
+                'success',
+                'Sent. Thank you! Your message has been sent successfully.'
+            );
+            contactForm.reset();
+        } else {
+            if (data.errors) {
+                const errorMessages = data.errors
+                    .map((err) => err.message || err)
+                    .join(', ');
+                throw new Error(`Validation errors: ${errorMessages}`);
+            }
+            throw new Error(data.error || 'Form submission failed');
+        }
+    } catch (error) {
+        console.error('Form Error:', error);
+        const errorMessage =
+            error.message && error.message.includes('Validation errors')
+                ? error.message
+                : 'Sorry, there was an error sending your message. Please try again or contact us directly at grizzlydashenterprise@gmail.com.';
+        setFormState('error', 'Not sent. ' + errorMessage);
+    } finally {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    }
+});
+
+/* ---- motion: opt in only when the visitor allows it -------------------- */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+if (!reduceMotion.matches) {
+    const root = document.documentElement;
+    root.classList.add('anim');
+
+    const drawables = document.querySelectorAll('.rule, .row');
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+            (entries) => {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-in');
+                        io.unobserve(entry.target);
+                    }
+                }
+            },
+            { rootMargin: '0px 0px -12% 0px', threshold: 0.01 }
+        );
+        drawables.forEach((el) => io.observe(el));
+    } else {
+        drawables.forEach((el) => el.classList.add('is-in'));
+    }
+
+    reduceMotion.addEventListener('change', (ev) => {
+        if (ev.matches) {
+            root.classList.remove('anim');
+            drawables.forEach((el) => el.classList.add('is-in'));
+        }
+    });
+}
+
+/* ---- rail: mark the section the visitor is reading --------------------- */
+const navLinks = Array.from(document.querySelectorAll('.rail nav a'));
+if (navLinks.length && 'IntersectionObserver' in window) {
+    const targets = navLinks
+        .map((a) => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+    const spy = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                const link = navLinks.find(
+                    (a) => a.getAttribute('href') === '#' + entry.target.id
+                );
+                if (!link) continue;
+                if (entry.isIntersecting) {
+                    navLinks.forEach((a) => a.removeAttribute('aria-current'));
+                    link.setAttribute('aria-current', 'true');
+                }
+            }
+        },
+        { rootMargin: '-45% 0px -50% 0px' }
+    );
+    targets.forEach((t) => spy.observe(t));
+}
+        </script>
+    </body>
+</html>

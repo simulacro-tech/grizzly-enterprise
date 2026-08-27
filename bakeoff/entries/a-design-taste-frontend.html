@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<!--
+  GRIZZLY ENTERPRISE - bake-off entry A (skill: design-taste-frontend)
+  Design read: sales-training / life-coaching landing page for business buyers and
+  individuals. Redesign - overhaul. Dials: DESIGN_VARIANCE 8 / MOTION_INTENSITY 5 /
+  VISUAL_DENSITY 4.
+
+  DESIGN CALLS
+  01  Direction: "gold leaf on ink" - an editorial, left-aligned, asymmetric page
+      instead of three stacked centred blocks. Gold is the only accent, used at
+      three strengths (leaf #E5B94E, deep #8A6B1F, soft #F2DDA6).
+  02  Typography: Archivo variable (wdth + wght from Google Fonts), one family,
+      hierarchy carried by weight, width and scale rather than by colour. The
+      wordmark is an optically justified two-line lockup - GRIZZLY is set larger
+      than ENTERPRISE so both lines end flush. Fallback stack is a real grotesque
+      stack so the page never depends on the network.
+  03  Shape system: radius 0 everywhere (panels, inputs, buttons). One rule, no
+      mixed corner language. The base's 20px cards and 50px pill button are gone.
+  04  Structure added that the base has no version of:
+        - fixed header with lockup, section link and a single "Get in touch" CTA,
+          plus a real mobile disclosure menu (aria-expanded)
+        - asymmetric split hero (type left, bear mark panel right), no centring
+        - full-bleed gold statement band: the page's one deliberate inversion
+        - offer section rebuilt as a 12-column editorial grid (7 / 5 / 12) with
+          three different list languages: chips, format tiles, wide split band
+        - contact section as a two-column composition (statement + form panel)
+        - designed footer with the mark, links and the real published email
+        - scroll-reveal choreography, hover physics, focus rings
+  05  Motion: one reason each. Reveal = sequence on entry, hover lift = feedback,
+      header surface = state. All of it collapses to static under
+      prefers-reduced-motion, and nothing is hidden when it does not run.
+  06  Fabrication gate: no testimonials, logos, statistics, prices, addresses or
+      phone numbers were invented. The only contact detail on the page is
+      grizzlydashenterprise@gmail.com, which the base already publishes in its
+      form error fallback. Added copy is brand voice only, never a factual claim.
+  07  Base defects fixed: color-scheme dark + theme-color, CONFERENCE/TRADESHOW no
+      longer clipped, dead .about-* CSS removed, no !important, no top:-200vh
+      bleed hack, contact section's 100vh dead gap removed, card rhythm equalised,
+      prefers-reduced-motion honoured, form status announced via role="status".
+-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#0a0a0b" />
+        <meta
+            name="description"
+            content="Grizzly Enterprise - Sales training and life coaching"
+        />
+        <title>Grizzly Enterprise | Sales Training &amp; Life Coaching</title>
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            *,
+            *::before,
+            *::after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                /* Ink */
+                --ink: #0a0a0b;
+                --ink-panel: #131316;
+                --ink-raised: #1b1b1f;
+
+                /* Gold - the only accent on the page */
+                --gold: #e5b94e;
+                --gold-soft: #f2dda6;
+                --gold-deep: #8a6b1f;
+                --gold-ink: #241a04;
+
+                /* Type */
+                --fg: #f3f1ec;
+                --fg-mute: #a9a6a0;
+
+                /* Lines */
+                --line: rgba(229, 185, 78, 0.22);
+                --line-soft: rgba(243, 241, 236, 0.1);
+
+                /* Status */
+                --ok: #7bd98f;
+                --bad: #ff9a9a;
+
+                /* Rhythm */
+                --shell: 1280px;
+                --gutter: clamp(1.25rem, 4vw, 3.5rem);
+                --band: clamp(4.5rem, 9vw, 8.5rem);
+                --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+                --font: 'Archivo', 'Helvetica Neue', Helvetica, Arial,
+                    'Segoe UI', system-ui, sans-serif;
+            }
+
+            html {
+                color-scheme: dark;
+                scroll-behavior: smooth;
+                -webkit-text-size-adjust: 100%;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+            }
+
+            body {
+                font-family: var(--font);
+                overflow-x: clip;
+                background: var(--ink);
+                color: var(--fg);
+                line-height: 1.6;
+                font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
+            }
+
+            img,
+            svg {
+                display: block;
+                max-width: 100%;
+            }
+
+            a {
+                color: inherit;
+            }
+
+            /* ---------- Focus (gate 6) ---------- */
+            :focus-visible {
+                outline: 2px solid var(--gold);
+                outline-offset: 3px;
+            }
+
+            .skip-link {
+                position: absolute;
+                left: var(--gutter);
+                top: 0;
+                transform: translateY(-140%);
+                z-index: 100;
+                background: var(--gold);
+                color: var(--gold-ink);
+                padding: 0.7rem 1.1rem;
+                font-weight: 700;
+                font-size: 0.8125rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                text-decoration: none;
+                transition: transform 0.2s var(--ease);
+            }
+
+            .skip-link:focus {
+                transform: translateY(0.75rem);
+            }
+
+            /* ---------- Shared ---------- */
+            .shell {
+                width: 100%;
+                max-width: var(--shell);
+                margin-inline: auto;
+                padding-inline: var(--gutter);
+            }
+
+            .eyebrow {
+                font-size: 0.75rem;
+                font-weight: 600;
+                letter-spacing: 0.24em;
+                text-transform: uppercase;
+                color: var(--gold);
+                font-stretch: 105%;
+            }
+
+            .bear {
+                color: var(--gold);
+                width: 100%;
+                height: auto;
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.6rem;
+                white-space: nowrap;
+                border: 1px solid transparent;
+                border-radius: 0;
+                font-family: inherit;
+                font-size: 0.875rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                text-decoration: none;
+                padding: 0.95rem 1.6rem;
+                cursor: pointer;
+                transition: transform 0.25s var(--ease),
+                    background-color 0.25s var(--ease),
+                    border-color 0.25s var(--ease), color 0.25s var(--ease);
+            }
+
+            .btn-primary {
+                background: var(--gold);
+                color: var(--gold-ink);
+            }
+
+            .btn-primary:hover {
+                background: var(--gold-soft);
+                transform: translateY(-2px);
+            }
+
+            .btn-primary:active {
+                transform: translateY(0);
+            }
+
+            .btn-ghost {
+                background: transparent;
+                color: var(--fg);
+                border-color: var(--line);
+            }
+
+            .btn-ghost:hover {
+                border-color: var(--gold);
+                color: var(--gold);
+                transform: translateY(-2px);
+            }
+
+            .btn-ghost:active {
+                transform: translateY(0);
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .btn:hover,
+                .btn:active {
+                    transform: none;
+                }
+            }
+
+            /* ---------- Header ---------- */
+            .site-head {
+                position: fixed;
+                inset: 0 0 auto 0;
+                z-index: 60;
+                border-bottom: 1px solid transparent;
+                transition: background-color 0.3s var(--ease),
+                    border-color 0.3s var(--ease);
+            }
+
+            .site-head.is-stuck {
+                background: rgba(10, 10, 11, 0.86);
+                backdrop-filter: blur(14px) saturate(140%);
+                -webkit-backdrop-filter: blur(14px) saturate(140%);
+                border-bottom-color: var(--line-soft);
+            }
+
+            .head-inner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                height: 72px;
+            }
+
+            .lockup {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.7rem;
+                text-decoration: none;
+            }
+
+            .lockup .bear {
+                width: 30px;
+                flex: none;
+            }
+
+            .lockup-text {
+                display: flex;
+                flex-direction: column;
+                line-height: 1;
+            }
+
+            .lockup-text b {
+                font-size: 0.9375rem;
+                font-weight: 800;
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+                font-stretch: 108%;
+            }
+
+            .lockup-text span {
+                font-size: 0.9375rem;
+                font-weight: 400;
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+                color: var(--gold);
+                font-stretch: 108%;
+            }
+
+            .nav {
+                display: flex;
+                align-items: center;
+                gap: clamp(1rem, 2.5vw, 2rem);
+            }
+
+            .nav a:not(.btn) {
+                font-size: 0.8125rem;
+                font-weight: 600;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                text-decoration: none;
+                color: var(--fg-mute);
+                white-space: nowrap;
+                transition: color 0.2s var(--ease);
+            }
+
+            .nav a:not(.btn):hover {
+                color: var(--gold);
+            }
+
+            .nav .btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.75rem;
+            }
+
+            .nav-toggle {
+                display: none;
+                align-items: center;
+                gap: 0.55rem;
+                background: transparent;
+                border: 1px solid var(--line);
+                color: var(--fg);
+                font-family: inherit;
+                font-size: 0.75rem;
+                font-weight: 700;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                padding: 0.65rem 0.9rem;
+                cursor: pointer;
+            }
+
+            .nav-toggle .bars {
+                display: block;
+                width: 16px;
+                height: 1px;
+                background: var(--gold);
+                position: relative;
+            }
+
+            .nav-toggle .bars::before,
+            .nav-toggle .bars::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                width: 16px;
+                height: 1px;
+                background: var(--gold);
+            }
+
+            .nav-toggle .bars::before {
+                top: -5px;
+            }
+
+            .nav-toggle .bars::after {
+                top: 5px;
+            }
+
+            @media (max-width: 860px) {
+                .nav-toggle {
+                    display: inline-flex;
+                }
+
+                .nav {
+                    display: none;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 72px;
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: 0;
+                    background: rgba(10, 10, 11, 0.97);
+                    backdrop-filter: blur(14px);
+                    -webkit-backdrop-filter: blur(14px);
+                    border-block: 1px solid var(--line-soft);
+                    padding: 0.5rem var(--gutter) 1.25rem;
+                }
+
+                .nav.is-open {
+                    display: flex;
+                }
+
+                .nav a:not(.btn) {
+                    padding: 1rem 0;
+                    border-bottom: 1px solid var(--line-soft);
+                    font-size: 0.9375rem;
+                }
+
+                .nav .btn {
+                    margin-top: 1rem;
+                    padding: 1rem 1.2rem;
+                    font-size: 0.8125rem;
+                }
+            }
+
+            /* ---------- Hero ---------- */
+            .hero {
+                position: relative;
+                padding-top: calc(72px + clamp(2.5rem, 7vw, 5.5rem));
+                padding-bottom: clamp(3rem, 7vw, 6rem);
+                overflow: hidden;
+            }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(
+                        60% 60% at 78% 12%,
+                        rgba(229, 185, 78, 0.16) 0%,
+                        transparent 62%
+                    ),
+                    radial-gradient(
+                        70% 50% at 0% 0%,
+                        rgba(229, 185, 78, 0.07) 0%,
+                        transparent 60%
+                    );
+                pointer-events: none;
+            }
+
+            .hero-grid {
+                position: relative;
+                display: grid;
+                grid-template-columns: 1fr minmax(240px, 400px);
+                gap: clamp(2rem, 5vw, 4rem);
+                align-items: center;
+            }
+
+            .hero-copy {
+                min-width: 0;
+            }
+
+            .company-name {
+                margin: 1.25rem 0 0;
+                color: var(--gold);
+                text-transform: uppercase;
+                font-weight: 800;
+                font-stretch: 110%;
+                line-height: 0.86;
+                letter-spacing: -0.005em;
+            }
+
+            .company-name span {
+                display: block;
+                white-space: nowrap;
+            }
+
+            .name-a {
+                font-size: clamp(3.6rem, 10vw, 8.9rem);
+            }
+
+            .enterprise-text {
+                font-size: clamp(2.55rem, 7.05vw, 6.28rem);
+                font-weight: 500;
+                color: var(--fg);
+            }
+
+            .hero-rule {
+                height: 1px;
+                background: linear-gradient(
+                    90deg,
+                    var(--gold) 0%,
+                    rgba(229, 185, 78, 0.05) 100%
+                );
+                margin: clamp(1.5rem, 3vw, 2.25rem) 0
+                    clamp(1.25rem, 2.5vw, 1.75rem);
+            }
+
+            .lede {
+                color: var(--fg-mute);
+                font-size: clamp(1.0625rem, 1.4vw, 1.3125rem);
+                font-weight: 300;
+                max-width: 46ch;
+            }
+
+            .cta-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.85rem;
+                margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+            }
+
+            .hero-mark {
+                position: relative;
+                border: 1px solid var(--line);
+                padding: clamp(1.5rem, 2.6vw, 2.25rem);
+                background: linear-gradient(
+                    160deg,
+                    rgba(229, 185, 78, 0.08) 0%,
+                    rgba(19, 19, 22, 0.5) 55%
+                );
+            }
+
+            .hero-mark .bear {
+                filter: drop-shadow(0 18px 40px rgba(229, 185, 78, 0.2));
+            }
+
+            .hero-mark::after {
+                content: '';
+                position: absolute;
+                right: -1px;
+                bottom: -1px;
+                width: 38%;
+                height: 1px;
+                background: var(--gold);
+            }
+
+            @media (max-width: 900px) {
+                .hero-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .hero-mark {
+                    order: -1;
+                    justify-self: start;
+                    width: min(180px, 46vw);
+                    padding: 1.25rem;
+                }
+
+                .lede {
+                    max-width: 40ch;
+                }
+            }
+
+            /* ---------- Statement band (the page's one inversion) ---------- */
+            .band {
+                position: relative;
+                background: var(--gold);
+                color: var(--gold-ink);
+                overflow: hidden;
+                padding-block: clamp(3rem, 6vw, 5rem);
+            }
+
+            .band-inner {
+                position: relative;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: clamp(1.5rem, 4vw, 3rem);
+                align-items: center;
+            }
+
+            .band .bear {
+                color: var(--gold-ink);
+                width: clamp(46px, 7vw, 84px);
+                flex: none;
+                opacity: 0.9;
+            }
+
+            .band p {
+                font-size: clamp(1.6rem, 4.4vw, 3.5rem);
+                font-weight: 700;
+                font-stretch: 104%;
+                line-height: 1.02;
+                letter-spacing: -0.015em;
+                text-wrap: balance;
+            }
+
+            .band p em {
+                font-style: normal;
+                font-weight: 400;
+            }
+
+            /* ---------- Offer ---------- */
+            .offer {
+                padding-block: var(--band);
+                background: linear-gradient(
+                    180deg,
+                    var(--ink) 0%,
+                    #0d0d0f 55%,
+                    var(--ink) 100%
+                );
+            }
+
+            .section-head {
+                margin-bottom: clamp(2.5rem, 5vw, 4rem);
+            }
+
+            .section-title {
+                margin-top: 0.9rem;
+                font-size: clamp(2.1rem, 5.4vw, 4.1rem);
+                font-weight: 800;
+                font-stretch: 108%;
+                line-height: 0.95;
+                letter-spacing: -0.02em;
+                text-transform: uppercase;
+                color: var(--fg);
+            }
+
+            .section-lede {
+                margin-top: 1.15rem;
+                max-width: 52ch;
+                color: var(--fg-mute);
+                font-weight: 300;
+                font-size: clamp(1rem, 1.2vw, 1.1875rem);
+            }
+
+            .offer-grid {
+                display: grid;
+                grid-template-columns: repeat(12, minmax(0, 1fr));
+                gap: clamp(1rem, 1.8vw, 1.5rem);
+            }
+
+            .card {
+                position: relative;
+                min-width: 0;
+                overflow: hidden;
+                border: 1px solid var(--line-soft);
+                background: var(--ink-panel);
+                padding: clamp(1.6rem, 3vw, 2.6rem);
+                transition: border-color 0.35s var(--ease),
+                    transform 0.35s var(--ease),
+                    background-color 0.35s var(--ease);
+            }
+
+            .card:hover {
+                border-color: var(--line);
+                transform: translateY(-3px);
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .card:hover {
+                    transform: none;
+                }
+            }
+
+            .card-index {
+                display: block;
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.26em;
+                text-transform: uppercase;
+                color: var(--gold-deep);
+            }
+
+            .service-title {
+                margin: 0.85rem 0 1.6rem;
+                color: var(--gold);
+                text-transform: uppercase;
+                font-weight: 800;
+                font-stretch: 106%;
+                line-height: 1;
+                letter-spacing: -0.01em;
+                overflow-wrap: break-word;
+            }
+
+            .card--lead {
+                grid-column: span 7;
+                background: linear-gradient(
+                        150deg,
+                        rgba(229, 185, 78, 0.1) 0%,
+                        transparent 58%
+                    ),
+                    var(--ink-panel);
+            }
+
+            .card--lead .service-title {
+                font-size: clamp(1.75rem, 3.4vw, 3rem);
+                max-width: 12ch;
+            }
+
+            .card--lead .bear-ghost {
+                position: absolute;
+                right: -6%;
+                bottom: -12%;
+                width: 42%;
+                color: var(--gold);
+                opacity: 0.06;
+                pointer-events: none;
+            }
+
+            .card--formats {
+                grid-column: span 5;
+            }
+
+            .card--formats .service-title {
+                font-size: clamp(1.4rem, 2.3vw, 2rem);
+            }
+
+            .card--wide {
+                grid-column: span 12;
+                display: grid;
+                grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+                gap: clamp(1.5rem, 4vw, 3.5rem);
+                align-items: center;
+                border-left: 2px solid var(--gold);
+            }
+
+            .card--wide .service-title {
+                margin-bottom: 0;
+                font-size: clamp(1.6rem, 3vw, 2.6rem);
+            }
+
+            /* list language 1 - chips */
+            .chips {
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+            }
+
+            .chips li {
+                border: 1px solid var(--line);
+                color: var(--fg);
+                font-size: 0.8125rem;
+                font-weight: 700;
+                letter-spacing: 0.11em;
+                text-transform: uppercase;
+                padding: 0.6rem 0.95rem;
+                background: rgba(229, 185, 78, 0.04);
+            }
+
+            /* list language 2 - format tiles */
+            .tiles {
+                list-style: none;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1px;
+                background: var(--line-soft);
+                border: 1px solid var(--line-soft);
+            }
+
+            .tiles li {
+                min-width: 0;
+                background: var(--ink);
+                padding: 0.95rem 1rem;
+                font-size: clamp(0.75rem, 0.95vw, 0.8125rem);
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: var(--fg);
+                overflow-wrap: anywhere;
+                hyphens: none;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .tiles li::before {
+                content: '';
+                flex: none;
+                width: 14px;
+                height: 1px;
+                background: var(--gold);
+            }
+
+            /* list language 3 - split band */
+            .splits {
+                list-style: none;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: clamp(1.25rem, 3vw, 2.5rem);
+            }
+
+            .splits li {
+                min-width: 0;
+                padding-top: 1rem;
+                border-top: 1px solid var(--line);
+                font-size: clamp(1rem, 1.5vw, 1.25rem);
+                font-weight: 600;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                color: var(--fg);
+                font-stretch: 96%;
+            }
+
+            @media (max-width: 900px) {
+                .card--lead,
+                .card--formats,
+                .card--wide {
+                    grid-column: span 12;
+                }
+
+                .card--wide {
+                    grid-template-columns: 1fr;
+                    align-items: start;
+                }
+
+                .card--wide .service-title {
+                    margin-bottom: 1.4rem;
+                }
+            }
+
+            @media (max-width: 460px) {
+                .splits {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* ---------- Contact ---------- */
+            .contact {
+                padding-block: var(--band);
+                background: var(--ink);
+                border-top: 1px solid var(--line-soft);
+            }
+
+            .contact-grid {
+                display: grid;
+                grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+                gap: clamp(2rem, 5vw, 4.5rem);
+                align-items: start;
+            }
+
+            .contact-aside .section-title {
+                font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+            }
+
+            .contact-aside p {
+                margin-top: 1.15rem;
+                color: var(--fg-mute);
+                font-weight: 300;
+                max-width: 34ch;
+            }
+
+            .mail {
+                display: inline-block;
+                margin-top: 1.6rem;
+                color: var(--gold);
+                font-size: clamp(0.9rem, 1.35vw, 1.0625rem);
+                font-weight: 600;
+                letter-spacing: 0.01em;
+                text-decoration: none;
+                border-bottom: 1px solid var(--line);
+                padding-bottom: 0.3rem;
+                overflow-wrap: anywhere;
+                transition: border-color 0.25s var(--ease);
+            }
+
+            .mail:hover {
+                border-bottom-color: var(--gold);
+            }
+
+            .aside-mark {
+                width: clamp(64px, 9vw, 104px);
+                margin-top: clamp(2.5rem, 5vw, 4rem);
+                color: var(--gold);
+                opacity: 0.45;
+            }
+
+            @media (max-width: 900px) {
+                .aside-mark {
+                    display: none;
+                }
+            }
+
+            .form-panel {
+                border: 1px solid var(--line-soft);
+                background: var(--ink-panel);
+                padding: clamp(1.5rem, 3.2vw, 2.75rem);
+            }
+
+            .contact-form {
+                display: grid;
+                gap: 1.35rem;
+            }
+
+            .field-row {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1.35rem;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                min-width: 0;
+            }
+
+            .form-group label {
+                color: var(--fg);
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+            }
+
+            .form-group label .optional {
+                color: var(--fg-mute);
+                font-weight: 400;
+                letter-spacing: 0.1em;
+                text-transform: none;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+                border: 1px solid var(--line-soft);
+                border-radius: 0;
+                background: var(--ink);
+                color: var(--fg);
+                font-family: inherit;
+                font-size: 1rem;
+                padding: 0.95rem 1rem;
+                transition: border-color 0.25s var(--ease),
+                    background-color 0.25s var(--ease);
+            }
+
+            .form-group input::placeholder,
+            .form-group textarea::placeholder {
+                color: #86837d;
+            }
+
+            .form-group input:hover,
+            .form-group textarea:hover {
+                border-color: var(--line);
+            }
+
+            .form-group input:focus-visible,
+            .form-group textarea:focus-visible {
+                border-color: var(--gold);
+                background: var(--ink-raised);
+                outline: 2px solid var(--gold);
+                outline-offset: 2px;
+            }
+
+            .form-group textarea {
+                min-height: 148px;
+                resize: vertical;
+            }
+
+            .submit-button {
+                justify-self: start;
+                min-width: 14rem;
+            }
+
+            .submit-button[disabled] {
+                opacity: 0.65;
+                cursor: progress;
+            }
+
+            .form-message {
+                display: none;
+                border-left: 3px solid var(--line);
+                background: var(--ink-raised);
+                padding: 0.95rem 1.1rem;
+                font-size: 0.9375rem;
+                line-height: 1.5;
+            }
+
+            .form-message.is-shown {
+                display: block;
+            }
+
+            .form-message .tag {
+                display: block;
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                margin-bottom: 0.35rem;
+            }
+
+            .form-message.success {
+                border-left-color: var(--ok);
+                color: var(--fg);
+            }
+
+            .form-message.success .tag {
+                color: var(--ok);
+            }
+
+            .form-message.error {
+                border-left-color: var(--bad);
+                color: var(--fg);
+            }
+
+            .form-message.error .tag {
+                color: var(--bad);
+            }
+
+            @media (max-width: 900px) {
+                .contact-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            @media (max-width: 560px) {
+                .field-row {
+                    grid-template-columns: 1fr;
+                }
+
+                .submit-button {
+                    width: 100%;
+                }
+            }
+
+            /* ---------- Footer ---------- */
+            .site-foot {
+                position: relative;
+                overflow: hidden;
+                border-top: 1px solid var(--line);
+                background: #08080a;
+                padding-block: clamp(3rem, 6vw, 5rem) 2rem;
+            }
+
+            .foot-ghost {
+                position: absolute;
+                right: -4%;
+                bottom: -34%;
+                width: min(360px, 42vw);
+                color: var(--gold);
+                opacity: 0.05;
+                pointer-events: none;
+            }
+
+            .foot-grid {
+                position: relative;
+                display: grid;
+                grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+                gap: clamp(2rem, 5vw, 4rem);
+                align-items: start;
+            }
+
+            .foot-tag {
+                margin-top: 1.1rem;
+                color: var(--fg-mute);
+                font-weight: 300;
+                max-width: 32ch;
+            }
+
+            .foot-links {
+                display: flex;
+                flex-direction: column;
+                gap: 0.85rem;
+                align-items: flex-start;
+            }
+
+            .foot-links a {
+                font-size: 0.8125rem;
+                font-weight: 600;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                text-decoration: none;
+                color: var(--fg-mute);
+                transition: color 0.2s var(--ease);
+            }
+
+            .foot-links a:hover {
+                color: var(--gold);
+            }
+
+            .foot-links a.mail-link {
+                letter-spacing: 0.02em;
+                text-transform: none;
+                color: var(--gold);
+                overflow-wrap: anywhere;
+            }
+
+            .foot-base {
+                position: relative;
+                margin-top: clamp(2.5rem, 5vw, 4rem);
+                padding-top: 1.5rem;
+                border-top: 1px solid var(--line-soft);
+                font-size: 0.75rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: #8d8a85;
+            }
+
+            @media (max-width: 700px) {
+                .foot-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* ---------- Motion (gate 7: content is visible without it) ---------- */
+            @media (prefers-reduced-motion: no-preference) {
+                .js .reveal {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: opacity 0.75s var(--ease),
+                        transform 0.75s var(--ease);
+                    transition-delay: var(--d, 0ms);
+                }
+
+                .js .reveal.is-in {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+
+            /* Off-screen SVG symbol host - must stay rendered for the mask to resolve */
+            .sprite {
+                position: absolute;
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <svg class="sprite" aria-hidden="true" focusable="false">
+            <defs>
+<mask id="bearMask">
+<rect width="1024" height="1024" fill="white"/>
+<g transform="translate(0.000000,1024.000000) scale(0.100000,-0.100000)" fill="black">
+<path d="M0 5120 l0 -5120 5120 0 5120 0 0 5120 0 5120 -5120 0 -5120 0 0
+-5120z m4310 3320 c25 -6 74 -22 110 -37 120 -49 197 -108 373 -287 92 -93
+167 -167 167 -164 0 4 -19 37 -41 73 -23 36 -40 68 -37 70 15 15 355 25 502
+15 414 -28 750 -109 1055 -256 324 -155 541 -356 717 -664 94 -164 95 -196 8
+-254 -31 -21 -54 -39 -52 -41 1 -1 38 -12 80 -24 112 -30 235 -87 578 -267
+259 -137 420 -230 408 -239 -2 -1 -39 2 -83 6 -277 26 -495 -6 -615 -91 -37
+-26 -39 -60 -9 -155 26 -84 75 -136 207 -219 50 -32 92 -65 92 -73 0 -25 -41
+-136 -65 -178 -32 -53 -71 -90 -117 -109 -48 -20 -138 -20 -563 -1 -420 20
+-537 9 -700 -66 l-50 -23 85 -8 c47 -4 198 -24 335 -43 138 -19 293 -39 345
+-45 105 -12 375 -14 416 -4 l26 7 -4 -77 c-4 -95 -13 -104 -142 -156 l-97 -39
+-297 15 c-379 20 -686 14 -907 -17 -129 -18 -208 -22 -410 -23 -263 -1 -319 5
+-495 50 -387 100 -704 332 -897 657 l-40 68 -7 -32 c-13 -64 -6 -395 9 -485
+52 -299 231 -616 482 -854 42 -41 70 -71 62 -68 -8 3 -56 17 -107 32 -578 166
+-967 633 -1099 1321 -20 104 -28 449 -15 585 6 57 10 106 8 107 -6 7 -189
+-235 -277 -366 -101 -150 -227 -400 -287 -566 -51 -140 -105 -356 -128 -510
+-46 -314 -10 -689 95 -972 32 -88 82 -193 91 -193 3 0 12 35 19 77 25 149 103
+344 183 461 26 38 33 43 36 27 37 -240 138 -518 274 -755 118 -205 217 -331
+407 -520 296 -295 646 -515 1021 -641 96 -32 317 -82 330 -74 4 2 10 35 14 72
+9 88 49 297 87 448 163 661 450 1143 879 1477 95 73 230 168 240 168 4 0 10
+-100 13 -222 8 -313 45 -538 128 -774 37 -106 115 -268 164 -343 l35 -53 -113
+-132 c-129 -149 -386 -406 -527 -526 -295 -252 -645 -488 -995 -671 l-137 -72
+-56 13 c-85 19 -322 102 -457 160 -643 275 -1228 756 -1463 1202 l-30 58 -8
+-88 c-4 -48 -4 -189 -1 -314 5 -228 5 -228 -15 -217 -47 25 -309 301 -395 416
+-199 265 -361 597 -437 895 -66 257 -80 384 -80 728 -1 241 3 330 17 425 53
+354 149 651 318 985 159 314 321 540 549 770 139 141 199 191 408 342 l52 37
+72 -30 c73 -30 235 -89 245 -89 3 0 -13 22 -36 48 -81 98 -205 353 -242 503
+-31 121 -24 255 19 362 35 87 101 193 158 256 74 83 225 164 359 194 39 9 210
+6 255 -3z m3715 -2702 c-33 -116 -96 -250 -131 -277 -30 -24 -78 -27 -113 -7
+l-25 14 31 6 c56 13 83 62 123 219 l28 110 53 22 c30 12 55 18 57 14 2 -5 -8
+-50 -23 -101z"/>
+<path d="M3993 8075 c-80 -48 -138 -219 -131 -385 3 -74 9 -95 42 -161 21 -41
+60 -106 88 -143 l49 -68 142 139 c139 136 247 218 365 277 29 15 52 31 50 36
+-2 5 -37 48 -78 95 -103 121 -201 184 -341 220 -84 22 -137 19 -186 -10z"/>
+<path d="M5851 7250 c-70 -15 -173 -51 -210 -73 l-33 -20 81 -24 c140 -40 167
+-59 216 -150 37 -69 96 -127 164 -160 45 -22 69 -28 131 -28 67 0 88 5 192 48
+l116 48 52 -37 51 -36 89 41 c48 22 93 41 99 41 14 0 -43 51 -139 124 -92 71
+-285 166 -405 202 -73 21 -115 27 -225 30 -74 2 -155 -1 -179 -6z"/>
+</g>
+</mask>
+</defs>
+        </svg>
+
+        <a class="skip-link" href="#main">Skip to content</a>
+
+        <header class="site-head" id="siteHead">
+            <div class="shell head-inner">
+                <a class="lockup" href="#top" aria-label="Grizzly Enterprise, back to top">
+                    <svg
+                        class="bear"
+                        viewBox="0 0 1024 1024"
+                        aria-hidden="true"
+                        focusable="false"
+                    >
+                        <rect
+                            width="1024"
+                            height="1024"
+                            fill="currentColor"
+                            mask="url(#bearMask)"
+                        />
+                    </svg>
+                    <span class="lockup-text">
+                        <b>GRIZZLY</b>
+                        <span>ENTERPRISE</span>
+                    </span>
+                </a>
+
+                <button
+                    class="nav-toggle"
+                    id="navToggle"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="navPanel"
+                >
+                    <span class="bars" aria-hidden="true"></span>
+                    Menu
+                </button>
+
+                <nav class="nav" id="navPanel" aria-label="Primary">
+                    <a href="#offer">What We Offer</a>
+                    <a class="btn btn-primary" href="#contact">Get in touch</a>
+                </nav>
+            </div>
+        </header>
+
+        <div id="topSentinel" aria-hidden="true"></div>
+
+        <main id="main">
+            <section class="hero" id="top">
+                <div class="shell hero-grid">
+                    <div class="hero-copy">
+                        <p class="eyebrow reveal">
+                            Sales Training &amp; Life Coaching
+                        </p>
+                        <h1 class="company-name reveal" style="--d: 60ms">
+                            <span class="name-a">GRIZZLY</span>
+                            <span class="enterprise-text">ENTERPRISE</span>
+                        </h1>
+                        <div class="hero-rule reveal" style="--d: 120ms"></div>
+                        <p class="lede reveal" style="--d: 160ms">
+                            Transforming performance through expert guidance
+                        </p>
+                        <div class="cta-row reveal" style="--d: 220ms">
+                            <a class="btn btn-primary" href="#contact"
+                                >Get in touch</a
+                            >
+                            <a class="btn btn-ghost" href="#offer"
+                                >What We Offer</a
+                            >
+                        </div>
+                    </div>
+
+                    <div class="hero-mark reveal" style="--d: 120ms">
+                        <svg
+                            class="bear"
+                            viewBox="0 0 1024 1024"
+                            role="img"
+                            aria-label="Grizzly Enterprise logo"
+                        >
+                            <rect
+                                width="1024"
+                                height="1024"
+                                fill="currentColor"
+                                mask="url(#bearMask)"
+                            />
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <section class="band" aria-label="Statement">
+                <div class="shell band-inner">
+                    <svg
+                        class="bear"
+                        viewBox="0 0 1024 1024"
+                        aria-hidden="true"
+                        focusable="false"
+                    >
+                        <rect
+                            width="1024"
+                            height="1024"
+                            fill="currentColor"
+                            mask="url(#bearMask)"
+                        />
+                    </svg>
+                    <p class="reveal">
+                        Performance is trained.
+                        <em>It is not left to chance.</em>
+                    </p>
+                </div>
+            </section>
+
+            <section class="offer" id="offer">
+                <div class="shell">
+                    <div class="section-head reveal">
+                        <p class="eyebrow">Three areas of work</p>
+                        <h2 class="section-title">What We Offer</h2>
+                        <p class="section-lede">
+                            Sales performance, the client experience around it,
+                            and the person doing the work. Each one is trained
+                            in the format that suits the room.
+                        </p>
+                    </div>
+
+                    <div class="offer-grid">
+                        <article class="card card--lead reveal">
+                            <svg
+                                class="bear bear-ghost"
+                                viewBox="0 0 1024 1024"
+                                aria-hidden="true"
+                                focusable="false"
+                            >
+                                <rect
+                                    width="1024"
+                                    height="1024"
+                                    fill="currentColor"
+                                    mask="url(#bearMask)"
+                                />
+                            </svg>
+                            <span class="card-index">Sales</span>
+                            <h3 class="service-title">
+                                TOP PERFORMING SALES TRAINING
+                            </h3>
+                            <ul class="chips">
+                                <li>B2CONSUMER</li>
+                                <li>B2BUSINESS</li>
+                                <li>B2GOVERNMENT</li>
+                            </ul>
+                        </article>
+
+                        <article class="card card--formats reveal" style="--d: 90ms">
+                            <span class="card-index">Delivery</span>
+                            <h3 class="service-title">
+                                MAXIMIZE CLIENT EXPERIENCE
+                            </h3>
+                            <ul class="tiles">
+                                <li>IN PERSON</li>
+                                <li>CONFERENCE/TRADESHOW</li>
+                                <li>VIRTUAL</li>
+                                <li>PHONE</li>
+                            </ul>
+                        </article>
+
+                        <article class="card card--wide reveal" style="--d: 150ms">
+                            <div>
+                                <span class="card-index">Coaching</span>
+                                <h3 class="service-title">LIFE COACHING</h3>
+                            </div>
+                            <ul class="splits">
+                                <li>PERSONAL DEVELOPMENT</li>
+                                <li>PERFORMANCE TRANSFORMATION</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact" id="contact">
+                <div class="shell contact-grid">
+                    <div class="contact-aside reveal">
+                        <h2 class="section-title">Contact Us</h2>
+                        <p>
+                            Tell us what you want to change and how your team
+                            sells today. We will take it from there.
+                        </p>
+                        <a class="mail" href="mailto:grizzlydashenterprise@gmail.com"
+                            >grizzlydashenterprise@gmail.com</a
+                        >
+                        <svg
+                            class="bear aside-mark"
+                            viewBox="0 0 1024 1024"
+                            aria-hidden="true"
+                            focusable="false"
+                        >
+                            <rect
+                                width="1024"
+                                height="1024"
+                                fill="currentColor"
+                                mask="url(#bearMask)"
+                            />
+                        </svg>
+                    </div>
+
+                    <div class="form-panel reveal" style="--d: 90ms">
+                        <form
+                            class="contact-form"
+                            id="contactForm"
+                            action="https://formspree.io/f/mqanzkpa"
+                            method="POST"
+                        >
+                            <div class="field-row">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Your name"
+                                        autocomplete="name"
+                                        required
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="your.email@example.com"
+                                        autocomplete="email"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone"
+                                    >Phone
+                                    <span class="optional">(optional)</span>
+                                </label>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Your phone number"
+                                    autocomplete="tel"
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    placeholder="Your message..."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary submit-button">
+                                Send Message
+                            </button>
+
+                            <p
+                                class="form-message"
+                                id="formMessage"
+                                role="status"
+                                aria-live="polite"
+                            ></p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-foot">
+            <svg
+                class="bear foot-ghost"
+                viewBox="0 0 1024 1024"
+                aria-hidden="true"
+                focusable="false"
+            >
+                <rect
+                    width="1024"
+                    height="1024"
+                    fill="currentColor"
+                    mask="url(#bearMask)"
+                />
+            </svg>
+
+            <div class="shell">
+                <div class="foot-grid">
+                    <div>
+                        <a class="lockup" href="#top" aria-label="Grizzly Enterprise, back to top">
+                            <svg
+                                class="bear"
+                                viewBox="0 0 1024 1024"
+                                aria-hidden="true"
+                                focusable="false"
+                            >
+                                <rect
+                                    width="1024"
+                                    height="1024"
+                                    fill="currentColor"
+                                    mask="url(#bearMask)"
+                                />
+                            </svg>
+                            <span class="lockup-text">
+                                <b>GRIZZLY</b>
+                                <span>ENTERPRISE</span>
+                            </span>
+                        </a>
+                        <p class="foot-tag">
+                            Sales Training &amp; Life Coaching
+                        </p>
+                    </div>
+
+                    <nav class="foot-links" aria-label="Footer">
+                        <a href="#offer">What We Offer</a>
+                        <a href="#contact">Contact Us</a>
+                        <a
+                            class="mail-link"
+                            href="mailto:grizzlydashenterprise@gmail.com"
+                            >grizzlydashenterprise@gmail.com</a
+                        >
+                    </nav>
+                </div>
+
+                <p class="foot-base">
+                    &copy; 2026 Grizzly Enterprise. All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+        <script>
+            (function () {
+                var root = document.documentElement;
+                var reduce =
+                    window.matchMedia &&
+                    window.matchMedia('(prefers-reduced-motion: reduce)')
+                        .matches;
+
+                /* Reveal choreography. Only ever engaged when motion is welcome
+                   and IntersectionObserver exists; without it every element stays
+                   at its natural, fully visible state. */
+                if (!reduce && 'IntersectionObserver' in window) {
+                    root.classList.add('js');
+                    var items = [].slice.call(
+                        document.querySelectorAll('.reveal')
+                    );
+                    var io = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('is-in');
+                                    io.unobserve(entry.target);
+                                }
+                            });
+                        },
+                        { rootMargin: '0px 0px -6% 0px', threshold: 0.02 }
+                    );
+                    items.forEach(function (el) {
+                        io.observe(el);
+                    });
+                    /* Safety net: anything still hidden after 1.4s is shown. */
+                    window.setTimeout(function () {
+                        items.forEach(function (el) {
+                            el.classList.add('is-in');
+                        });
+                    }, 1400);
+                }
+
+                /* Header surface state, no scroll listener. */
+                var head = document.getElementById('siteHead');
+                var sentinel = document.getElementById('topSentinel');
+                if (head && sentinel && 'IntersectionObserver' in window) {
+                    new IntersectionObserver(
+                        function (entries) {
+                            head.classList.toggle(
+                                'is-stuck',
+                                !entries[0].isIntersecting
+                            );
+                        },
+                        { rootMargin: '-40px 0px 0px 0px' }
+                    ).observe(sentinel);
+                } else if (head) {
+                    head.classList.add('is-stuck');
+                }
+
+                /* Mobile disclosure menu. */
+                var toggle = document.getElementById('navToggle');
+                var panel = document.getElementById('navPanel');
+                if (toggle && panel) {
+                    var setOpen = function (open) {
+                        toggle.setAttribute('aria-expanded', String(open));
+                        panel.classList.toggle('is-open', open);
+                    };
+                    toggle.addEventListener('click', function () {
+                        setOpen(
+                            toggle.getAttribute('aria-expanded') !== 'true'
+                        );
+                    });
+                    panel.addEventListener('click', function (e) {
+                        if (e.target.closest('a')) setOpen(false);
+                    });
+                    document.addEventListener('keydown', function (e) {
+                        if (e.key === 'Escape') setOpen(false);
+                    });
+                }
+
+                /* In-page navigation, honouring reduced motion. */
+                document
+                    .querySelectorAll('a[href^="#"]:not(.skip-link)')
+                    .forEach(function (anchor) {
+                        anchor.addEventListener('click', function (e) {
+                            var target = document.querySelector(
+                                this.getAttribute('href')
+                            );
+                            if (!target) return;
+                            e.preventDefault();
+                            target.scrollIntoView({
+                                behavior: reduce ? 'auto' : 'smooth',
+                                block: 'start',
+                            });
+                        });
+                    });
+
+                /* Contact form. Endpoint and field contract unchanged. */
+                var contactForm = document.getElementById('contactForm');
+                var formMessage = document.getElementById('formMessage');
+
+                var say = function (kind, tag, text) {
+                    formMessage.className =
+                        'form-message is-shown ' + kind;
+                    formMessage.innerHTML = '';
+                    var strong = document.createElement('span');
+                    strong.className = 'tag';
+                    strong.textContent = tag;
+                    formMessage.appendChild(strong);
+                    formMessage.appendChild(document.createTextNode(text));
+                };
+
+                contactForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+
+                    var submitButton =
+                        contactForm.querySelector('.submit-button');
+                    var originalText = submitButton.textContent;
+                    submitButton.textContent = 'Sending...';
+                    submitButton.disabled = true;
+                    formMessage.className = 'form-message';
+                    formMessage.textContent = '';
+
+                    try {
+                        var formData = new FormData(contactForm);
+
+                        var response = await fetch(contactForm.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                Accept: 'application/json',
+                            },
+                        });
+
+                        var data = await response.json();
+
+                        if (response.ok) {
+                            say(
+                                'success',
+                                'Message sent',
+                                'Thank you! Your message has been sent successfully.'
+                            );
+                            contactForm.reset();
+                        } else {
+                            if (data.errors) {
+                                var errorMessages = data.errors
+                                    .map(function (err) {
+                                        return err.message || err;
+                                    })
+                                    .join(', ');
+                                throw new Error(
+                                    'Validation errors: ' + errorMessages
+                                );
+                            }
+                            throw new Error(
+                                data.error || 'Form submission failed'
+                            );
+                        }
+                    } catch (error) {
+                        console.error('Form Error:', error);
+                        var errorMessage =
+                            error.message &&
+                            error.message.indexOf('Validation errors') !== -1
+                                ? error.message
+                                : 'Sorry, there was an error sending your message. Please try again or contact us directly at grizzlydashenterprise@gmail.com.';
+                        say('error', 'Message not sent', errorMessage);
+                    } finally {
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }
+                });
+            })();
+        </script>
+    </body>
+</html>
