@@ -3,131 +3,294 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="color-scheme" content="light" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#0b0c0b" />
         <meta
             name="description"
             content="Grizzly Enterprise - Sales training and life coaching"
         />
         <title>Grizzly Enterprise</title>
         <link rel="icon" type="image/svg+xml" href="icons/icon2.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap"
+        />
         <link rel="stylesheet" href="styles.css" />
+        <script>
+            /* The reveal styles hide their targets, so they are only armed once
+               a script is running to unhide them. Set before first paint. */
+            document.documentElement.classList.add('js');
+        </script>
+        <script src="script.js" defer></script>
     </head>
     <body>
+        <a class="skip" href="#offer">Skip to content</a>
+
+        <header class="rail">
+            <div class="rail-in">
+                <a class="lock" href="#home">
+                    <img src="icons/icon2.svg" alt="" width="34" height="34" />
+                    <span class="lock-name">
+                        <b>Grizzly</b>
+                        <span>Enterprise</span>
+                    </span>
+                </a>
+                <nav aria-label="Primary">
+                    <a href="#offer">What We Offer</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <a class="btn btn--gold rail-cta" href="#contact"
+                    >Get in touch</a
+                >
+            </div>
+        </header>
+
         <main>
             <section class="hero" id="home">
-                <div class="hero-content">
-                    <img
-                        src="icons/icon2.svg"
-                        alt="Grizzly Enterprise Logo"
-                        class="hero-icon"
-                    />
-                    <h1 class="company-name">
-                        GRIZZLY<br /><span class="enterprise-text"
-                            >ENTERPRISE</span
-                        >
-                    </h1>
-                    <p class="subtitle">
-                        Sales Training & Life Coaching<br />
-                        Transforming performance through expert guidance
-                    </p>
-                </div>
-            </section>
+                <div class="motif" aria-hidden="true"></div>
+                <div class="wrap ruled">
+                    <div class="hero-grid">
+                        <h1 class="wordmark reveal">
+                            <span class="wordmark-g">GRIZZLY</span>
+                            <span class="wordmark-e">ENTERPRISE</span>
+                        </h1>
 
-            <section class="services-section" id="services">
-                <div class="services-container">
-                    <h2 class="section-title">What We Offer</h2>
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <h3 class="service-title">
-                                TOP PERFORMING SALES TRAINING
-                            </h3>
-                            <ul class="service-list">
-                                <li>B2CONSUMER</li>
-                                <li>B2BUSINESS</li>
-                                <li>B2GOVERNMENT</li>
-                            </ul>
-                        </div>
-                        <div class="service-card">
-                            <h3 class="service-title">
-                                MAXIMIZE CLIENT EXPERIENCE
-                            </h3>
-                            <ul class="service-list">
-                                <li>IN PERSON</li>
-                                <li>CONFERENCE/TRADESHOW</li>
-                                <li>VIRTUAL</li>
-                                <li>PHONE</li>
-                            </ul>
-                        </div>
-                        <div class="service-card">
-                            <h3 class="service-title">LIFE COACHING</h3>
-                            <ul class="service-list">
-                                <li>PERSONAL DEVELOPMENT</li>
-                                <li>PERFORMANCE TRANSFORMATION</li>
-                            </ul>
+                        <hr class="rule hero-rule reveal" style="--d: 90ms" />
+
+                        <p class="tagline reveal" style="--d: 150ms">
+                            Sales Training &amp; Life Coaching
+                        </p>
+
+                        <div class="cta-row reveal" style="--d: 210ms">
+                            <a class="btn btn--gold" href="#contact"
+                                >Get in touch</a
+                            >
+                            <a class="btn btn--ghost" href="#offer"
+                                >What We Offer</a
+                            >
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="contact-section" id="contact">
-                <div class="contact-container">
-                    <h2 class="contact-title">Contact Us</h2>
-                    <form
-                        class="contact-form"
-                        id="contactForm"
-                        action="https://formspree.io/f/mqanzkpa"
-                        method="POST"
-                    >
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                placeholder="Your name"
-                                required
-                            />
+            <section class="band" aria-label="Statement">
+                <div class="wrap band-inner">
+                    <span class="bear band-bear" aria-hidden="true"></span>
+                    <p class="reveal">
+                        Transforming performance
+                        <em>through expert guidance</em>
+                    </p>
+                </div>
+            </section>
+
+            <section class="offer" id="offer" aria-labelledby="offer-title">
+                <div class="wrap">
+                    <div class="section-head reveal">
+                        <p class="eyebrow">Three areas of work</p>
+                        <h2 class="section-title" id="offer-title">
+                            What We Offer
+                        </h2>
+                        <p class="section-lede">
+                            Sales performance, the client experience around it,
+                            and the person doing the work. Each one is trained
+                            in the format that suits the room.
+                        </p>
+                    </div>
+
+                    <div class="offer-grid">
+                        <article class="card card--lead reveal">
+                            <span class="bear bear-ghost" aria-hidden="true"></span>
+                            <span class="card-index">Sales</span>
+                            <h3 class="service-title">
+                                TOP PERFORMING SALES TRAINING
+                            </h3>
+                            <ul class="chips">
+                                <li>B2CONSUMER</li>
+                                <li>B2BUSINESS</li>
+                                <li>B2GOVERNMENT</li>
+                            </ul>
+                        </article>
+
+                        <article
+                            class="card card--formats reveal"
+                            style="--d: 90ms"
+                        >
+                            <span class="card-index">Delivery</span>
+                            <h3 class="service-title">
+                                MAXIMIZE CLIENT EXPERIENCE
+                            </h3>
+                            <ul class="tiles">
+                                <li>IN PERSON</li>
+                                <li>CONFERENCE/TRADESHOW</li>
+                                <li>VIRTUAL</li>
+                                <li>PHONE</li>
+                            </ul>
+                        </article>
+
+                        <article
+                            class="card card--wide reveal"
+                            style="--d: 150ms"
+                        >
+                            <div>
+                                <span class="card-index">Coaching</span>
+                                <h3 class="service-title">LIFE COACHING</h3>
+                            </div>
+                            <ul class="splits">
+                                <li>PERSONAL DEVELOPMENT</li>
+                                <li>PERFORMANCE TRANSFORMATION</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section
+                class="contact"
+                id="contact"
+                aria-labelledby="contact-title"
+            >
+                <div class="wrap ruled">
+                    <div class="contact-grid">
+                        <div class="contact-aside reveal">
+                            <h2 class="section-title" id="contact-title">
+                                Contact Us
+                            </h2>
+                            <hr class="rule contact-rule" />
+                            <p class="contact-say">
+                                Tell us who you are training and what you want
+                                to change.
+                            </p>
+                            <div class="direct">
+                                <p class="eyebrow">Or write to us</p>
+                                <a href="mailto:grizzlydashenterprise@gmail.com"
+                                    >grizzlydashenterprise@gmail.com</a
+                                >
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="your.email@example.com"
-                                required
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="phone"
-                                >Phone
-                                <span class="optional">(optional)</span></label
+
+                        <div class="panel reveal" style="--d: 90ms">
+                            <form
+                                class="form"
+                                id="contactForm"
+                                action="https://formspree.io/f/mqanzkpa"
+                                method="POST"
                             >
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                placeholder="Your phone number"
-                            />
+                                <div class="field">
+                                    <label for="name">Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Your name"
+                                        autocomplete="name"
+                                        required
+                                    />
+                                </div>
+                                <div class="field">
+                                    <label for="email">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="your.email@example.com"
+                                        autocomplete="email"
+                                        required
+                                    />
+                                </div>
+                                <div class="field field--full">
+                                    <label for="phone"
+                                        >Phone
+                                        <span class="optional"
+                                            >(optional)</span
+                                        ></label
+                                    >
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        placeholder="Your phone number"
+                                        autocomplete="tel"
+                                    />
+                                </div>
+                                <div class="field field--full">
+                                    <label for="message">Message</label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        placeholder="Your message…"
+                                        required
+                                    ></textarea>
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="btn btn--gold"
+                                    id="submitButton"
+                                >
+                                    Send Message
+                                </button>
+                                <div
+                                    class="msg"
+                                    id="formMessage"
+                                    role="status"
+                                    aria-live="polite"
+                                >
+                                    <span
+                                        class="msg-mark"
+                                        aria-hidden="true"
+                                    ></span>
+                                    <span
+                                        class="msg-text"
+                                        id="formMessageText"
+                                    ></span>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                placeholder="Your message..."
-                                required
-                            ></textarea>
-                        </div>
-                        <button type="submit" class="submit-button">
-                            Send Message
-                        </button>
-                        <div class="form-message" id="formMessage"></div>
-                    </form>
+                    </div>
                 </div>
             </section>
         </main>
 
-        <script src="script.js"></script>
+        <footer class="foot">
+            <div class="foot-motif" aria-hidden="true"></div>
+            <div class="wrap">
+                <div class="foot-grid">
+                    <div class="foot-brand">
+                        <p class="foot-word">
+                            GRIZZLY<span>ENTERPRISE</span>
+                        </p>
+                        <p class="foot-tag">
+                            Sales Training &amp; Life Coaching
+                        </p>
+                    </div>
+                    <nav class="foot-col" aria-label="Sections">
+                        <p class="eyebrow">Site</p>
+                        <ul>
+                            <li><a href="#offer">What We Offer</a></li>
+                            <li><a href="#contact">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                    <div class="foot-col">
+                        <p class="eyebrow">Reach us</p>
+                        <ul>
+                            <li>
+                                <a href="mailto:grizzlydashenterprise@gmail.com"
+                                    >grizzlydashenterprise@gmail.com</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="foot-base">
+                    <p class="eyebrow eyebrow--mute">
+                        &copy; 2026 Grizzly Enterprise
+                    </p>
+                    <a class="eyebrow eyebrow--mute foot-top" href="#home"
+                        >Back to top</a
+                    >
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

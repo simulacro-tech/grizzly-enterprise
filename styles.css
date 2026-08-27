@@ -1,488 +1,1067 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ==========================================================================
+   Grizzly Enterprise
+   Round 1 port. Provenance, per section:
+     wordmark    lettering from entry A, scale from entry B
+     tagline     entry B
+     rail + CTA  entry B
+     band        entry A, carrying the site's own tagline
+     offer       entry A
+     contact     entry B
+     footer      entry B's layout, entry A's lettering
+   ========================================================================== */
 
 :root {
-    /* Primary Colors */
-    --gold: #d4af37;
-    --gold-dark: #b8941f;
-    --gold-light: #f4e5a1;
-    --black: #000000;
-    --silver: #c0c0c0;
-    --silver-dark: #808080;
-    --white: #ffffff;
+    /* board module — the spacing unit the layout counts in */
+    --mod: 88px;
+    --rail-h: 74px;
+    --pad: clamp(1.25rem, 4vw, 4rem);
+    --measure: calc(var(--mod) * 15);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-    /* Color Variants */
-    --black-dark: #1a1a1a;
+    /* ground */
+    --slate: #0b0c0b;
+    --slate-2: #0d0f0d;
+    --panel: #141613;
 
-    /* Gold with Opacity */
-    --gold-10: rgba(212, 175, 55, 0.1);
-    --gold-20: rgba(212, 175, 55, 0.2);
-    --gold-30: rgba(212, 175, 55, 0.3);
-    --gold-50: rgba(212, 175, 55, 0.5);
+    /* marker */
+    --gold: #e3b93f;
+    --gold-lit: #f2cd63;
+    --gold-ink: #2c2309;
 
-    /* White with Opacity */
-    --white-05: rgba(255, 255, 255, 0.05);
-    --white-10: rgba(255, 255, 255, 0.1);
-    --white-15: rgba(255, 255, 255, 0.15);
+    /* Gradients and hairlines only — never text. It measures 3.4:1 on the
+       page ground, which is why small gold copy uses --gold-label instead. */
+    --gold-deep: #a87f1c;
 
-    /* Silver with Opacity */
-    --silver-50: rgba(192, 192, 192, 0.5);
+    /* The pinned floor for gold text below 18px: >= 7:1 on every ground here. */
+    --gold-label: #c9a238;
 
-    /* Black with Opacity */
-    --black-50: rgba(0, 0, 0, 0.5);
+    /* chalk */
+    --chalk: #e8e6df;
+    --dim: #a9a79e;
+    --faint: #8e8c84;
 
-    /* Success Colors */
-    --success-bg: rgba(34, 197, 94, 0.2);
-    --success-border: rgba(34, 197, 94, 0.5);
-    --success-text: #4ade80;
+    /* lines */
+    --rule: rgba(227, 185, 63, 0.34);
+    --hair: rgba(232, 230, 223, 0.11);
 
-    /* Error Colors */
-    --error-bg: rgba(239, 68, 68, 0.2);
-    --error-border: rgba(239, 68, 68, 0.5);
-    --error-text: #f87171;
+    /* state */
+    --ok-line: rgba(126, 205, 150, 0.55);
+    --ok-text: #bfe6cb;
+    --no-line: rgba(232, 124, 112, 0.55);
+    --no-text: #f5c9c3;
+
+    /* The bear stays a real file, referenced once. */
+    --bear: url('icons/icon2.svg');
+
+    accent-color: var(--gold);
+    caret-color: var(--gold);
+}
+
+* {
+    box-sizing: border-box;
 }
 
 html {
+    /* Every in-page target clears the fixed rail. Anchors are left to the
+       browser, so the hash updates and focus follows the jump. */
+    scroll-padding-top: calc(var(--rail-h) + 1.5rem);
     scroll-behavior: smooth;
-    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.6;
-    color: var(--black);
-    background-color: var(--black);
-    overflow-x: hidden;
+    margin: 0;
+    padding-top: var(--rail-h);
+    background: var(--slate);
+    color: var(--chalk);
+    font-family: 'Archivo', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI',
+        system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: rgba(227, 185, 63, 0.18);
 }
 
-/* Hero Section - Full Page */
-.hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: clamp(2rem, 10vh, 6rem) 2rem 4rem 2rem;
-    background: var(--black);
-    position: relative;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-            circle at 20% 0%,
-            var(--gold-10) 0%,
-            transparent 50%
-        ),
-        radial-gradient(circle at 80% 0%, var(--gold-10) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 1400px;
-}
-
-.hero-icon {
-    width: clamp(80px, 15vw, 200px);
-    height: auto;
-    margin: 0 auto 2rem auto;
-    display: block;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-    animation-iteration-count: 1;
-    filter: drop-shadow(0 0 20px var(--gold-30));
-    will-change: opacity, transform;
-}
-
-.hero-icon.animated {
-    opacity: 1;
-    transform: translateY(0);
-    animation: none;
-}
-
-.company-name {
-    font-size: clamp(2.5rem, 12vw, 12rem);
-    font-weight: 900;
-    letter-spacing: clamp(0.1rem, 1.5vw, 1rem);
-    color: var(--gold);
-    text-transform: uppercase;
-    margin: 0 auto 2rem auto;
-    padding: clamp(1rem, 3vw, 2rem) clamp(1.5rem, 5vw, 4rem);
-    background: var(--black);
-    display: block;
-    animation: fadeInUp 1s ease;
-    line-height: 1.1;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-    position: relative;
-}
-
-.company-name::before {
-    content: '';
-    position: absolute;
-    top: -200vh;
-    left: calc(50% - 50vw);
-    width: 100vw;
-    bottom: -10vh;
-    background: var(--black);
-    z-index: -1;
-    pointer-events: none;
-}
-
-.enterprise-text {
-    white-space: nowrap;
-    display: inline-block;
-}
-
-.subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    color: var(--silver);
-    font-weight: 300;
-    letter-spacing: 0.1rem;
-    margin-top: 2rem;
-    animation: fadeInUp 1.2s ease;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Services Section */
-.services-section {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 5rem 2rem;
-    background: linear-gradient(
-        180deg,
-        var(--black-dark) 0%,
-        var(--black) 100%
-    );
-}
-
-.services-container {
-    max-width: 1200px;
-    width: 100%;
-}
-
-.section-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--gold);
-    text-align: center;
-    margin-bottom: 4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2rem;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.service-card {
-    background: var(--white-05);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--gold-30);
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 20px 60px var(--black-50), 0 0 40px var(--gold-10);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 70px var(--black-50), 0 0 50px var(--gold-20);
-}
-
-.service-title {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: var(--gold) !important;
-    margin-bottom: 1.5rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: clamp(0.1rem, 0.8vw, 0.4rem);
-    line-height: 1.1;
-}
-
-.service-list {
-    list-style: none;
-    padding: 0;
+h1,
+h2,
+h3,
+p,
+ul,
+figure {
     margin: 0;
 }
 
-.service-list li {
-    color: var(--silver) !important;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    margin-bottom: 0.8rem;
-    padding-left: 1.5rem;
-    position: relative;
+ul {
+    padding: 0;
 }
 
-.service-list li::before {
-    content: '•';
-    color: var(--gold);
-    font-size: 1.5rem;
+a {
+    color: inherit;
+    touch-action: manipulation;
+}
+
+img {
+    max-width: 100%;
+}
+
+:focus-visible {
+    outline: 2px solid var(--gold-lit);
+    outline-offset: 3px;
+}
+
+.skip {
     position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 80;
+    padding: 0.85rem 1.25rem;
+    background: var(--gold);
+    color: var(--gold-ink);
+    font-weight: 700;
+    text-decoration: none;
+}
+.skip:focus {
     left: 0;
-    line-height: 1;
 }
 
-/* About Section */
-.about-section {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 5rem 2rem;
-    background: var(--black);
-}
+/* ---------- shell ------------------------------------------------------- */
 
-.about-container {
-    max-width: 900px;
+.wrap {
     width: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: max(var(--pad), env(safe-area-inset-left));
+    position: relative;
+    z-index: 1;
 }
 
-.about-content {
-    background: var(--white-05);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--gold-30);
-    border-radius: 20px;
-    padding: 3rem;
-    box-shadow: 0 20px 60px var(--black-50), 0 0 40px var(--gold-10);
+/* The twelve-column ruling, drawn behind the sections that sit on the grid. */
+.ruled::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline: var(--pad);
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+        90deg,
+        var(--hair) 0 1px,
+        transparent 1px calc(100% / 12)
+    );
+    opacity: 0.7;
 }
 
-.about-text {
-    color: var(--silver);
-    line-height: 1.8;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-.about-text:last-child {
-    margin-bottom: 0;
-}
-
-/* Contact Form Section */
-.contact-section {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5rem 2rem;
+.rule {
+    height: 1px;
+    border: 0;
+    margin: 0;
     background: linear-gradient(
-        180deg,
-        var(--black) 0%,
-        var(--black-dark) 100%
+        90deg,
+        var(--gold) 0%,
+        var(--gold-deep) 55%,
+        rgba(168, 127, 28, 0) 100%
     );
 }
 
-.contact-container {
-    max-width: 600px;
-    width: 100%;
-    background: var(--white-05);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--gold-30);
-    border-radius: 20px;
-    padding: 3rem;
-    box-shadow: 0 20px 60px var(--black-50), 0 0 40px var(--gold-10);
+/* Shared micro-label. Gold at this size, so it uses the pinned floor. */
+.eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-stretch: 105%;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold-label);
+}
+.eyebrow--mute {
+    color: var(--dim);
 }
 
-.contact-title {
-    font-size: clamp(2rem, 4vw, 3rem);
+/* ---------- rail -------------------------------------------------------- */
+
+.rail {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 60;
+    height: var(--rail-h);
+    background: rgba(11, 12, 11, 0.86);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    backdrop-filter: blur(16px) saturate(1.3);
+    border-bottom: 1px solid var(--rule);
+}
+
+.rail-in {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.75rem);
+    height: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: max(var(--pad), env(safe-area-inset-left));
+}
+
+.lock {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    margin-inline-end: auto;
+}
+.lock img {
+    width: 34px;
+    height: 34px;
+    display: block;
+}
+.lock-name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+.lock-name b {
+    font-size: 0.94rem;
+    font-weight: 800;
+    font-stretch: 108%;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--gold);
-    text-align: center;
-    margin-bottom: 2rem;
+}
+.lock-name span {
+    font-size: 0.64rem;
+    font-weight: 600;
+    font-stretch: 72%;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 0.32em;
+}
+
+.rail nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.4vw, 2.25rem);
+}
+.rail nav a {
+    font-size: 0.74rem;
     font-weight: 700;
+    font-stretch: 78%;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    letter-spacing: 0.2rem;
+    color: var(--dim);
+    text-decoration: none;
+    padding-block: 0.5rem;
+    position: relative;
+    transition: color 0.3s ease, font-stretch 0.3s var(--ease);
+}
+.rail nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: right 0.36s var(--ease);
+}
+.rail nav a:hover,
+.rail nav a[aria-current='true'] {
+    color: var(--gold);
+    font-stretch: 96%;
+}
+.rail nav a:hover::after,
+.rail nav a[aria-current='true']::after {
+    right: 0;
 }
 
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.rail .btn {
+    padding: 0.8em 1.4em;
+    font-size: 0.74rem;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
+/* ---------- buttons ----------------------------------------------------- */
 
-.form-group label {
-    color: var(--silver);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    font-weight: 500;
-}
-
-.form-group label .optional {
-    text-transform: none;
-    font-weight: 300;
-    font-size: 0.85rem;
-    color: var(--silver-50);
-}
-
-.form-group input,
-.form-group textarea {
-    padding: 1rem;
-    background: var(--white-10);
-    border: 1px solid var(--gold-30);
-    border-radius: 8px;
-    color: var(--white);
-    font-size: 1rem;
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7em;
+    padding: 1.05em 1.9em;
     font-family: inherit;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 20px var(--gold-30);
-    background: var(--white-15);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: var(--silver-50);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 150px;
-}
-
-.submit-button {
-    padding: 1.2rem 3rem;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-    color: var(--black);
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1rem;
+    font-size: 0.82rem;
     font-weight: 700;
+    font-stretch: 88%;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.1rem;
+    text-decoration: none;
+    border-radius: 2px;
+    border: 1px solid var(--gold);
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px var(--gold-30);
-    margin-top: 1rem;
+    touch-action: manipulation;
+    transition: transform 0.32s var(--ease), box-shadow 0.32s var(--ease),
+        font-stretch 0.32s var(--ease), background-color 0.32s ease,
+        color 0.32s ease, border-color 0.32s ease;
 }
 
-.submit-button:hover {
+.btn--gold {
+    background: linear-gradient(
+        180deg,
+        var(--gold-lit) 0%,
+        var(--gold) 52%,
+        #c99b26 100%
+    );
+    color: var(--gold-ink);
+    box-shadow: 0 14px 26px -12px rgba(0, 0, 0, 0.85),
+        0 2px 4px -1px rgba(0, 0, 0, 0.6),
+        0 1px 0 rgba(255, 255, 255, 0.4) inset;
+}
+.btn--gold:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px var(--gold-50);
-    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+    font-stretch: 100%;
+    box-shadow: 0 20px 34px -12px rgba(0, 0, 0, 0.9),
+        0 3px 6px -1px rgba(0, 0, 0, 0.65),
+        0 1px 0 rgba(255, 255, 255, 0.5) inset;
 }
-
-.submit-button:active {
+.btn--gold:active {
     transform: translateY(0);
 }
 
-.form-message {
-    text-align: center;
-    padding: 1rem;
-    border-radius: 8px;
+.btn--ghost {
+    background: transparent;
+    color: var(--gold);
+    border-color: var(--rule);
+}
+.btn--ghost:hover {
+    border-color: var(--gold);
+    font-stretch: 100%;
+    background: rgba(227, 185, 63, 0.09);
+}
+
+.btn[disabled] {
+    opacity: 0.62;
+    cursor: progress;
+    transform: none;
+}
+
+/* ---------- hero -------------------------------------------------------- */
+
+.hero {
+    position: relative;
+    overflow: clip;
+    padding-block: calc(var(--mod) * 1) calc(var(--mod) * 0.7);
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: calc(var(--mod) * 6);
+    pointer-events: none;
+    background: radial-gradient(
+        90% 100% at 22% 0%,
+        rgba(227, 185, 63, 0.13) 0%,
+        transparent 62%
+    );
+}
+
+/* The background bear: masked gradient, bleeding off the right edge. */
+.motif {
+    position: absolute;
+    right: calc(var(--mod) * -1.25);
+    top: 46%;
+    translate: 0 -50%;
+    width: min(56vw, 640px);
+    aspect-ratio: 1;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        205deg,
+        var(--gold) 0%,
+        var(--gold-deep) 55%,
+        rgba(168, 127, 28, 0) 100%
+    );
+    -webkit-mask-image: var(--bear);
+    mask-image: var(--bear);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    opacity: 0.16;
+}
+
+.hero-grid {
+    position: relative;
+    z-index: 1;
+}
+
+/* Lettering from A — one weight/width pair, gold over bone.
+   Scale from B — the wordmark carries the first viewport. */
+.wordmark {
+    margin: 0;
+    max-width: 100%;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-stretch: 110%;
+    line-height: 0.86;
+    letter-spacing: -0.005em;
+    color: var(--gold);
+}
+.wordmark span {
+    display: block;
+    white-space: nowrap;
+}
+.wordmark-g {
+    font-size: clamp(3.2rem, 11.6vw, 10.2rem);
+}
+/* Sized so the two lines reach the same measure. The ratio is measured, not
+   assumed — at 500/110% ENTERPRISE sets wider per em than GRIZZLY at 800. */
+.wordmark-e {
+    font-size: clamp(2.2rem, 7.96vw, 7rem);
+    font-weight: 500;
+    color: var(--chalk);
+}
+
+.hero-rule {
+    margin-block: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+/* Tagline from B — the ampersand set at full width, one step down in weight. */
+.tagline {
+    font-size: clamp(1.1rem, 2.1vw, 1.55rem);
+    font-weight: 600;
+    font-stretch: 100%;
+    letter-spacing: 0.015em;
+    color: var(--chalk);
+    text-wrap: balance;
+    max-width: 46ch;
+}
+
+.cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: clamp(1.75rem, 3.4vw, 2.6rem);
+}
+
+/* ---------- band -------------------------------------------------------- */
+
+.band {
+    position: relative;
+    background: var(--gold);
+    color: var(--gold-ink);
+    overflow: hidden;
+    padding-block: clamp(3rem, 6vw, 5rem);
+}
+
+.band-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+}
+
+.band-bear {
+    display: block;
+    width: clamp(46px, 7vw, 84px);
+    aspect-ratio: 1;
+    flex: none;
+    background: var(--gold-ink);
+    -webkit-mask-image: var(--bear);
+    mask-image: var(--bear);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    opacity: 0.9;
+}
+
+.band p {
+    font-size: clamp(1.6rem, 4.4vw, 3.5rem);
+    font-weight: 700;
+    font-stretch: 104%;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+}
+.band p em {
+    font-style: normal;
+    font-weight: 400;
+}
+
+/* ---------- offer ------------------------------------------------------- */
+
+.offer {
+    padding-block: clamp(4.5rem, 9vw, 8.5rem);
+    background: linear-gradient(
+        180deg,
+        var(--slate) 0%,
+        #0e100e 55%,
+        var(--slate) 100%
+    );
+    scroll-margin-top: var(--rail-h);
+}
+
+.section-head {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-title {
+    margin-top: 0.9rem;
+    font-size: clamp(2.1rem, 5.4vw, 4.1rem);
+    font-weight: 800;
+    font-stretch: 108%;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--chalk);
+    text-wrap: balance;
+}
+
+.section-lede {
+    margin-top: 1.15rem;
+    max-width: 52ch;
+    color: var(--dim);
+    font-weight: 300;
+    font-size: clamp(1rem, 1.2vw, 1.1875rem);
+    text-wrap: pretty;
+}
+
+.offer-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(1rem, 1.8vw, 1.5rem);
+}
+
+/* No hover state: these are articles, not links. */
+.card {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--hair);
+    background: var(--panel);
+    padding: clamp(1.6rem, 3vw, 2.6rem);
+}
+
+.card-index {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold-label);
+}
+
+.service-title {
+    margin: 0.85rem 0 1.6rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 800;
+    font-stretch: 106%;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    overflow-wrap: break-word;
+}
+
+.card--lead {
+    grid-column: span 7;
+    background: linear-gradient(
+            150deg,
+            rgba(227, 185, 63, 0.1) 0%,
+            transparent 58%
+        ),
+        var(--panel);
+}
+.card--lead .service-title {
+    font-size: clamp(1.75rem, 3.4vw, 3rem);
+    max-width: 12ch;
+}
+.card--lead .bear-ghost {
+    position: absolute;
+    right: -6%;
+    bottom: -12%;
+    width: 42%;
+    aspect-ratio: 1;
+    pointer-events: none;
+    background: var(--gold);
+    -webkit-mask-image: var(--bear);
+    mask-image: var(--bear);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    opacity: 0.06;
+}
+
+.card--formats {
+    grid-column: span 5;
+}
+.card--formats .service-title {
+    font-size: clamp(1.4rem, 2.3vw, 2rem);
+}
+
+.card--wide {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+    border-left: 2px solid var(--gold);
+}
+.card--wide .service-title {
+    margin-bottom: 0;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+}
+
+.chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+.chips li {
+    border: 1px solid var(--rule);
+    color: var(--chalk);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.95rem;
+    background: rgba(227, 185, 63, 0.04);
+}
+
+.tiles {
+    list-style: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+}
+.tiles li {
+    min-width: 0;
+    background: var(--slate);
+    padding: 0.95rem 1rem;
+    font-size: clamp(0.75rem, 0.95vw, 0.8125rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--chalk);
+    overflow-wrap: anywhere;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.tiles li::before {
+    content: '';
+    flex: none;
+    width: 14px;
+    height: 1px;
+    background: var(--gold);
+}
+
+.splits {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+.splits li {
+    min-width: 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 600;
+    font-stretch: 96%;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--chalk);
+}
+
+/* ---------- contact ----------------------------------------------------- */
+
+.contact {
+    position: relative;
+    padding-block: clamp(4.5rem, 9vw, 8.5rem);
+    background: var(--slate);
+    border-top: 1px solid var(--hair);
+    scroll-margin-top: var(--rail-h);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: calc(var(--mod) * 0.75);
+    align-items: start;
+}
+
+.contact-rule {
+    margin-top: 1.25rem;
+}
+
+.contact-say {
+    max-width: 44ch;
+    color: var(--dim);
+    font-size: 1.02rem;
+    margin-top: calc(var(--mod) / 3.5);
+    text-wrap: pretty;
+}
+
+/* Spaced by its own margin, not by `margin-top: auto` — the auto opened a
+   measured dead gap whenever the form column ran taller. */
+.direct {
+    margin-top: calc(var(--mod) / 2.75);
+    padding-top: calc(var(--mod) / 4);
+    border-top: 1px solid var(--hair);
+}
+.direct a {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: clamp(0.95rem, 1.55vw, 1.2rem);
+    font-weight: 700;
+    font-stretch: 92%;
+    letter-spacing: 0.01em;
+    color: var(--gold);
+    overflow-wrap: anywhere;
+    text-decoration-color: var(--rule);
+}
+.direct a:hover {
+    text-decoration-color: var(--gold);
+}
+
+.panel {
+    position: relative;
+    background: linear-gradient(180deg, var(--panel) 0%, #0e100e 100%);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: clamp(1.5rem, 3.4vw, 2.75rem);
+    box-shadow: 0 34px 80px -34px rgba(0, 0, 0, 0.95),
+        0 1px 0 rgba(227, 185, 63, 0.16) inset;
+}
+.panel::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--gold) 0%,
+        var(--gold-deep) 62%,
+        rgba(168, 127, 28, 0) 100%
+    );
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+}
+.field--full {
+    grid-column: 1 / -1;
+}
+
+/* Set larger and less condensed than the entry shipped: these four labels are
+   the conversion surface, and 10.9px at 0.22em was the hardest setting on it. */
+.field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-stretch: 88%;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 0.55rem;
+    transition: color 0.3s ease, font-stretch 0.34s var(--ease);
+}
+.field:focus-within label {
+    color: var(--gold);
+    font-stretch: 100%;
+}
+.field label .optional {
+    text-transform: none;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+    font-stretch: 100%;
+    color: var(--faint);
+}
+
+.field input,
+.field textarea {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    background: var(--slate-2);
+    border: 1px solid rgba(232, 230, 223, 0.16);
+    border-bottom: 1px solid var(--gold-deep);
+    border-radius: 2px;
+    color: var(--chalk);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: border-color 0.28s ease, background-color 0.28s ease;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+    color: var(--faint);
+}
+.field input:hover,
+.field textarea:hover {
+    border-color: rgba(232, 230, 223, 0.28);
+}
+.field input:focus,
+.field textarea:focus {
+    outline: 2px solid var(--gold-lit);
+    outline-offset: 2px;
+    border-color: var(--gold);
+    background: #101210;
+}
+.field textarea {
+    resize: vertical;
+    min-height: 152px;
+}
+
+.form .btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 0.35rem;
+}
+
+/* Status carries a text mark as well as colour. The region stays in the
+   accessibility tree at all times — a display:none live region announces
+   nothing when it is later filled in. */
+.msg {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    border-radius: 2px;
+    font-size: 0.95rem;
+}
+.msg.is-ok,
+.msg.is-no {
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--hair);
+}
+.msg.is-ok {
+    border-color: var(--ok-line);
+    color: var(--ok-text);
+}
+.msg.is-no {
+    border-color: var(--no-line);
+    color: var(--no-text);
+}
+.msg-mark {
+    font-weight: 800;
+}
+
+/* ---------- footer ------------------------------------------------------ */
+
+.foot {
+    position: relative;
+    overflow: hidden;
+    padding-block: calc(var(--mod) * 0.8) calc(var(--mod) * 0.6);
+    padding-bottom: max(calc(var(--mod) * 0.6), env(safe-area-inset-bottom));
+    background: var(--slate);
+    border-top: 1px solid var(--rule);
+}
+
+.foot-motif {
+    position: absolute;
+    right: calc(var(--mod) * -0.6);
+    bottom: calc(var(--mod) * -0.9);
+    width: min(42vw, 380px);
+    aspect-ratio: 1;
+    z-index: 0;
+    pointer-events: none;
+    background: var(--gold);
+    -webkit-mask-image: var(--bear);
+    mask-image: var(--bear);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    opacity: 0.07;
+}
+
+.foot-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 4fr);
+    gap: calc(var(--mod) / 2.5);
+    align-items: start;
+}
+
+/* Lettering matched to the masthead rather than the entry's condensed set. */
+.foot-word {
+    font-size: clamp(1.6rem, 4.4vw, 2.9rem);
+    font-weight: 800;
+    font-stretch: 110%;
+    letter-spacing: -0.005em;
+    line-height: 0.86;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.foot-word span {
+    display: block;
+    font-size: 0.706em;
+    font-weight: 500;
+    font-stretch: 110%;
+    letter-spacing: -0.005em;
+    color: var(--chalk);
+}
+
+.foot-tag {
+    color: var(--dim);
+    font-size: 0.92rem;
     margin-top: 1rem;
-    display: none;
+    max-width: 32ch;
 }
 
-.form-message.success {
-    display: block;
-    background: var(--success-bg);
-    border: 1px solid var(--success-border);
-    color: var(--success-text);
+.foot-col ul {
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+}
+.foot-col a {
+    font-size: 0.9rem;
+    color: var(--chalk);
+    text-decoration: none;
+    font-stretch: 96%;
+    transition: color 0.28s ease;
+    overflow-wrap: anywhere;
+}
+.foot-col a:hover {
+    color: var(--gold);
+    text-decoration: underline;
 }
 
-.form-message.error {
-    display: block;
-    background: var(--error-bg);
-    border: 1px solid var(--error-border);
-    color: var(--error-text);
+.foot-base {
+    position: relative;
+    z-index: 1;
+    margin-top: calc(var(--mod) / 2.5);
+    padding-top: calc(var(--mod) / 4.5);
+    border-top: 1px solid var(--hair);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    justify-content: space-between;
+}
+.foot-top {
+    text-decoration: none;
+}
+.foot-top:hover {
+    color: var(--gold-label);
 }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ---------- reveal ------------------------------------------------------ */
+
+/* Only ever hidden once scripting has confirmed it can show it again. */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+}
+.reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s var(--ease) var(--d, 0ms),
+        transform 0.7s var(--ease) var(--d, 0ms);
+}
+.reveal.is-static {
+    opacity: 1;
+    transform: none;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero {
-        padding-top: clamp(1rem, 8vh, 4rem);
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+/* ---------- responsive -------------------------------------------------- */
 
-    .company-name {
-        font-size: clamp(1.8rem, 12vw, 6rem);
-        letter-spacing: 0.15rem;
-        padding: 1rem 1.5rem;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
+@media (max-width: 900px) {
+    .card--lead,
+    .card--formats,
+    .card--wide {
+        grid-column: span 12;
     }
-
-    .enterprise-text {
-        font-size: inherit;
-    }
-
-    .hero-content {
-        padding: 0;
-        width: 100%;
-    }
-
-    .subtitle {
-        font-size: 1rem;
-        padding: 0 1rem;
-    }
-
-    .contact-container {
-        padding: 2rem 1.5rem;
-    }
-
-    .contact-title {
-        font-size: 1.8rem;
-    }
-
-    .services-grid {
+    .card--wide {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        align-items: start;
     }
-
-    .service-card {
-        padding: 2rem 1.5rem;
+    .card--wide .service-title {
+        margin-bottom: 1.4rem;
     }
-
-    .about-content {
-        padding: 2rem 1.5rem;
+    .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: calc(var(--mod) / 2);
     }
+    .foot-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .foot-brand {
+        grid-column: 1 / -1;
+    }
+}
 
-    .about-text {
-        font-size: 1rem;
+@media (max-width: 760px) {
+    :root {
+        --mod: 60px;
+        --rail-h: 62px;
+    }
+    .rail-cta {
+        display: none;
+    }
+    .rail nav {
+        gap: 1.1rem;
+    }
+    .rail nav a {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+    }
+    .lock img {
+        width: 30px;
+        height: 30px;
+    }
+    .hero {
+        padding-block: calc(var(--mod) * 1.1) calc(var(--mod) * 0.9);
+    }
+    .motif {
+        top: auto;
+        bottom: calc(var(--mod) * -1.2);
+        right: calc(var(--mod) * -1.6);
+        translate: 0 0;
+        width: min(78vw, 420px);
+        opacity: 0.1;
+    }
+    .form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .band-inner {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .foot-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 460px) {
+    .splits {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+    .btn--gold:hover {
+        transform: none;
     }
 }
