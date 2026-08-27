@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <meta
+            name="description"
+            content="Grizzly Enterprise - Sales training and life coaching"
+        />
+        <title>Grizzly Enterprise</title>
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K" />
+        <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Primary Colors */
+    --gold: #d4af37;
+    --gold-dark: #b8941f;
+    --gold-light: #f4e5a1;
+    --black: #000000;
+    --silver: #c0c0c0;
+    --silver-dark: #808080;
+    --white: #ffffff;
+
+    /* Color Variants */
+    --black-dark: #1a1a1a;
+
+    /* Gold with Opacity */
+    --gold-10: rgba(212, 175, 55, 0.1);
+    --gold-20: rgba(212, 175, 55, 0.2);
+    --gold-30: rgba(212, 175, 55, 0.3);
+    --gold-50: rgba(212, 175, 55, 0.5);
+
+    /* White with Opacity */
+    --white-05: rgba(255, 255, 255, 0.05);
+    --white-10: rgba(255, 255, 255, 0.1);
+    --white-15: rgba(255, 255, 255, 0.15);
+
+    /* Silver with Opacity */
+    --silver-50: rgba(192, 192, 192, 0.5);
+
+    /* Black with Opacity */
+    --black-50: rgba(0, 0, 0, 0.5);
+
+    /* Success Colors */
+    --success-bg: rgba(34, 197, 94, 0.2);
+    --success-border: rgba(34, 197, 94, 0.5);
+    --success-text: #4ade80;
+
+    /* Error Colors */
+    --error-bg: rgba(239, 68, 68, 0.2);
+    --error-border: rgba(239, 68, 68, 0.5);
+    --error-text: #f87171;
+}
+
+html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--black);
+    background-color: var(--black);
+    overflow-x: hidden;
+}
+
+/* Hero Section - Full Page */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(2rem, 10vh, 6rem) 2rem 4rem 2rem;
+    background: var(--black);
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+            circle at 20% 0%,
+            var(--gold-10) 0%,
+            transparent 50%
+        ),
+        radial-gradient(circle at 80% 0%, var(--gold-10) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.hero-icon {
+    width: clamp(80px, 15vw, 200px);
+    height: auto;
+    margin: 0 auto 2rem auto;
+    display: block;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-iteration-count: 1;
+    filter: drop-shadow(0 0 20px var(--gold-30));
+    will-change: opacity, transform;
+}
+
+.hero-icon.animated {
+    opacity: 1;
+    transform: translateY(0);
+    animation: none;
+}
+
+.company-name {
+    font-size: clamp(2.5rem, 12vw, 12rem);
+    font-weight: 900;
+    letter-spacing: clamp(0.1rem, 1.5vw, 1rem);
+    color: var(--gold);
+    text-transform: uppercase;
+    margin: 0 auto 2rem auto;
+    padding: clamp(1rem, 3vw, 2rem) clamp(1.5rem, 5vw, 4rem);
+    background: var(--black);
+    display: block;
+    animation: fadeInUp 1s ease;
+    line-height: 1.1;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+}
+
+.company-name::before {
+    content: '';
+    position: absolute;
+    top: -200vh;
+    left: calc(50% - 50vw);
+    width: 100vw;
+    bottom: -10vh;
+    background: var(--black);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.enterprise-text {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: var(--silver);
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+    margin-top: 2rem;
+    animation: fadeInUp 1.2s ease;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Services Section */
+.services-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5rem 2rem;
+    background: linear-gradient(
+        180deg,
+        var(--black-dark) 0%,
+        var(--black) 100%
+    );
+}
+
+.services-container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: var(--white-05);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--gold-30);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px var(--black-50), 0 0 40px var(--gold-10);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px var(--black-50), 0 0 50px var(--gold-20);
+}
+
+.service-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--gold) !important;
+    margin-bottom: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: clamp(0.1rem, 0.8vw, 0.4rem);
+    line-height: 1.1;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-list li {
+    color: var(--silver) !important;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.service-list li::before {
+    content: '•';
+    color: var(--gold);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+    line-height: 1;
+}
+
+/* About Section */
+.about-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5rem 2rem;
+    background: var(--black);
+}
+
+.about-container {
+    max-width: 900px;
+    width: 100%;
+}
+
+.about-content {
+    background: var(--white-05);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--gold-30);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px var(--black-50), 0 0 40px var(--gold-10);
+}
+
+.about-text {
+    color: var(--silver);
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Contact Form Section */
+.contact-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 2rem;
+    background: linear-gradient(
+        180deg,
+        var(--black) 0%,
+        var(--black-dark) 100%
+    );
+}
+
+.contact-container {
+    max-width: 600px;
+    width: 100%;
+    background: var(--white-05);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--gold-30);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px var(--black-50), 0 0 40px var(--gold-10);
+}
+
+.contact-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: var(--silver);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+
+.form-group label .optional {
+    text-transform: none;
+    font-weight: 300;
+    font-size: 0.85rem;
+    color: var(--silver-50);
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 1rem;
+    background: var(--white-10);
+    border: 1px solid var(--gold-30);
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 20px var(--gold-30);
+    background: var(--white-15);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--silver-50);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.submit-button {
+    padding: 1.2rem 3rem;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: var(--black);
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px var(--gold-30);
+    margin-top: 1rem;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px var(--gold-50);
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+}
+
+.form-message {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: none;
+}
+
+.form-message.success {
+    display: block;
+    background: var(--success-bg);
+    border: 1px solid var(--success-border);
+    color: var(--success-text);
+}
+
+.form-message.error {
+    display: block;
+    background: var(--error-bg);
+    border: 1px solid var(--error-border);
+    color: var(--error-text);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        padding-top: clamp(1rem, 8vh, 4rem);
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .company-name {
+        font-size: clamp(1.8rem, 12vw, 6rem);
+        letter-spacing: 0.15rem;
+        padding: 1rem 1.5rem;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .enterprise-text {
+        font-size: inherit;
+    }
+
+    .hero-content {
+        padding: 0;
+        width: 100%;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .contact-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .contact-title {
+        font-size: 1.8rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .service-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .about-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .about-text {
+        font-size: 1rem;
+    }
+}
+
+        </style>
+    </head>
+    <body>
+        <main>
+            <section class="hero" id="home">
+                <div class="hero-content">
+                    <img
+                        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPGRlZnM+CjxtYXNrIGlkPSJpY29uMk1hc2siPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ3aGl0ZSIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwxMDI0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0iYmxhY2siPgo8cGF0aCBkPSJNMCA1MTIwIGwwIC01MTIwIDUxMjAgMCA1MTIwIDAgMCA1MTIwIDAgNTEyMCAtNTEyMCAwIC01MTIwIDAgMAotNTEyMHogbTQzMTAgMzMyMCBjMjUgLTYgNzQgLTIyIDExMCAtMzcgMTIwIC00OSAxOTcgLTEwOCAzNzMgLTI4NyA5MiAtOTMKMTY3IC0xNjcgMTY3IC0xNjQgMCA0IC0xOSAzNyAtNDEgNzMgLTIzIDM2IC00MCA2OCAtMzcgNzAgMTUgMTUgMzU1IDI1IDUwMgoxNSA0MTQgLTI4IDc1MCAtMTA5IDEwNTUgLTI1NiAzMjQgLTE1NSA1NDEgLTM1NiA3MTcgLTY2NCA5NCAtMTY0IDk1IC0xOTYgOAotMjU0IC0zMSAtMjEgLTU0IC0zOSAtNTIgLTQxIDEgLTEgMzggLTEyIDgwIC0yNCAxMTIgLTMwIDIzNSAtODcgNTc4IC0yNjcKMjU5IC0xMzcgNDIwIC0yMzAgNDA4IC0yMzkgLTIgLTEgLTM5IDIgLTgzIDYgLTI3NyAyNiAtNDk1IC02IC02MTUgLTkxIC0zNwotMjYgLTM5IC02MCAtOSAtMTU1IDI2IC04NCA3NSAtMTM2IDIwNyAtMjE5IDUwIC0zMiA5MiAtNjUgOTIgLTczIDAgLTI1IC00MQotMTM2IC02NSAtMTc4IC0zMiAtNTMgLTcxIC05MCAtMTE3IC0xMDkgLTQ4IC0yMCAtMTM4IC0yMCAtNTYzIC0xIC00MjAgMjAKLTUzNyA5IC03MDAgLTY2IGwtNTAgLTIzIDg1IC04IGM0NyAtNCAxOTggLTI0IDMzNSAtNDMgMTM4IC0xOSAyOTMgLTM5IDM0NQotNDUgMTA1IC0xMiAzNzUgLTE0IDQxNiAtNCBsMjYgNyAtNCAtNzcgYy00IC05NSAtMTMgLTEwNCAtMTQyIC0xNTYgbC05NyAtMzkKLTI5NyAxNSBjLTM3OSAyMCAtNjg2IDE0IC05MDcgLTE3IC0xMjkgLTE4IC0yMDggLTIyIC00MTAgLTIzIC0yNjMgLTEgLTMxOSA1Ci00OTUgNTAgLTM4NyAxMDAgLTcwNCAzMzIgLTg5NyA2NTcgbC00MCA2OCAtNyAtMzIgYy0xMyAtNjQgLTYgLTM5NSA5IC00ODUKNTIgLTI5OSAyMzEgLTYxNiA0ODIgLTg1NCA0MiAtNDEgNzAgLTcxIDYyIC02OCAtOCAzIC01NiAxNyAtMTA3IDMyIC01NzggMTY2Ci05NjcgNjMzIC0xMDk5IDEzMjEgLTIwIDEwNCAtMjggNDQ5IC0xNSA1ODUgNiA1NyAxMCAxMDYgOCAxMDcgLTYgNyAtMTg5Ci0yMzUgLTI3NyAtMzY2IC0xMDEgLTE1MCAtMjI3IC00MDAgLTI4NyAtNTY2IC01MSAtMTQwIC0xMDUgLTM1NiAtMTI4IC01MTAKLTQ2IC0zMTQgLTEwIC02ODkgOTUgLTk3MiAzMiAtODggODIgLTE5MyA5MSAtMTkzIDMgMCAxMiAzNSAxOSA3NyAyNSAxNDkgMTAzCjM0NCAxODMgNDYxIDI2IDM4IDMzIDQzIDM2IDI3IDM3IC0yNDAgMTM4IC01MTggMjc0IC03NTUgMTE4IC0yMDUgMjE3IC0zMzEKNDA3IC01MjAgMjk2IC0yOTUgNjQ2IC01MTUgMTAyMSAtNjQxIDk2IC0zMiAzMTcgLTgyIDMzMCAtNzQgNCAyIDEwIDM1IDE0IDcyCjkgODggNDkgMjk3IDg3IDQ0OCAxNjMgNjYxIDQ1MCAxMTQzIDg3OSAxNDc3IDk1IDczIDIzMCAxNjggMjQwIDE2OCA0IDAgMTAKLTEwMCAxMyAtMjIyIDggLTMxMyA0NSAtNTM4IDEyOCAtNzc0IDM3IC0xMDYgMTE1IC0yNjggMTY0IC0zNDMgbDM1IC01MyAtMTEzCi0xMzIgYy0xMjkgLTE0OSAtMzg2IC00MDYgLTUyNyAtNTI2IC0yOTUgLTI1MiAtNjQ1IC00ODggLTk5NSAtNjcxIGwtMTM3IC03MgotNTYgMTMgYy04NSAxOSAtMzIyIDEwMiAtNDU3IDE2MCAtNjQzIDI3NSAtMTIyOCA3NTYgLTE0NjMgMTIwMiBsLTMwIDU4IC04Ci04OCBjLTQgLTQ4IC00IC0xODkgLTEgLTMxNCA1IC0yMjggNSAtMjI4IC0xNSAtMjE3IC00NyAyNSAtMzA5IDMwMSAtMzk1IDQxNgotMTk5IDI2NSAtMzYxIDU5NyAtNDM3IDg5NSAtNjYgMjU3IC04MCAzODQgLTgwIDcyOCAtMSAyNDEgMyAzMzAgMTcgNDI1IDUzCjM1NCAxNDkgNjUxIDMxOCA5ODUgMTU5IDMxNCAzMjEgNTQwIDU0OSA3NzAgMTM5IDE0MSAxOTkgMTkxIDQwOCAzNDIgbDUyIDM3CjcyIC0zMCBjNzMgLTMwIDIzNSAtODkgMjQ1IC04OSAzIDAgLTEzIDIyIC0zNiA0OCAtODEgOTggLTIwNSAzNTMgLTI0MiA1MDMKLTMxIDEyMSAtMjQgMjU1IDE5IDM2MiAzNSA4NyAxMDEgMTkzIDE1OCAyNTYgNzQgODMgMjI1IDE2NCAzNTkgMTk0IDM5IDkgMjEwCjYgMjU1IC0zeiBtMzcxNSAtMjcwMiBjLTMzIC0xMTYgLTk2IC0yNTAgLTEzMSAtMjc3IC0zMCAtMjQgLTc4IC0yNyAtMTEzIC03CmwtMjUgMTQgMzEgNiBjNTYgMTMgODMgNjIgMTIzIDIxOSBsMjggMTEwIDUzIDIyIGMzMCAxMiA1NSAxOCA1NyAxNCAyIC01IC04Ci01MCAtMjMgLTEwMXoiLz4KPHBhdGggZD0iTTM5OTMgODA3NSBjLTgwIC00OCAtMTM4IC0yMTkgLTEzMSAtMzg1IDMgLTc0IDkgLTk1IDQyIC0xNjEgMjEgLTQxCjYwIC0xMDYgODggLTE0MyBsNDkgLTY4IDE0MiAxMzkgYzEzOSAxMzYgMjQ3IDIxOCAzNjUgMjc3IDI5IDE1IDUyIDMxIDUwIDM2Ci0yIDUgLTM3IDQ4IC03OCA5NSAtMTAzIDEyMSAtMjAxIDE4NCAtMzQxIDIyMCAtODQgMjIgLTEzNyAxOSAtMTg2IC0xMHoiLz4KPHBhdGggZD0iTTU4NTEgNzI1MCBjLTcwIC0xNSAtMTczIC01MSAtMjEwIC03MyBsLTMzIC0yMCA4MSAtMjQgYzE0MCAtNDAgMTY3Ci01OSAyMTYgLTE1MCAzNyAtNjkgOTYgLTEyNyAxNjQgLTE2MCA0NSAtMjIgNjkgLTI4IDEzMSAtMjggNjcgMCA4OCA1IDE5MiA0OApsMTE2IDQ4IDUyIC0zNyA1MSAtMzYgODkgNDEgYzQ4IDIyIDkzIDQxIDk5IDQxIDE0IDAgLTQzIDUxIC0xMzkgMTI0IC05MiA3MQotMjg1IDE2NiAtNDA1IDIwMiAtNzMgMjEgLTExNSAyNyAtMjI1IDMwIC03NCAyIC0xNTUgLTEgLTE3OSAtNnoiLz4KPC9nPgo8L21hc2s+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjaWNvbjJNYXNrKSIvPgo8L3N2Zz4K"
+                        alt="Grizzly Enterprise Logo"
+                        class="hero-icon"
+                    />
+                    <h1 class="company-name">
+                        GRIZZLY<br /><span class="enterprise-text"
+                            >ENTERPRISE</span
+                        >
+                    </h1>
+                    <p class="subtitle">
+                        Sales Training & Life Coaching<br />
+                        Transforming performance through expert guidance
+                    </p>
+                </div>
+            </section>
+
+            <section class="services-section" id="services">
+                <div class="services-container">
+                    <h2 class="section-title">What We Offer</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <h3 class="service-title">
+                                TOP PERFORMING SALES TRAINING
+                            </h3>
+                            <ul class="service-list">
+                                <li>B2CONSUMER</li>
+                                <li>B2BUSINESS</li>
+                                <li>B2GOVERNMENT</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <h3 class="service-title">
+                                MAXIMIZE CLIENT EXPERIENCE
+                            </h3>
+                            <ul class="service-list">
+                                <li>IN PERSON</li>
+                                <li>CONFERENCE/TRADESHOW</li>
+                                <li>VIRTUAL</li>
+                                <li>PHONE</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <h3 class="service-title">LIFE COACHING</h3>
+                            <ul class="service-list">
+                                <li>PERSONAL DEVELOPMENT</li>
+                                <li>PERFORMANCE TRANSFORMATION</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact-section" id="contact">
+                <div class="contact-container">
+                    <h2 class="contact-title">Contact Us</h2>
+                    <form
+                        class="contact-form"
+                        id="contactForm"
+                        action="https://formspree.io/f/mqanzkpa"
+                        method="POST"
+                    >
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Your name"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="your.email@example.com"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"
+                                >Phone
+                                <span class="optional">(optional)</span></label
+                            >
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="Your phone number"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                placeholder="Your message..."
+                                required
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">
+                            Send Message
+                        </button>
+                        <div class="form-message" id="formMessage"></div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <script>
+const contactForm = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitButton = contactForm.querySelector('.submit-button');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true;
+    formMessage.style.display = 'none';
+
+    try {
+        const formData = new FormData(contactForm);
+
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            formMessage.textContent =
+                'Thank you! Your message has been sent successfully.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
+            contactForm.reset();
+        } else {
+            // Handle Formspree validation errors
+            if (data.errors) {
+                const errorMessages = data.errors
+                    .map((err) => err.message || err)
+                    .join(', ');
+                throw new Error(`Validation errors: ${errorMessages}`);
+            }
+            throw new Error(data.error || 'Form submission failed');
+        }
+    } catch (error) {
+        console.error('Form Error:', error);
+        const errorMessage =
+            error.message && error.message.includes('Validation errors')
+                ? error.message
+                : 'Sorry, there was an error sending your message. Please try again or contact us directly at grizzlydashenterprise@gmail.com.';
+        formMessage.textContent = errorMessage;
+        formMessage.className = 'form-message error';
+        formMessage.style.display = 'block';
+    } finally {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    }
+});
+
+// Prevent icon animation from restarting
+const heroIcon = document.querySelector('.hero-icon');
+if (heroIcon) {
+    heroIcon.addEventListener(
+        'animationend',
+        () => {
+            heroIcon.classList.add('animated');
+        },
+        { once: true }
+    );
+}
+
+// Smooth scroll for any anchor links
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
+    });
+});
+
+        </script>
+    </body>
+</html>
