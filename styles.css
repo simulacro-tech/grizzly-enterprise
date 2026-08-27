@@ -505,7 +505,6 @@ img {
 }
 
 .section-title {
-    margin-top: 0.9rem;
     font-size: clamp(2.1rem, 5.4vw, 4.1rem);
     font-weight: 800;
     font-stretch: 108%;
